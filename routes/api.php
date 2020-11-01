@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\ConfirmacaoController;
 
 Route::group(['middleware' => ['auth:api']], function () {
+
 });
+
 Route::prefix('restaurante')->group(function () {
     Route::get('/', 'RestauranteController@index');
     Route::get('show/{id}', 'RestauranteController@show');
@@ -77,4 +79,62 @@ Route::prefix('produto')->group(function () {
         Route::put('update/{id}', 'OpcaoPorcaoController@update');
         Route::delete('destroy/{id}', 'OpcaoPorcaoController@destroy');
     });
+});
+
+// teste
+
+
+Route::prefix("modelteste")->group(function () {
+    Route::get("/", "ModelTesteController@index");
+    Route::get("show/{id}", "ModelTesteController@show");
+    Route::post("create", "ModelTesteController@create");
+    Route::put("update/{id}", "ModelTesteController@update");
+    Route::delete("destroy/{id}", "ModelTesteController@destroy");
+});
+
+
+Route::prefix("endereco")->group(function () {
+    Route::get("/", "EnderecoController@index");
+    Route::get("show/{id}", "EnderecoController@show");
+    Route::post("create", "EnderecoController@create");
+    Route::put("update/{id}", "EnderecoController@update");
+    Route::delete("destroy/{id}", "EnderecoController@destroy");
+});
+
+
+Route::prefix("testes")->group(function () {
+    Route::get("/", "TesteController@index");
+    Route::get("show/{id}", "TesteController@show");
+    Route::post("create", "TesteController@create");
+    Route::put("update/{id}", "TesteController@update");
+    Route::delete("destroy/{id}", "TesteController@destroy");
+});
+
+
+Route::prefix("testedrive")->group(function () {
+    Route::get("/", "TesteDriveController@index");
+    Route::get("show/{id}", "TesteDriveController@show");
+    Route::post("create", "TesteDriveController@create");
+    Route::put("update/{id}", "TesteDriveController@update");
+    Route::delete("destroy/{id}", "TesteDriveController@destroy");
+});
+
+
+Route::prefix("uploadfile")->group(function () {
+    Route::get("/", "UploadFileController@index");
+    Route::get("show/{id}", "UploadFileController@show");
+    Route::post("create", "UploadFileController@create");
+    Route::put("update/{id}", "UploadFileController@update");
+    Route::delete("destroy/{id}", "UploadFileController@destroy");
+});
+
+
+
+/// end points que nao sao dos teste
+Route::prefix("categoriacardapio")->group(function () {
+    Route::get("/", "CategoriaCardapioController@index");
+    Route::get("show/{id}", "CategoriaCardapioController@show");
+    Route::post("create", "CategoriaCardapioController@create");
+    Route::put("update/{id}", "CategoriaCardapioController@update");
+    Route::delete("destroy/{id}", "CategoriaCardapioController@destroy");
 });

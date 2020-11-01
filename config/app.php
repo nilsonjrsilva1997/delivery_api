@@ -189,7 +189,20 @@ return [
     */
 
     'aliases' => [
-
+        'CategoriaCardapio' => App\CategoriaCardapio::class,
+        'CategoriaCardapioValidateService' => App\Http\Services\CategoriaCardapioValidateService::class,
+        'UploadFile' => App\UploadFile::class,
+        'UploadFileValidateService' => App\Http\Services\UploadFileValidateService::class,
+        'TesteDrive' => App\TesteDrive::class,
+        'TesteDriveValidateService' => App\Http\Services\TesteDriveValidateService::class,
+        'Endereco' => App\Endereco::class,
+        'EnderecoValidateService' => App\Http\Services\EnderecoValidateService::class,
+        'ModelTeste' => App\ModelTeste::class,
+        'ModelTesteValidateService' => App\Http\Services\ModelTesteValidateService::class,
+        'ModelTeste4' => App\Bank::class,
+        'ModelTeste4ValidateService' => App\Http\Services\ModelTeste4ValidateService::class,
+        'ModelTeste3' => App\Bank::class,
+        'ModelTeste3ValidateService' => App\Http\Services\ModelTeste3ValidateService::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
