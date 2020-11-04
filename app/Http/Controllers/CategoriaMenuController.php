@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\TesteDrive;
+use App\CategoriaMenu;
 
-class TesteDriveController extends BaseController
+class CategoriaMenuController extends BaseController
 {
    
 }

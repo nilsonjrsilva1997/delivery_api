@@ -2,16 +2,13 @@
 
 namespace App\Http\Services;
 
-class ModelTesteValidateService
+class CategoriaMenuValidateService
 {
 public function getValidateRulesCreate()
 {
 $validateAttributes = 
 [
     "nome" => "required|string|max:255",
-    "idade" => "required|integer",
-    "altura" => "required|numeric",
-    "restauranteId" => "required|integer",
     
 ];
 
@@ -23,9 +20,6 @@ public function getValidateRulesUpdate()
 $validateAttributes = 
 [
     "nome" => "string|max:255",
-    "idade" => "integer",
-    "altura" => "numeric",
-    "restauranteId" => "integer",
     
 ];
 

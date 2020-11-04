@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTesteDrivesTable extends Migration
+class CreateCupomDescontosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateTesteDrivesTable extends Migration
      */
     public function up()
     {
-        Schema::create("testedrives", function (Blueprint $table) {
+        Schema::create("cupomdescontos", function (Blueprint $table) {
             $table->id();
-            $table->float("teste");
-            $table->integer("idade");
-            $table->string("testeString");
+            $table->enum("prefixo", ["PORCENTAGEM", 'DINHEIRO']);
+            $table->float("valor");
+            $table->date("data");
+            $table->string("codigo");
+            $table->boolean("umCliente");
             
             $table->timestamps();
         });
@@ -30,7 +32,7 @@ class CreateTesteDrivesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("testedrives");
+        Schema::dropIfExists("cupomdescontos");
     }
 }
 

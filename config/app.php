@@ -189,6 +189,18 @@ return [
     */
 
     'aliases' => [
+        'CupomDesconto' => App\CupomDesconto::class,
+        'CupomDescontoValidateService' => App\Http\Services\CupomDescontoValidateService::class,
+        'CupomDesconto' => App\CupomDesconto::class,
+        'CupomDescontoValidateService' => App\Http\Services\CupomDescontoValidateService::class,
+        'CategoriaMenu' => App\CategoriaMenu::class,
+        'CategoriaMenuValidateService' => App\Http\Services\CategoriaMenuValidateService::class,
+        'CategoriaCardapio' => App\CategoriaCardapio::class,
+        'CategoriaCardapioValidateService' => App\Http\Services\CategoriaCardapioValidateService::class,
+        'Modelteste2' => App\Modelteste2::class,
+        'Modelteste2ValidateService' => App\Http\Services\Modelteste2ValidateService::class,
+        'Modelteste' => App\Modelteste::class,
+        'ModeltesteValidateService' => App\Http\Services\ModeltesteValidateService::class,
         'CategoriaCardapio' => App\CategoriaCardapio::class,
         'CategoriaCardapioValidateService' => App\Http\Services\CategoriaCardapioValidateService::class,
         'UploadFile' => App\UploadFile::class,

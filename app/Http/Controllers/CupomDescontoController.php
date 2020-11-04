@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ModelTeste;
+use App\CupomDesconto;
 
-class ModelTesteController extends BaseController
+class CupomDescontoController extends BaseController
 {
    
 }

@@ -82,17 +82,6 @@ Route::prefix('produto')->group(function () {
 });
 
 // teste
-
-
-Route::prefix("modelteste")->group(function () {
-    Route::get("/", "ModelTesteController@index");
-    Route::get("show/{id}", "ModelTesteController@show");
-    Route::post("create", "ModelTesteController@create");
-    Route::put("update/{id}", "ModelTesteController@update");
-    Route::delete("destroy/{id}", "ModelTesteController@destroy");
-});
-
-
 Route::prefix("endereco")->group(function () {
     Route::get("/", "EnderecoController@index");
     Route::get("show/{id}", "EnderecoController@show");
@@ -100,25 +89,6 @@ Route::prefix("endereco")->group(function () {
     Route::put("update/{id}", "EnderecoController@update");
     Route::delete("destroy/{id}", "EnderecoController@destroy");
 });
-
-
-Route::prefix("testes")->group(function () {
-    Route::get("/", "TesteController@index");
-    Route::get("show/{id}", "TesteController@show");
-    Route::post("create", "TesteController@create");
-    Route::put("update/{id}", "TesteController@update");
-    Route::delete("destroy/{id}", "TesteController@destroy");
-});
-
-
-Route::prefix("testedrive")->group(function () {
-    Route::get("/", "TesteDriveController@index");
-    Route::get("show/{id}", "TesteDriveController@show");
-    Route::post("create", "TesteDriveController@create");
-    Route::put("update/{id}", "TesteDriveController@update");
-    Route::delete("destroy/{id}", "TesteDriveController@destroy");
-});
-
 
 Route::prefix("uploadfile")->group(function () {
     Route::get("/", "UploadFileController@index");
@@ -129,12 +99,37 @@ Route::prefix("uploadfile")->group(function () {
 });
 
 
-
-/// end points que nao sao dos teste
 Route::prefix("categoriacardapio")->group(function () {
     Route::get("/", "CategoriaCardapioController@index");
     Route::get("show/{id}", "CategoriaCardapioController@show");
     Route::post("create", "CategoriaCardapioController@create");
     Route::put("update/{id}", "CategoriaCardapioController@update");
     Route::delete("destroy/{id}", "CategoriaCardapioController@destroy");
+});
+
+
+Route::prefix("categoriamenu")->group(function () {
+    Route::get("/", "CategoriaMenuController@index");
+    Route::get("show/{id}", "CategoriaMenuController@show");
+    Route::post("create", "CategoriaMenuController@create");
+    Route::put("update/{id}", "CategoriaMenuController@update");
+    Route::delete("destroy/{id}", "CategoriaMenuController@destroy");
+});
+
+
+Route::prefix("cupomdesconto")->group(function () {
+    Route::get("/", "CupomDescontoController@index");
+    Route::get("show/{id}", "CupomDescontoController@show");
+    Route::post("create", "CupomDescontoController@create");
+    Route::put("update/{id}", "CupomDescontoController@update");
+    Route::delete("destroy/{id}", "CupomDescontoController@destroy");
+});
+
+
+Route::prefix("cupomdesconto")->group(function () {
+    Route::get("/", "CupomDescontoController@index");
+    Route::get("show/{id}", "CupomDescontoController@show");
+    Route::post("create", "CupomDescontoController@create");
+    Route::put("update/{id}", "CupomDescontoController@update");
+    Route::delete("destroy/{id}", "CupomDescontoController@destroy");
 });
