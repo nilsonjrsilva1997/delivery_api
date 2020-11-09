@@ -7,12 +7,19 @@ use App\EnderecoRestaurante;
 use App\TempoEsperaEntrega;
 use App\HorarioFuncionamento;
 use App\SobreNos;
+use App\EnderecoEstabelecimento;
 
 class Restaurante extends Model
 {
     protected $fillable = ['nome', 'foto', 'taxa_entrega'];
 
     protected $table = 'restaurantes';
+
+    // relacionamentos
+    public function enderecoestabelecimento()
+    {
+        return $this->hasMany(EnderecoEstabelecimento::class);
+    }
 
     public function enderecos()
     {

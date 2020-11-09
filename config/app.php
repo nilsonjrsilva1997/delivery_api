@@ -189,6 +189,18 @@ return [
     */
 
     'aliases' => [
+        'EnderecoEstabelecimento' => App\EnderecoEstabelecimento::class,
+        'EnderecoEstabelecimentoValidateService' => App\Http\Services\EnderecoEstabelecimentoValidateService::class,
+        'EnderecoEstabelecimento' => App\EnderecoEstabelecimento::class,
+        'EnderecoEstabelecimentoValidateService' => App\Http\Services\EnderecoEstabelecimentoValidateService::class,
+        'EnderecoRestaurante' => App\EnderecoRestaurante::class,
+        'EnderecoRestauranteValidateService' => App\Http\Services\EnderecoRestauranteValidateService::class,
+        'RestauranteTeste' => App\RestauranteTeste::class,
+        'RestauranteTesteValidateService' => App\Http\Services\RestauranteTesteValidateService::class,
+        'EnderecoTeste' => App\EnderecoTeste::class,
+        'EnderecoTesteValidateService' => App\Http\Services\EnderecoTesteValidateService::class,
+        'Endereco' => App\Endereco::class,
+        'EnderecoValidateService' => App\Http\Services\EnderecoValidateService::class,
         'CupomDesconto' => App\CupomDesconto::class,
         'CupomDescontoValidateService' => App\Http\Services\CupomDescontoValidateService::class,
         'CupomDesconto' => App\CupomDesconto::class,

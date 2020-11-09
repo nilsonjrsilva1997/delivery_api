@@ -131,6 +131,15 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put("update/{id}", "CupomDescontoController@update");
         Route::delete("destroy/{id}", "CupomDescontoController@destroy");
     });
+     
+    Route::prefix("endereco_restaurante")->group(function () {
+        Route::get("/", "EnderecoRestauranteController@index");
+        Route::get("show/{id}", "EnderecoRestauranteController@show");
+        Route::post("create", "EnderecoRestauranteController@create");
+        Route::put("update/{id}", "EnderecoRestauranteController@update");
+        Route::delete("destroy/{id}", "EnderecoRestauranteController@destroy");
+    });
+
     
 });
 
