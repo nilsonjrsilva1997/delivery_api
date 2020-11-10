@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Categoria;
 use App\Restaurante;
+use App\OpcaoPorcao;
 
 class Produto extends Model
 {
@@ -21,6 +22,11 @@ class Produto extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoriaId', 'id');
+    }
+
+    public function opcao_porcoes()
+    {
+        return $this->hasMany(OpcaoPorcao::class, 'produtoId');
     }
 }
 

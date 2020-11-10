@@ -26,7 +26,9 @@ class OpcaoPorcaoController extends Controller
     {
         $validatedData = $request->validate([
             'unidade' => 'required|integer',
+            'titulo' => 'required|string|max:255',
             'valor' => 'required|numeric',
+            'produtoId' => 'required|integer|exists:produtos,id',
         ]);
         
         return OpcaoPorcao::create($validatedData);
@@ -36,7 +38,9 @@ class OpcaoPorcaoController extends Controller
     {
         $validatedData = $request->validate([
             'unidade' => 'integer',
+            'titulo' => 'string|max:255',
             'valor' => 'numeric',
+            'produtoId' => 'integer|exists:produtos,id',
         ]);
 
         $opcaoPorcao = OpcaoPorcao::find($id);

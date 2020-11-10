@@ -16,6 +16,8 @@ class CreateOpcaoPorcoesTable extends Migration
         Schema::create('opcao_porcoes', function (Blueprint $table) {
             $table->id();
             $table->integer('unidade');
+            $table->string('titulo');
+            $table->integer('produtoId');
             $table->float('valor');
             $table->timestamps();
         });

@@ -14,6 +14,7 @@ class ProdutoController extends BaseController
 
         foreach($produtos as $key => $produto) {
             $produtos[$key]->categoria = $produto->categoria;
+            $produtos[$key]->opcao_porcoes = $produto->opcao_porcoes;
         }
 
         return $produtos;
