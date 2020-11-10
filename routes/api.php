@@ -55,14 +55,14 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put('update/{id}', 'FormaPagamentoController@update');
         Route::delete('destroy/{id}', 'FormaPagamentoController@destroy');
     });
-    
-    Route::prefix('opcao_porcao')->group(function () {
-        Route::get('/', 'OpcaoPorcaoController@index');
-        Route::get('show/{id}', 'OpcaoPorcaoController@show');
-        Route::post('create', 'OpcaoPorcaoController@create');
-        Route::put('update/{id}', 'OpcaoPorcaoController@update');
-        Route::delete('destroy/{id}', 'OpcaoPorcaoController@destroy');
-    });
+
+    // Route::prefix('opcao_porcao')->group(function () {
+    //     Route::get('/', 'OpcaoPorcaoController@index');
+    //     Route::get('show/{id}', 'OpcaoPorcaoController@show');
+    //     Route::post('create', 'OpcaoPorcaoController@create');
+    //     Route::put('update/{id}', 'OpcaoPorcaoController@update');
+    //     Route::delete('destroy/{id}', 'OpcaoPorcaoController@destroy');
+    // });
     
     Route::prefix('produto')->group(function () {
         Route::get('/', 'FormaPagamentoController@index');
@@ -148,15 +148,32 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put("update/{id}", "HorarioFuncionamentoController@update");
         Route::delete("destroy/{id}", "HorarioFuncionamentoController@destroy");
     });
+
+    Route::prefix("produto")->group(function () {
+        Route::get("/", "ProdutoController@index");
+        Route::get("show/{id}", "ProdutoController@show");
+        Route::post("create", "ProdutoController@create");
+        Route::put("update/{id}", "ProdutoController@update");
+        Route::delete("destroy/{id}", "ProdutoController@destroy");
+    });
+    
+    Route::prefix("adicional")->group(function () {
+        Route::get("/", "AdicionalController@index");
+        Route::get("show/{id}", "AdicionalController@show");
+        Route::post("create", "AdicionalController@create");
+        Route::put("update/{id}", "AdicionalController@update");
+        Route::delete("destroy/{id}", "AdicionalController@destroy");
+    });
+    
+    
+    Route::prefix("opcao")->group(function () {
+        Route::get("/", "OpcaoController@index");
+        Route::get("show/{id}", "OpcaoController@show");
+        Route::post("create", "OpcaoController@create");
+        Route::put("update/{id}", "OpcaoController@update");
+        Route::delete("destroy/{id}", "OpcaoController@destroy");
+    });    
 });
 
 Route::post("register", "AuthController@register");
 Route::post("login", "AuthController@login");
-
-Route::prefix("produto")->group(function () {
-    Route::get("/", "ProdutoController@index");
-    Route::get("show/{id}", "ProdutoController@show");
-    Route::post("create", "ProdutoController@create");
-    Route::put("update/{id}", "ProdutoController@update");
-    Route::delete("destroy/{id}", "ProdutoController@destroy");
-});

@@ -189,6 +189,12 @@ return [
     */
 
     'aliases' => [
+        'Opcao' => App\Opcao::class,
+        'OpcaoValidateService' => App\Http\Services\OpcaoValidateService::class,
+        'Adicional' => App\Adicional::class,
+        'AdicionalValidateService' => App\Http\Services\AdicionalValidateService::class,
+        'Adincional' => App\Adincional::class,
+        'AdincionalValidateService' => App\Http\Services\AdincionalValidateService::class,
         'Produto' => App\Produto::class,
         'ProdutoValidateService' => App\Http\Services\ProdutoValidateService::class,
         'HorarioFuncionamento' => App\HorarioFuncionamento::class,

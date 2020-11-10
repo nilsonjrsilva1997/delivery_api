@@ -14,10 +14,13 @@ class ProdutoController extends BaseController
 
         foreach($produtos as $key => $produto) {
             $produtos[$key]->categoria = $produto->categoria;
-            $produtos[$key]->opcao_porcoes = $produto->opcao_porcoes;
+            $adicional = $produto->adicional;
+            $adicional->opcoes = $adicional->opcoes;
+            $produtos[$key]->adicional = $adicional;
         }
 
-        return $produtos;
+        return response(['data' => $produtos, 'message' => 'Dados retornados com sucesso']);
+
     }
 
     public function create(Request $request)

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Categoria;
 use App\Restaurante;
-use App\OpcaoPorcao;
+use App\Adicional;
 
 class Produto extends Model
 {
@@ -24,9 +24,14 @@ class Produto extends Model
         return $this->belongsTo(Categoria::class, 'categoriaId', 'id');
     }
 
-    public function opcao_porcoes()
+    // public function opcao_porcoes()
+    // {
+    //     return $this->hasMany(OpcaoPorcao::class, 'produtoId');
+    // }
+
+    public function adicional()
     {
-        return $this->hasMany(OpcaoPorcao::class, 'produtoId');
+        return $this->hasOne(Adicional::class, "produtoId");
     }
 }
 

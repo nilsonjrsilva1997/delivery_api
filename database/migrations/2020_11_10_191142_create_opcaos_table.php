@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOpcaoPorcoesTable extends Migration
+class CreateOpcaosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateOpcaoPorcoesTable extends Migration
      */
     public function up()
     {
-        Schema::create('opcao_porcoes', function (Blueprint $table) {
+        Schema::create("opcaos", function (Blueprint $table) {
             $table->id();
-            $table->integer('unidade');
-            $table->string('titulo');
-            $table->integer('produtoId');
-            $table->float('valor');
+            $table->integer("adicionalId");
+            $table->string("nome");
+            $table->string("descricao");
+            $table->string("imagem");
+            $table->boolean("disponivel");
+            $table->float("valor");
+            
             $table->timestamps();
         });
     }
@@ -30,6 +33,8 @@ class CreateOpcaoPorcoesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('opcao_porcoes');
+        Schema::dropIfExists("opcaos");
     }
 }
+
+
