@@ -189,6 +189,10 @@ return [
     */
 
     'aliases' => [
+        'Produto' => App\Produto::class,
+        'ProdutoValidateService' => App\Http\Services\ProdutoValidateService::class,
+        'HorarioFuncionamento' => App\HorarioFuncionamento::class,
+        'HorarioFuncionamentoValidateService' => App\Http\Services\HorarioFuncionamentoValidateService::class,
         'EnderecoEstabelecimento' => App\EnderecoEstabelecimento::class,
         'EnderecoEstabelecimentoValidateService' => App\Http\Services\EnderecoEstabelecimentoValidateService::class,
         'EnderecoEstabelecimento' => App\EnderecoEstabelecimento::class,

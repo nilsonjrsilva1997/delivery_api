@@ -56,28 +56,29 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', 'FormaPagamentoController@destroy');
     });
     
+    Route::prefix('opcao_porcao')->group(function () {
+        Route::get('/', 'OpcaoPorcaoController@index');
+        Route::get('show/{id}', 'OpcaoPorcaoController@show');
+        Route::post('create', 'OpcaoPorcaoController@create');
+        Route::put('update/{id}', 'OpcaoPorcaoController@update');
+        Route::delete('destroy/{id}', 'OpcaoPorcaoController@destroy');
+    });
+    
     Route::prefix('produto')->group(function () {
         Route::get('/', 'FormaPagamentoController@index');
         Route::get('show/{id}', 'FormaPagamentoController@show');
         Route::post('create', 'FormaPagamentoController@create');
         Route::put('update/{id}', 'FormaPagamentoController@update');
         Route::delete('destroy/{id}', 'FormaPagamentoController@destroy');
+    });
     
-        Route::prefix('categoria')->group(function () {
-            Route::get('/', 'CategoriaController@index');
-            Route::get('show/{id}', 'CategoriaController@show');
-            Route::post('create', 'CategoriaController@create');
-            Route::put('update/{id}', 'CategoriaController@update');
-            Route::delete('destroy/{id}', 'CategoriaController@destroy');
-        });
-    
-        Route::prefix('opcao_porcao')->group(function () {
-            Route::get('/', 'OpcaoPorcaoController@index');
-            Route::get('show/{id}', 'OpcaoPorcaoController@show');
-            Route::post('create', 'OpcaoPorcaoController@create');
-            Route::put('update/{id}', 'OpcaoPorcaoController@update');
-            Route::delete('destroy/{id}', 'OpcaoPorcaoController@destroy');
-        });
+
+    Route::prefix('categoria')->group(function () {
+        Route::get('/', 'CategoriaController@index');
+        Route::get('show/{id}', 'CategoriaController@show');
+        Route::post('create', 'CategoriaController@create');
+        Route::put('update/{id}', 'CategoriaController@update');
+        Route::delete('destroy/{id}', 'CategoriaController@destroy');
     });
     
     Route::prefix("endereco")->group(function () {
@@ -140,8 +141,22 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "EnderecoRestauranteController@destroy");
     });
 
-    
+    Route::prefix("horario_funcionamento")->group(function () {
+        Route::get("/", "HorarioFuncionamentoController@index");
+        Route::get("show/{id}", "HorarioFuncionamentoController@show");
+        Route::post("create", "HorarioFuncionamentoController@create");
+        Route::put("update/{id}", "HorarioFuncionamentoController@update");
+        Route::delete("destroy/{id}", "HorarioFuncionamentoController@destroy");
+    });
 });
 
 Route::post("register", "AuthController@register");
 Route::post("login", "AuthController@login");
+
+Route::prefix("produto")->group(function () {
+    Route::get("/", "ProdutoController@index");
+    Route::get("show/{id}", "ProdutoController@show");
+    Route::post("create", "ProdutoController@create");
+    Route::put("update/{id}", "ProdutoController@update");
+    Route::delete("destroy/{id}", "ProdutoController@destroy");
+});

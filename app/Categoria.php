@@ -9,4 +9,9 @@ class Categoria extends Model
     protected $fillable = ['nome'];
 
     protected $table = 'categorias';
+
+    public function produto()
+    {
+        return $this->hasOne(App\Produto::class);
+    }
 }

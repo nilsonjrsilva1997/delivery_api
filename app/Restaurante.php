@@ -14,13 +14,7 @@ class Restaurante extends Model
     protected $fillable = ['nome', 'foto', 'taxa_entrega'];
 
     protected $table = 'restaurantes';
-
-    // relacionamentos
-    public function enderecoestabelecimento()
-    {
-        return $this->hasMany(EnderecoEstabelecimento::class);
-    }
-
+    
     public function enderecos()
     {
         return $this->hasMany(EnderecoRestaurante::class);
@@ -39,5 +33,10 @@ class Restaurante extends Model
     public function sobre_nos()
     {
         return $this->hasOne(SobreNos::class);
+    }
+
+    public function produtos()
+    {
+        return $this->hasMany(App\Produtos::class);
     }
 }
