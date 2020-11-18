@@ -7,17 +7,17 @@ use App\EnderecoRestaurante;
 use App\TempoEsperaEntrega;
 use App\HorarioFuncionamento;
 use App\SobreNos;
-use App\EnderecoEstabelecimento;
+use App\Unidade;
 
 class Restaurante extends Model
 {
-    protected $fillable = ['nome', 'foto', 'taxa_entrega'];
+    protected $fillable = ['nome', 'foto', 'taxa_entrega', 'unidadeId', 'apelido'];
 
     protected $table = 'restaurantes';
     
     public function enderecos()
     {
-        return $this->hasMany(EnderecoRestaurante::class);
+        return $this->hasOne(EnderecoRestaurante::class);
     }
 
     public function tempo_espera_entrega()
@@ -38,5 +38,10 @@ class Restaurante extends Model
     public function produtos()
     {
         return $this->hasMany(App\Produtos::class);
+    }
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class, 'unidadeId', 'id');
     }
 }

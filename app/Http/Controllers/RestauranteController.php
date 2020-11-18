@@ -38,8 +38,10 @@ class RestauranteController extends Controller
         
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
+            'apelido' => 'required|string|max:255',
             'foto' => 'required',
             'taxa_entrega' => 'required|numeric',
+            'unidadeId' => 'required|integer|exists:unidades,id'
         ]);
 
         $validatedData['imagem'] = $fileNameToStore;
@@ -51,8 +53,10 @@ class RestauranteController extends Controller
     {
         $validatedData = $request->validate([
             'nome' => 'string|max:255',
+            'apelido' => 'string|max:255',
             'foto' => 'date',
             'taxa_entrega' => 'numeric',
+            'unidadeId' => 'integer|exists:unidades,id'
         ]);
 
         $restaurante = Restaurante::find($id);

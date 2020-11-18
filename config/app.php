@@ -189,6 +189,8 @@ return [
     */
 
     'aliases' => [
+        'Unidade' => App\Unidade::class,
+        'UnidadeValidateService' => App\Http\Services\UnidadeValidateService::class,
         'Opcao' => App\Opcao::class,
         'OpcaoValidateService' => App\Http\Services\OpcaoValidateService::class,
         'Adicional' => App\Adicional::class,

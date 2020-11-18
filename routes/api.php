@@ -172,8 +172,23 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post("create", "OpcaoController@create");
         Route::put("update/{id}", "OpcaoController@update");
         Route::delete("destroy/{id}", "OpcaoController@destroy");
-    });    
+    });
+
+    Route::prefix("unidade")->group(function () {
+        Route::get("/", "UnidadeController@index");
+        Route::get("show/{id}", "UnidadeController@show");
+        Route::post("create", "UnidadeController@create");
+        Route::put("update/{id}", "UnidadeController@update");
+        Route::delete("destroy/{id}", "UnidadeController@destroy");
+    });
+
+    
 });
+
+Route::get("/{apelido}", "UnidadeRestauranteController@byApelido");
+Route::get("/{apelido}/{cidade}", "UnidadeRestauranteController@byApelidoCidade");
 
 Route::post("register", "AuthController@register");
 Route::post("login", "AuthController@login");
+
+
