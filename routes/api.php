@@ -8,12 +8,12 @@ use App\Http\Controllers\Api\ConfirmacaoController;
 Route::group(['middleware' => ['auth:api']], function () {
 
     // teste
-    Route::prefix('restaurante')->group(function () {
-        Route::get('/', 'RestauranteController@index');
-        Route::get('show/{id}', 'RestauranteController@show');
-        Route::post('create', 'RestauranteController@create');
-        Route::put('update/{id}', 'RestauranteController@update');
-        Route::delete('destroy/{id}', 'RestauranteController@destroy');
+    Route::prefix('unidade')->group(function () {
+        Route::get('/', 'UnidadeController@index');
+        Route::get('show/{id}', 'UnidadeController@show');
+        Route::post('create', 'UnidadeController@create');
+        Route::put('update/{id}', 'UnidadeController@update');
+        Route::delete('destroy/{id}', 'UnidadeController@destroy');
     
         Route::prefix('endereco')->group(function () {
             Route::get('/', 'EnderecoRestauranteController@index');
@@ -174,12 +174,12 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "OpcaoController@destroy");
     });
 
-    Route::prefix("unidade")->group(function () {
-        Route::get("/", "UnidadeController@index");
-        Route::get("show/{id}", "UnidadeController@show");
-        Route::post("create", "UnidadeController@create");
-        Route::put("update/{id}", "UnidadeController@update");
-        Route::delete("destroy/{id}", "UnidadeController@destroy");
+    Route::prefix("restaurante")->group(function () {
+        Route::get("/", "RestauranteController@index");
+        Route::get("show/{id}", "RestauranteController@show");
+        Route::post("create", "RestauranteController@create");
+        Route::put("update/{id}", "RestauranteController@update");
+        Route::delete("destroy/{id}", "RestauranteController@destroy");
     });
 
     
