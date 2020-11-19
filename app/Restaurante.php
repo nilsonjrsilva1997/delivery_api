@@ -9,7 +9,7 @@ class Restaurante extends Model
 {
     protected $table = "restaurantes";
 
-    protected $fillable = ["nome", ];
+    protected $fillable = ["nome", "slug"];
 
     // relacionamentos
     public function unidade()

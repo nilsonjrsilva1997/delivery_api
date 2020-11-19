@@ -4,40 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Unidade;
+use App\Restaurante;
 
 class UnidadeRestauranteController extends Controller
 {
     public function byApelido($apelido)
     {
-        $unidades = Unidade::where(['nome' => $apelido])->get();
-
-        foreach($unidades as $key => $unidade) {
-            $restaurantes = $unidade->restaurante;
-
-            foreach($restaurantes as $key => $restaurante) {
-                $restaurantes[$key]->endereco = $restaurante->enderecos;
-            }
-
-            $unidades[$key]->restaurante = $restaurantes;
-        }
-
-        return $unidades;
+        return Restaurante::where(["slug" => $apelido])->get();
     }
 
     public function byApelidoCidade($apelido, $cidade)
     {
-        $unidades = Unidade::where(['nome' => $apelido])->get();
-
-        foreach($unidades as $key => $unidade) {
-            $restaurantes = $unidade->restaurante;
-
-            foreach($restaurantes as $key => $restaurante) {
-                $restaurantes[$key]->endereco = $restaurante->enderecos;
-            }
-
-            $unidades[$key]->restaurante = $restaurantes;
-        }
-
-        return $unidades;
+        return Unidade::where(["unidades.slug" => $apelido])
+                ->where(["restaurantes.slug" => $cidade])
+                ->join('restaurantes', 'restaurantes.id', '=', 'unidades.restauranteId')
+                ->get();
     }
 }

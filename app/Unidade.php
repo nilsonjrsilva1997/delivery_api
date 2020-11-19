@@ -9,9 +9,9 @@ use App\HorarioFuncionamento;
 use App\SobreNos;
 use App\Restaurante;
 
-class Restaurante extends Model
+class Unidade extends Model
 {
-    protected $fillable = ['nome', 'foto', 'taxa_entrega', 'restauranteId', 'apelido'];
+    protected $fillable = ['nome', 'foto', 'taxa_entrega', 'restauranteId', 'apelido', 'slug'];
 
     protected $table = 'unidades';
     

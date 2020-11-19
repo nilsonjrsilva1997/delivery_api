@@ -41,7 +41,8 @@ class UnidadeController extends Controller
             'apelido' => 'required|string|max:255',
             'foto' => 'required',
             'taxa_entrega' => 'required|numeric',
-            'restauranteId' => 'required|integer|exists:restaurantes,id'
+            'restauranteId' => 'required|integer|exists:restaurantes,id',
+            'slug' => 'required|string|max:255',
         ]);
 
         $validatedData['imagem'] = $fileNameToStore;
@@ -56,7 +57,8 @@ class UnidadeController extends Controller
             'apelido' => 'string|max:255',
             'foto' => 'date',
             'taxa_entrega' => 'numeric',
-            'restauranteId' => 'integer|exists:restaurantes,id'
+            'restauranteId' => 'integer|exists:restaurantes,id',
+            'slug' => 'string|max:255',
         ]);
 
         $unidade = Unidade::find($id);
