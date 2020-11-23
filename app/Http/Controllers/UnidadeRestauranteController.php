@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Unidade;
+use App\Restaurante;
 
 class UnidadeRestauranteController extends Controller
 {
     public function byApelido($apelido)
     {
-        $unidades = Unidade::where(['nome' => $apelido])->get();
+        $unidades = Restaurante::where(['slug' => $apelido])
+        ->with(['unidade' => function($query) {
+            $query->with('enderecos')
+                ->with('tempo_espera_entrega')
+                ->with('horario_funcionamento');
+        }])->first();
 
-        foreach($unidades as $key => $unidade) {
+        /* foreach($unidades as $key => $unidade) {
             $restaurantes = $unidade->restaurante;
 
             foreach($restaurantes as $key => $restaurante) {
@@ -19,7 +25,7 @@ class UnidadeRestauranteController extends Controller
             }
 
             $unidades[$key]->restaurante = $restaurantes;
-        }
+        } */
 
         return $unidades;
     }

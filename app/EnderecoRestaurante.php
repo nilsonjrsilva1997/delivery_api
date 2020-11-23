@@ -7,7 +7,7 @@ use App\Restaurante;
 
 class EnderecoRestaurante extends Model
 {
-    protected $fillable = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numero', 'complemento', 'restaurante_id'];
+    protected $fillable = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numero', 'complemento', 'restaurante_id', 'lat', 'lng'];
 
     protected $table = 'endereco_restaurantes';
 
