@@ -33,6 +33,8 @@ class EnderecoRestauranteController extends Controller
             'numero' => 'required|string|max:255',
             'complemento' => 'required|string|max:255',
             'restaurante_id' => 'required|integer|exists:restaurantes,id',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
         ]);
 
         return EnderecoRestaurante::create($validatedData);
@@ -49,6 +51,8 @@ class EnderecoRestauranteController extends Controller
             'numero' => 'string|max:255',
             'complemento' => 'string|max:255',
             'restaurante_id' => 'integer|exists:restaurantes,id',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
         ]);
 
         $endereco = EnderecoRestaurante::find($id);

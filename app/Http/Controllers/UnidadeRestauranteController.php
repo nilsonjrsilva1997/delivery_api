@@ -10,7 +10,24 @@ class UnidadeRestauranteController extends Controller
 {
     public function byApelido($apelido)
     {
-        return Restaurante::where(["slug" => $apelido])->get();
+        $unidades = Restaurante::where(['slug' => $apelido])
+        ->with(['unidade' => function($query) {
+            $query->with('enderecos')
+                ->with('tempo_espera_entrega')
+                ->with('horario_funcionamento');
+        }])->first();
+
+        /* foreach($unidades as $key => $unidade) {
+            $restaurantes = $unidade->restaurante;
+
+            foreach($restaurantes as $key => $restaurante) {
+                $restaurantes[$key]->endereco = $restaurante->enderecos;
+            }
+
+            $unidades[$key]->restaurante = $restaurantes;
+        } */
+
+        return $unidades;
     }
 
     public function byApelidoCidade($apelido, $cidade)
