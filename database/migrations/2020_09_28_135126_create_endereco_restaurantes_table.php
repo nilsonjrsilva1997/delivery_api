@@ -22,7 +22,7 @@ class CreateEnderecoRestaurantesTable extends Migration
             $table->string('rua');
             $table->string('numero');
             $table->string('complemento');
-            $table->integer('restaurante_id');
+            $table->integer('restauranteId');
             $table->decimal("lat", 9, 6);
             $table->decimal("lng", 9, 6);
             $table->timestamps();

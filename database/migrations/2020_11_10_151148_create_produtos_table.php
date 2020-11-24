@@ -20,7 +20,7 @@ class CreateProdutosTable extends Migration
             $table->string("descricao");
             $table->float("valorAnterior");
             $table->float("valorAtual");
-            $table->integer("restaurante_id");
+            $table->integer("restauranteId");
             $table->integer("categoriaId");
             $table->string("foto");
             $table->timestamps();
@@ -37,5 +37,3 @@ class CreateProdutosTable extends Migration
         Schema::dropIfExists("produtos");
     }
 }
-
-

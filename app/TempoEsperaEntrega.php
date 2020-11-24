@@ -7,12 +7,12 @@ use App\Restaurante;
 
 class TempoEsperaEntrega extends Model
 {
-    protected $fillable = ['tempo_minimo', 'tempo_maximo', 'restaurante_id'];
+    protected $fillable = ['tempo_minimo', 'tempo_maximo', 'restauranteId'];
 
     protected $table = 'tempo_espera_entregas';
 
     public function restaurante()
     {
-        return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
+        return $this->belongsTo(Restaurante::class, 'restauranteId', 'id');
     }
 }

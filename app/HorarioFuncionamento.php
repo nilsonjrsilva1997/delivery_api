@@ -7,12 +7,12 @@ use App\Restaurante;
 
 class HorarioFuncionamento extends Model
 {
-    protected $fillable = ['abertura', 'fechamento', 'restaurante_id'];
+    protected $fillable = ['abertura', 'fechamento', 'restauranteId'];
 
     protected $table = 'horario_funcionamentos';
 
     public function restaurante()
     {
-        return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
+        return $this->belongsTo(Restaurante::class, 'restauranteId', 'id');
     }
 }

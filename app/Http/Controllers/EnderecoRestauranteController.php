@@ -15,7 +15,7 @@ class EnderecoRestauranteController extends Controller
     public function show($id)
     {
         $endereco = EnderecoRestaurante::find($id);
-        if(!empty($endereco)) {
+        if (!empty($endereco)) {
             return $endereco;
         } else {
             return response(['message' => 'Endereço não encontrado']);
@@ -32,7 +32,7 @@ class EnderecoRestauranteController extends Controller
             'rua' => 'required|string|max:255',
             'numero' => 'required|string|max:255',
             'complemento' => 'required|string|max:255',
-            'restaurante_id' => 'required|integer|exists:restaurantes,id',
+            'restauranteId' => 'required|integer|exists:restaurantes,id',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ]);
@@ -50,14 +50,14 @@ class EnderecoRestauranteController extends Controller
             'rua' => 'string|max:255',
             'numero' => 'string|max:255',
             'complemento' => 'string|max:255',
-            'restaurante_id' => 'integer|exists:restaurantes,id',
+            'restauranteId' => 'integer|exists:restaurantes,id',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ]);
 
         $endereco = EnderecoRestaurante::find($id);
 
-        if(!empty($endereco)) {
+        if (!empty($endereco)) {
             $endereco->fill($validatedData);
             $endereco->save();
             return $endereco;
@@ -70,7 +70,7 @@ class EnderecoRestauranteController extends Controller
     {
         $endereco = EnderecoRestaurante::find($id);
 
-        if(!empty($endereco)) {
+        if (!empty($endereco)) {
             EnderecoRestaurante::find($id)->delete();
         } else {
             return response(['message' => 'Endereço não encontrado']);

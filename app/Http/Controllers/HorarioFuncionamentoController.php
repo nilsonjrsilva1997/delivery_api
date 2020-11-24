@@ -15,7 +15,7 @@ class HorarioFuncionamentoController extends Controller
     public function show($id)
     {
         $horarioFuncionamento = HorarioFuncionamento::find($id);
-        if(!empty($horarioFuncionamento)) {
+        if (!empty($horarioFuncionamento)) {
             return $horarioFuncionamento;
         } else {
             return response(['message' => 'Horário  não encontrado']);
@@ -27,9 +27,9 @@ class HorarioFuncionamentoController extends Controller
         $validatedData = $request->validate([
             'abertura' => 'required|date_format:H:i',
             'fechamento' => 'required|date_format:H:i',
-            'restaurante_id' => 'required|integer|exists:restaurantes,id',
+            'restauranteId' => 'required|integer|exists:restaurantes,id',
         ]);
-        
+
         return HorarioFuncionamento::create($validatedData);
     }
 
@@ -38,12 +38,12 @@ class HorarioFuncionamentoController extends Controller
         $validatedData = $request->validate([
             'abertura' => 'date_format:H:i',
             'fechamento' => 'date_format:H:i',
-            'restaurante_id' => 'integer|exists:restaurantes,id',
+            'restauranteId' => 'integer|exists:restaurantes,id',
         ]);
 
         $horarioFuncionamento = HorarioFuncionamento::find($id);
 
-        if(!empty($horarioFuncionamento)) {
+        if (!empty($horarioFuncionamento)) {
             $horarioFuncionamento->fill($validatedData);
             $horarioFuncionamento->save();
             return $horarioFuncionamento;
@@ -56,7 +56,7 @@ class HorarioFuncionamentoController extends Controller
     {
         $horarioFuncionamento = HorarioFuncionamento::find($id);
 
-        if(!empty($horarioFuncionamento)) {
+        if (!empty($horarioFuncionamento)) {
             HorarioFuncionamento::find($id)->delete();
         } else {
             return response(['message' => 'Horário  não encontrado']);

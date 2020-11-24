@@ -9,12 +9,11 @@ class EnderecoEstabelecimento extends Model
 {
     protected $table = "enderecoestabelecimentos";
 
-    protected $fillable = ["cep", "estado", "rua", "cidade", "complemento", "bairro", "numero", "restaurante_id", ];
+    protected $fillable = ["cep", "estado", "rua", "cidade", "complemento", "bairro", "numero", "restauranteId",];
 
     // relacionamentos
     public function restaurante()
     {
-        return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
+        return $this->belongsTo(Restaurante::class, 'restauranteId', 'id');
     }
 }
-

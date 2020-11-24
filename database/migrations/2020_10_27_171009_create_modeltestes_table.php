@@ -18,7 +18,7 @@ class CreateModelTestesTable extends Migration
             $table->string("nome");
             $table->integer("idade");
             $table->float("altura");
-            $table->integer("restaurante_id");
+            $table->integer("restauranteId");
 
             $table->timestamps();
         });
@@ -34,5 +34,3 @@ class CreateModelTestesTable extends Migration
         Schema::dropIfExists("modeltestes");
     }
 }
-
-

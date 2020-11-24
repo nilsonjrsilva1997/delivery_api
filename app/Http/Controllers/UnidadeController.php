@@ -15,7 +15,7 @@ class UnidadeController extends Controller
     public function show($id)
     {
         $unidade = Unidade::find($id);
-        if(!empty($unidade)) {
+        if (!empty($unidade)) {
             return $unidade;
         } else {
             return response(['message' => 'Unidade não encontrado']);
@@ -26,11 +26,11 @@ class UnidadeController extends Controller
     {
         $fileNameToStore = '';
 
-        if($request->hasFile('foto')) {
+        if ($request->hasFile('foto')) {
             $filenameWithExt = $request->file('foto')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('foto')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
         } else {
             return response(['message' => 'A imagem é obrigatória']);
@@ -42,7 +42,7 @@ class UnidadeController extends Controller
             'slug' => 'required|string|max:255',
             'foto' => 'required',
             'taxa_entrega' => 'required|numeric',
-            'restaurante_id' => 'required|integer|exists:restaurantes,id'
+            'restauranteId' => 'required|integer|exists:restaurantes,id'
         ]);
 
         $validatedData['imagem'] = $fileNameToStore;
@@ -57,12 +57,12 @@ class UnidadeController extends Controller
             'slug' => 'string|max:255',
             'foto' => 'date',
             'taxa_entrega' => 'numeric',
-            'restaurante_id' => 'integer|exists:restaurantes,id'
+            'restauranteId' => 'integer|exists:restaurantes,id'
         ]);
 
         $unidade = Unidade::find($id);
 
-        if(!empty($unidade)) {
+        if (!empty($unidade)) {
             $unidade->fill($validatedData);
             $unidade->save();
             return $unidade;
@@ -75,7 +75,7 @@ class UnidadeController extends Controller
     {
         $unidade = Unidade::find($id);
 
-        if(!empty($unidade)) {
+        if (!empty($unidade)) {
             Unidade::find($id)->delete();
         } else {
             return response(['message' => 'Unidade não encontrado']);

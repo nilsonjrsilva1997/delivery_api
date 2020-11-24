@@ -17,7 +17,7 @@ class CreateSobreNosTable extends Migration
             $table->id();
             $table->string('facebook');
             $table->string('instagram');
-            $table->integer('restaurante_id');
+            $table->integer('restauranteId');
             $table->timestamps();
         });
     }
