@@ -26,6 +26,8 @@ class UnidadeRestauranteController extends Controller
             ->with('enderecos')
             ->with('tempo_espera_entrega')
             ->with('horario_funcionamento')
+            ->with('sobre_nos')
+            ->with('restaurante')
             ->whereHas('restaurante', function ($query) use ($apelido) {
                 $query->where(['slug' => $apelido]);
             })->first();
