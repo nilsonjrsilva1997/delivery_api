@@ -19,5 +19,5 @@ class UnidadeRestauranteController extends Controller
                 ->where(["restaurantes.slug" => $cidade])
                 ->join('restaurantes', 'restaurantes.id', '=', 'unidades.restauranteId')
                 ->get();
-    }
+    } 
 }
