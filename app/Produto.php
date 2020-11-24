@@ -11,12 +11,12 @@ class Produto extends Model
 {
     protected $table = "produtos";
 
-    protected $fillable = ["nome", "quantidade", "descricao", "valorAnterior", "valorAtual", "restauranteId", "categoriaId", "foto", ];
+    protected $fillable = ["nome", "quantidade", "descricao", "valorAnterior", "valorAtual", "restaurante_id", "categoriaId", "foto", ];
 
     // relacionamentos
     public function restaurante()
     {
-        return $this->belongsTo(Restaurante::class, 'restauranteId', 'id');
+        return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
     }
 
     public function categoria()

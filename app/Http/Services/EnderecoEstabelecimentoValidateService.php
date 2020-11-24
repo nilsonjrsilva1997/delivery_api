@@ -6,7 +6,7 @@ class EnderecoEstabelecimentoValidateService
 {
 public function getValidateRulesCreate()
 {
-$validateAttributes = 
+$validateAttributes =
 [
     "cep" => "required|string|max:255",
     "estado" => "required|string|max:255",
@@ -15,8 +15,8 @@ $validateAttributes =
     "complemento" => "required|string|max:255",
     "bairro" => "required|string|max:255",
     "numero" => "required|string|max:255",
-    "restauranteId" => "required|integer|exists:restaurante,id",
-    
+    "restaurante_id" => "required|integer|exists:restaurante,id",
+
 ];
 
 return $validateAttributes;
@@ -24,7 +24,7 @@ return $validateAttributes;
 
 public function getValidateRulesUpdate()
 {
-$validateAttributes = 
+$validateAttributes =
 [
     "cep" => "string|max:255",
     "estado" => "string|max:255",
@@ -33,7 +33,7 @@ $validateAttributes =
     "complemento" => "string|max:255",
     "bairro" => "string|max:255",
     "numero" => "string|max:255",
-    "restauranteId" => "integer|exists:restaurante,id",    
+    "restaurante_id" => "integer|exists:restaurante,id",
 ];
 
 return $validateAttributes;

@@ -35,13 +35,14 @@ class UnidadeController extends Controller
         } else {
             return response(['message' => 'A imagem é obrigatória']);
         }
-        
+
+
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'apelido' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
             'foto' => 'required',
             'taxa_entrega' => 'required|numeric',
-            'restauranteId' => 'required|integer|exists:restaurantes,id'
+            'restaurante_id' => 'required|integer|exists:restaurantes,id'
         ]);
 
         $validatedData['imagem'] = $fileNameToStore;
@@ -53,10 +54,10 @@ class UnidadeController extends Controller
     {
         $validatedData = $request->validate([
             'nome' => 'string|max:255',
-            'apelido' => 'string|max:255',
+            'slug' => 'string|max:255',
             'foto' => 'date',
             'taxa_entrega' => 'numeric',
-            'restauranteId' => 'integer|exists:restaurantes,id'
+            'restaurante_id' => 'integer|exists:restaurantes,id'
         ]);
 
         $unidade = Unidade::find($id);

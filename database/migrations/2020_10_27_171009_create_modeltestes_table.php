@@ -18,8 +18,8 @@ class CreateModelTestesTable extends Migration
             $table->string("nome");
             $table->integer("idade");
             $table->float("altura");
-            $table->integer("restauranteId");
-            
+            $table->integer("restaurante_id");
+
             $table->timestamps();
         });
     }

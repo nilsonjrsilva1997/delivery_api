@@ -12,7 +12,7 @@ use App\Produtos;
 
 class Unidade extends Model
 {
-    protected $fillable = ['nome', 'foto', 'taxa_entrega', 'restauranteId', 'apelido'];
+    protected $fillable = ['nome', 'foto', 'taxa_entrega', 'restaurante_id', 'slug'];
 
     protected $table = 'unidades';
 

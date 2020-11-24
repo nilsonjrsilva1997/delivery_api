@@ -22,8 +22,8 @@ class CreateEnderecoEstabelecimentosTable extends Migration
             $table->string("complemento");
             $table->string("bairro");
             $table->string("numero");
-            $table->integer("restauranteId");
-            
+            $table->integer("restaurante_id");
+
             $table->timestamps();
         });
     }

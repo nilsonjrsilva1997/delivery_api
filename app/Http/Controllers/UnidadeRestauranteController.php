@@ -17,33 +17,20 @@ class UnidadeRestauranteController extends Controller
                 ->with('horario_funcionamento');
         }])->first();
 
-        /* foreach($unidades as $key => $unidade) {
-            $restaurantes = $unidade->restaurante;
-
-            foreach($restaurantes as $key => $restaurante) {
-                $restaurantes[$key]->endereco = $restaurante->enderecos;
-            }
-
-            $unidades[$key]->restaurante = $restaurantes;
-        } */
-
         return $unidades;
     }
 
     public function byApelidoCidade($apelido, $cidade)
     {
-        $unidades = Unidade::where(['nome' => $apelido])->get();
+        $unidade = Unidade::where(['slug' => $cidade])
+            ->with('enderecos')
+            ->with('tempo_espera_entrega')
+            ->with('horario_funcionamento')
+            ->whereHas('restaurante', function($query) use($apelido) {
+                $query->where(['slug' => $apelido]);
+            })->first();
 
-        foreach($unidades as $key => $unidade) {
-            $restaurantes = $unidade->restaurante;
 
-            foreach($restaurantes as $key => $restaurante) {
-                $restaurantes[$key]->endereco = $restaurante->enderecos;
-            }
-
-            $unidades[$key]->restaurante = $restaurantes;
-        }
-
-        return $unidades;
+        return $unidade;
     }
 }
