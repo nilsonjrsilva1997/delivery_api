@@ -21,6 +21,7 @@ class CreateUnidadesTable extends Migration
             $table->integer('restauranteId');
             $table->string('apelido');
             $table->string("slug");
+            $table->string('banner');
             $table->timestamps();
         });
     }
