@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Unidade;
+use File;
 
 class UnidadeController extends Controller
 {
@@ -36,16 +37,28 @@ class UnidadeController extends Controller
             return response(['message' => 'A imagem é obrigatória']);
         }
 
+        if ($request->hasFile('banner')) {
+            $filenameWithExt = $request->file('banner')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('banner')->getClientOriginalExtension();
+            $fileNameToStore2 = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('banner')->storeAs('public/images', $fileNameToStore2);
+        } else {
+            return response(['message' => 'A imagem do banner é obrigatória']);
+        }
 
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'foto' => 'required',
+            'apelido' => 'required|string|max:255',
+            'banner' => 'required',
             'taxa_entrega' => 'required|numeric',
-            'restauranteId' => 'required|integer|exists:restaurantes,id'
+            'restauranteId' => 'required|integer|exists:restaurantes,id',
+            'slug' => 'required|string|max:255',
         ]);
 
-        $validatedData['imagem'] = $fileNameToStore;
+
+        $validatedData['foto'] = $fileNameToStore;
+        $validatedData['banner'] = $fileNameToStore2;
 
         return Unidade::create($validatedData);
     }
@@ -57,10 +70,15 @@ class UnidadeController extends Controller
             'slug' => 'string|max:255',
             'foto' => 'date',
             'taxa_entrega' => 'numeric',
-            'restauranteId' => 'integer|exists:restaurantes,id'
+            'restauranteId' => 'integer|exists:restaurantes,id',
+            'slug' => 'string|max:255',
         ]);
 
         $unidade = Unidade::find($id);
+
+        return $unidade;
+
+        File::delete('images/' . $unidade->banner);
 
         if (!empty($unidade)) {
             $unidade->fill($validatedData);
