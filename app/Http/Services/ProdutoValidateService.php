@@ -13,7 +13,7 @@ class ProdutoValidateService
                 "descricao" => "required|string|max:255",
                 "valorAnterior" => "required|numeric",
                 "valorAtual" => "required|numeric",
-                "restauranteId" => "required|integer|exists:restaurantes,id",
+                "unidadeId" => "required|integer|exists:unidades,id",
                 "categoriaId" => "required|integer|exists:categorias,id",
                 // 'foto' => 'required|image|mimes:jpeg,png,jpg',
             ];
@@ -30,7 +30,7 @@ class ProdutoValidateService
                 "descricao" => "string|max:255",
                 "valorAnterior" => "numeric",
                 "valorAtual" => "numeric",
-                "restauranteId" => "integer",
+                "unidadeId" => "integer",
                 "categoriaId" => "integer",
                 // 'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ];

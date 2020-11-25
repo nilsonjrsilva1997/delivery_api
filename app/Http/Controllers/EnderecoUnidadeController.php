@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\EnderecoRestaurante;
+use App\EnderecoUnidade;
 
-class EnderecoRestauranteController extends Controller
+class EnderecoUnidadeController extends Controller
 {
     public function index()
     {
-        return EnderecoRestaurante::all();
+        return EnderecoUnidade::all();
     }
 
     public function show($id)
     {
-        $endereco = EnderecoRestaurante::find($id);
+        $endereco = EnderecoUnidade::find($id);
         if (!empty($endereco)) {
             return $endereco;
         } else {
@@ -32,12 +32,12 @@ class EnderecoRestauranteController extends Controller
             'rua' => 'required|string|max:255',
             'numero' => 'required|string|max:255',
             'complemento' => 'required|string|max:255',
-            'restauranteId' => 'required|integer|exists:restaurantes,id',
+            'unidadeId' => 'required|integer|exists:unidades,id',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ]);
 
-        return EnderecoRestaurante::create($validatedData);
+        return EnderecoUnidade::create($validatedData);
     }
 
     public function update(Request $request, $id)
@@ -50,12 +50,12 @@ class EnderecoRestauranteController extends Controller
             'rua' => 'string|max:255',
             'numero' => 'string|max:255',
             'complemento' => 'string|max:255',
-            'restauranteId' => 'integer|exists:restaurantes,id',
+            'unidadeId' => 'integer|exists:unidades,id',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ]);
 
-        $endereco = EnderecoRestaurante::find($id);
+        $endereco = EnderecoUnidade::find($id);
 
         if (!empty($endereco)) {
             $endereco->fill($validatedData);
@@ -68,10 +68,10 @@ class EnderecoRestauranteController extends Controller
 
     public function destroy($id)
     {
-        $endereco = EnderecoRestaurante::find($id);
+        $endereco = EnderecoUnidade::find($id);
 
         if (!empty($endereco)) {
-            EnderecoRestaurante::find($id)->delete();
+            EnderecoUnidade::find($id)->delete();
         } else {
             return response(['message' => 'Endereço não encontrado']);
         }

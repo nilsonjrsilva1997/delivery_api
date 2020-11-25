@@ -3,16 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Restaurante;
+use App\Unidade;
 
 class TempoEsperaEntrega extends Model
 {
-    protected $fillable = ['tempo_minimo', 'tempo_maximo', 'restauranteId'];
+    protected $fillable = ['tempo_minimo', 'tempo_maximo', 'unidadeId'];
 
     protected $table = 'tempo_espera_entregas';
 
-    public function restaurante()
+    public function unidade()
     {
-        return $this->belongsTo(Restaurante::class, 'restauranteId', 'id');
+        return $this->belongsTo(Unidade::class, 'unidadeId', 'id');
     }
 }

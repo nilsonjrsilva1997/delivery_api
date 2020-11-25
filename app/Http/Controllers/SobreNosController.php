@@ -27,7 +27,7 @@ class SobreNosController extends Controller
         $validatedData = $request->validate([
             'facebook' => 'required|url',
             'instagram' => 'required|url',
-            'restauranteId' => 'required|integer|exists:restaurantes,id',
+            'unidadeId' => 'required|integer|exists:unidades,id',
         ]);
 
         return SobreNos::create($validatedData);
@@ -38,7 +38,7 @@ class SobreNosController extends Controller
         $validatedData = $request->validate([
             'facebook' => 'url',
             'instagram' => 'url',
-            'restauranteId' => 'integer|exists:restaurantes,id',
+            'unidadeId' => 'integer|exists:unidades,id',
         ]);
 
         $sobreNos = SobreNos::find($id);

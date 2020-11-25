@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnderecoRestaurantesTable extends Migration
+class CreateEnderecoUnidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEnderecoRestaurantesTable extends Migration
      */
     public function up()
     {
-        Schema::create('endereco_restaurantes', function (Blueprint $table) {
+        Schema::create('endereco_unidades', function (Blueprint $table) {
             $table->id();
             $table->string('cep');
             $table->string('estado');
@@ -22,7 +22,7 @@ class CreateEnderecoRestaurantesTable extends Migration
             $table->string('rua');
             $table->string('numero');
             $table->string('complemento');
-            $table->integer('restauranteId');
+            $table->integer('unidadeId');
             $table->decimal("lat", 9, 6);
             $table->decimal("lng", 9, 6);
             $table->timestamps();
@@ -36,6 +36,6 @@ class CreateEnderecoRestaurantesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('endereco_restaurantes');
+        Schema::dropIfExists('endereco_unidades');
     }
 }

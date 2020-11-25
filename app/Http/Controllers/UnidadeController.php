@@ -33,9 +33,9 @@ class UnidadeController extends Controller
             $extension = $request->file('foto')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
-        } else {
-            return response(['message' => 'A imagem é obrigatória']);
         }
+
+        $fileNameToStore2 = '';
 
         if ($request->hasFile('banner')) {
             $filenameWithExt = $request->file('banner')->getClientOriginalName();
@@ -43,14 +43,10 @@ class UnidadeController extends Controller
             $extension = $request->file('banner')->getClientOriginalExtension();
             $fileNameToStore2 = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('banner')->storeAs('public/images', $fileNameToStore2);
-        } else {
-            return response(['message' => 'A imagem do banner é obrigatória']);
         }
 
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'apelido' => 'required|string|max:255',
-            'banner' => 'required',
             'taxa_entrega' => 'required|numeric',
             'restauranteId' => 'required|integer|exists:restaurantes,id',
             'slug' => 'required|string|max:255',

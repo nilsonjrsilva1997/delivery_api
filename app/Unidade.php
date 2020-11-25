@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\EnderecoRestaurante;
+use App\EnderecoUnidade;
 use App\TempoEsperaEntrega;
 use App\HorarioFuncionamento;
 use App\SobreNos;
 use App\Restaurante;
-use App\Produtos;
+use App\Produto;
 
 class Unidade extends Model
 {
@@ -18,27 +18,27 @@ class Unidade extends Model
 
     public function enderecos()
     {
-        return $this->hasOne(EnderecoRestaurante::class, 'restauranteId', 'id');
+        return $this->hasOne(EnderecoUnidade::class, 'unidadeId', 'id');
     }
 
     public function tempo_espera_entrega()
     {
-        return $this->hasOne(TempoEsperaEntrega::class, 'restauranteId', 'id');
+        return $this->hasOne(TempoEsperaEntrega::class, 'unidadeId', 'id');
     }
 
     public function horario_funcionamento()
     {
-        return $this->hasOne(HorarioFuncionamento::class, 'restauranteId', 'id');
+        return $this->hasOne(HorarioFuncionamento::class, 'unidadeId', 'id');
     }
 
     public function sobre_nos()
     {
-        return $this->hasOne(SobreNos::class, 'restauranteId', 'id');
+        return $this->hasOne(SobreNos::class, 'unidadeId', 'id');
     }
 
     public function produtos()
     {
-        return $this->hasMany(Produtos::class, 'restauranteId', 'id');
+        return $this->hasMany(Produto::class, 'unidadeId', 'id');
     }
 
     public function restaurante()
