@@ -29,9 +29,10 @@ class UnidadeRestauranteController extends Controller
             ->with('sobre_nos')
             ->with('restaurante')
             ->with(['produtos' => function ($query) {
-                $query->with(['adicional' => function ($query) {
-                    $query->with('opcoes');
-                }]);
+                $query->with('categoria')
+                    ->with(['adicional' => function ($query) {
+                        $query->with('opcoes');
+                    }]);
             }])
             ->whereHas('restaurante', function ($query) use ($apelido) {
                 $query->where(['slug' => $apelido]);
