@@ -11,30 +11,34 @@ class UnidadeRestauranteController extends Controller
     public function byApelido($apelido)
     {
         $unidades = Restaurante::where(['slug' => $apelido])
-        ->with(['unidade' => function($query) {
-            $query->with('enderecos')
-                ->with('tempo_espera_entrega')
-                ->with('horario_funcionamento');
-        }])->first();
-
-        /* foreach($unidades as $key => $unidade) {
-            $restaurantes = $unidade->restaurante;
-
-            foreach($restaurantes as $key => $restaurante) {
-                $restaurantes[$key]->endereco = $restaurante->enderecos;
-            }
-
-            $unidades[$key]->restaurante = $restaurantes;
-        } */
+            ->with(['unidade' => function ($query) {
+                $query->with('enderecos')
+                    ->with('tempo_espera_entrega')
+                    ->with('horario_funcionamento');
+            }])->first();
 
         return $unidades;
     }
 
     public function byApelidoCidade($apelido, $cidade)
     {
-        return Unidade::where(["unidades.slug" => $apelido])
-                ->where(["restaurantes.slug" => $cidade])
-                ->join('restaurantes', 'restaurantes.id', '=', 'unidades.restauranteId')
-                ->get();
-    } 
+        $unidade = Unidade::where(['slug' => $cidade])
+            ->with('enderecos')
+            ->with('tempo_espera_entrega')
+            ->with('horario_funcionamento')
+            ->with('sobre_nos')
+            ->with('restaurante')
+            ->with(['produtos' => function ($query) {
+                $query->with('categoria')
+                    ->with(['adicional' => function ($query) {
+                        $query->with('opcoes');
+                    }]);
+            }])
+            ->whereHas('restaurante', function ($query) use ($apelido) {
+                $query->where(['slug' => $apelido]);
+            })->first();
+
+
+        return $unidade;
+    }
 }

@@ -23,7 +23,7 @@ class CreateEnderecoEstabelecimentosTable extends Migration
             $table->string("bairro");
             $table->string("numero");
             $table->integer("restauranteId");
-            
+
             $table->timestamps();
         });
     }
@@ -38,5 +38,3 @@ class CreateEnderecoEstabelecimentosTable extends Migration
         Schema::dropIfExists("enderecoestabelecimentos");
     }
 }
-
-

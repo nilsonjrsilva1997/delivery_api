@@ -16,7 +16,7 @@ class UnidadeController extends Controller
     public function show($id)
     {
         $unidade = Unidade::find($id);
-        if(!empty($unidade)) {
+        if (!empty($unidade)) {
             return $unidade;
         } else {
             return response(['message' => 'Unidade não encontrado']);
@@ -27,30 +27,26 @@ class UnidadeController extends Controller
     {
         $fileNameToStore = '';
 
-        if($request->hasFile('foto')) {
+        if ($request->hasFile('foto')) {
             $filenameWithExt = $request->file('foto')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('foto')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
-        } else {
-            return response(['message' => 'A imagem é obrigatória']);
         }
 
-        if($request->hasFile('banner')) {
+        $fileNameToStore2 = '';
+
+        if ($request->hasFile('banner')) {
             $filenameWithExt = $request->file('banner')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('banner')->getClientOriginalExtension();
-            $fileNameToStore2 = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore2 = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('banner')->storeAs('public/images', $fileNameToStore2);
-        } else {
-            return response(['message' => 'A imagem do banner é obrigatória']);
         }
-        
+
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'apelido' => 'required|string|max:255',
-            'banner' => 'required',
             'taxa_entrega' => 'required|numeric',
             'restauranteId' => 'required|integer|exists:restaurantes,id',
             'slug' => 'required|string|max:255',
@@ -67,7 +63,7 @@ class UnidadeController extends Controller
     {
         $validatedData = $request->validate([
             'nome' => 'string|max:255',
-            'apelido' => 'string|max:255',
+            'slug' => 'string|max:255',
             'foto' => 'date',
             'taxa_entrega' => 'numeric',
             'restauranteId' => 'integer|exists:restaurantes,id',
@@ -79,20 +75,22 @@ class UnidadeController extends Controller
         $disk = Storage::disk('local');
         $disk->delete('public/images/' . $unidade->banner);
 
-        // if(!empty($unidade)) {
-        //     $unidade->fill($validatedData);
-        //     $unidade->save();
-        //     return $unidade;
-        // } else {
-        //     return response(['message' => 'Unidade não encontrado']);
-        // }
+        File::delete('images/' . $unidade->banner);
+
+        if (!empty($unidade)) {
+            $unidade->fill($validatedData);
+            $unidade->save();
+            return $unidade;
+        } else {
+            return response(['message' => 'Unidade não encontrado']);
+        }
     }
 
     public function destroy($id)
     {
         $unidade = Unidade::find($id);
 
-        if(!empty($unidade)) {
+        if (!empty($unidade)) {
             Unidade::find($id)->delete();
         } else {
             return response(['message' => 'Unidade não encontrado']);

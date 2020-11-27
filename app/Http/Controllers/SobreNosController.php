@@ -14,8 +14,8 @@ class SobreNosController extends Controller
 
     public function show($id)
     {
-        $sobreNos = SobreNos::find($id); 
-        if(!empty($sobreNos)) {
+        $sobreNos = SobreNos::find($id);
+        if (!empty($sobreNos)) {
             return $sobreNos;
         } else {
             return response(['message' => 'Sobre nos não encontrado']);
@@ -27,7 +27,7 @@ class SobreNosController extends Controller
         $validatedData = $request->validate([
             'facebook' => 'required|url',
             'instagram' => 'required|url',
-            'restaurante_id' => 'required|integer|exists:restaurantes,id',
+            'unidadeId' => 'required|integer|exists:unidades,id',
         ]);
 
         return SobreNos::create($validatedData);
@@ -38,12 +38,12 @@ class SobreNosController extends Controller
         $validatedData = $request->validate([
             'facebook' => 'url',
             'instagram' => 'url',
-            'restaurante_id' => 'integer|exists:restaurantes,id',
+            'unidadeId' => 'integer|exists:unidades,id',
         ]);
 
         $sobreNos = SobreNos::find($id);
 
-        if(!empty($sobreNos)) {
+        if (!empty($sobreNos)) {
             $sobreNos->fill($validatedData);
             $sobreNos->save();
             return $sobreNos;
@@ -56,7 +56,7 @@ class SobreNosController extends Controller
     {
         $sobreNos = SobreNos::find($id);
 
-        if(!empty($sobreNos)) {
+        if (!empty($sobreNos)) {
             SobreNos::find($id)->delete();
         } else {
             return response(['message' => 'Sobre nos não encontrado']);

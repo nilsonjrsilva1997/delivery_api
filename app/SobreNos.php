@@ -3,16 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Restaurante;
+use App\Unidade;
 
 class SobreNos extends Model
 {
-    protected $fillable = ['facebook', 'instagram', 'restaurante_id'];
+    protected $fillable = ['facebook', 'instagram', 'unidadeId'];
 
     protected $table = 'sobre_nos';
 
-    public function restaurante()
+    public function unidade()
     {
-        return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
+        return $this->belongsTo(Unidade::class, 'unidadeId', 'id');
     }
 }

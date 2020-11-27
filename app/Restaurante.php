@@ -17,4 +17,3 @@ class Restaurante extends Model
         return $this->hasMany(Unidade::class, 'restauranteId');
     }
 }
-
