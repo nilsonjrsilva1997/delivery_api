@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Categoria;
 use App\Unidade;
 use App\Adicional;
+use App\Pedido;
 
 class Produto extends Model
 {
@@ -33,4 +34,13 @@ class Produto extends Model
     {
         return $this->hasOne(Adicional::class, "produtoId");
     }
+
+    // public static function validateProdutosId($id)
+    // {
+    //     if(Produto::count() == 0) {
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // }
 }

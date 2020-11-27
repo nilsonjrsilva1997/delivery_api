@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use App\Pedido;
+use App\EnderecoEntrega;
 
 class User extends Authenticatable
 {
@@ -40,11 +42,14 @@ class User extends Authenticatable
 
 
     // relacionamentos
-
-        
-    public function endereco()
+    public function endereco_entrega()
     {
-        return $this->belongsTo(App\Endereco::class);
+        return $this->hasMany(EnderecoEntrega::class);
     }
+
+    // public function pedido_logs()
+    // {
+    //     return $this->hasMany(PedidoLog::class);
+    // }
 
 }

@@ -81,14 +81,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', 'CategoriaController@destroy');
     });
 
-    Route::prefix("endereco")->group(function () {
-        Route::get("/", "EnderecoController@index");
-        Route::get("show/{id}", "EnderecoController@show");
-        Route::post("create", "EnderecoController@create");
-        Route::put("update/{id}", "EnderecoController@update");
-        Route::delete("destroy/{id}", "EnderecoController@destroy");
-    });
-
     Route::prefix("uploadfile")->group(function () {
         Route::get("/", "UploadFileController@index");
         Route::get("show/{id}", "UploadFileController@show");
@@ -180,6 +172,15 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post("create", "RestauranteController@create");
         Route::put("update/{id}", "RestauranteController@update");
         Route::delete("destroy/{id}", "RestauranteController@destroy");
+    });
+
+    Route::prefix("endereco_entrega")->group(function () {
+        Route::get("/", "EnderecoEntregaController@index");
+        Route::get("enderecos_entrega_usuario", "EnderecoEntregaController@getEnderecosEntregaAuthUser");
+        Route::get("show/{id}", "EnderecoEntregaController@show");
+        Route::post("create", "EnderecoEntregaController@create");
+        Route::put("update/{id}", "EnderecoEntregaController@update");
+        Route::delete("destroy/{id}", "EnderecoEntregaController@destroy");
     });
 
     Route::prefix("pedido")->group(function () {

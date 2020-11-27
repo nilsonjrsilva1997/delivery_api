@@ -189,6 +189,10 @@ return [
     */
 
     'aliases' => [
+        'EnderecoEntrega' => App\EnderecoEntrega::class,
+        'EnderecoEntregaValidateService' => App\Http\Services\EnderecoEntregaValidateService::class,
+        'Pedido' => App\Pedido::class,
+        'PedidoValidateService' => App\Http\Services\PedidoValidateService::class,
         'Restaurante' => App\Restaurante::class,
         'RestauranteValidateService' => App\Http\Services\RestauranteValidateService::class,
         'Opcao' => App\Opcao::class,
