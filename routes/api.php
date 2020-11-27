@@ -182,6 +182,10 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "RestauranteController@destroy");
     });
 
+    Route::prefix("pedido")->group(function () {
+        Route::post("/fazer_pedido", "PedidoController@fazerPedido");
+    });
+
     
 });
 

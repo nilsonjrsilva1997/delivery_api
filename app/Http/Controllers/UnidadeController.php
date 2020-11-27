@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Unidade;
-use File;
+use Illuminate\Support\Facades\Storage;
 
 class UnidadeController extends Controller
 {
@@ -76,17 +76,16 @@ class UnidadeController extends Controller
 
         $unidade = Unidade::find($id);
 
-        return $unidade;
+        $disk = Storage::disk('local');
+        $disk->delete('public/images/' . $unidade->banner);
 
-        File::delete('images/' . $unidade->banner);
-
-        if(!empty($unidade)) {
-            $unidade->fill($validatedData);
-            $unidade->save();
-            return $unidade;
-        } else {
-            return response(['message' => 'Unidade não encontrado']);
-        }
+        // if(!empty($unidade)) {
+        //     $unidade->fill($validatedData);
+        //     $unidade->save();
+        //     return $unidade;
+        // } else {
+        //     return response(['message' => 'Unidade não encontrado']);
+        // }
     }
 
     public function destroy($id)
