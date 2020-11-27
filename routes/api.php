@@ -181,15 +181,12 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put("update/{id}", "RestauranteController@update");
         Route::delete("destroy/{id}", "RestauranteController@destroy");
     });
-<<<<<<< HEAD
 
     Route::prefix("pedido")->group(function () {
         Route::post("/fazer_pedido", "PedidoController@fazerPedido");
     });
 
     
-=======
->>>>>>> 177a2a690161eba3a789e488c22f6ce8193c38c2
 });
 
 Route::get("/{apelido}", "UnidadeRestauranteController@byApelido");
