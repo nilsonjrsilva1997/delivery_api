@@ -4,36 +4,30 @@ namespace App\Http\Services;
 
 class OpcaoValidateService
 {
-public function getValidateRulesCreate()
-{
-$validateAttributes = 
-[
-    "adicionalId" => "required|integer",
-    "nome" => "required|string|max:255",
-    "descricao" => "required|string|max:255",
-    // "imagem" => "required|string|max:255",
-    "disponivel" => "required|boolean",
-    "valor" => "required|numeric",
-    
-];
+    public function getValidateRulesCreate()
+    {
+        $validateAttributes = 
+        [
+            "produto_id" => "required|integer|exists:produtos,id",
+            "titulo" => "required|string|max:255",
+            "maximo" => "required|numeric",
+            "minimo" => "required|numeric",
+        ];
 
-return $validateAttributes;
-}
+        return $validateAttributes;
+    }
 
-public function getValidateRulesUpdate()
-{
-$validateAttributes = 
-[
-    "adicionalId" => "integer",
-    "nome" => "string|max:255",
-    "descricao" => "string|max:255",
-    // "imagem" => "string|max:255",
-    "disponivel" => "boolean",
-    "valor" => "numeric",
-    
-];
+    public function getValidateRulesUpdate()
+    {
+        $validateAttributes = 
+        [
+            "produto_id" => "integer|exists:produtos,id",
+            "titulo" => "string|max:255",
+            "maximo" => "numeric",
+            "minimo" => "numeric",
+        ];
 
-return $validateAttributes;
-}
+        return $validateAttributes;
+    }
 }
 

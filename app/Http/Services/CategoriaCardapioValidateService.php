@@ -4,26 +4,24 @@ namespace App\Http\Services;
 
 class CategoriaCardapioValidateService
 {
-public function getValidateRulesCreate()
-{
-$validateAttributes = 
-[
-    "nome" => "required|string|max:255",
-    
-];
+    public function getValidateRulesCreate()
+    {
+        $validateAttributes = 
+        [
+            "nome" => "required|string|max:255",
+        ];
 
-return $validateAttributes;
-}
+        return $validateAttributes;
+    }
 
-public function getValidateRulesUpdate()
-{
-$validateAttributes = 
-[
-    "nome" => "string|max:255",
-    
-];
+    public function getValidateRulesUpdate()
+    {
+        $validateAttributes = 
+        [
+            "nome" => "string|max:255",
+        ];
 
-return $validateAttributes;
-}
+        return $validateAttributes;
+    }
 }
 

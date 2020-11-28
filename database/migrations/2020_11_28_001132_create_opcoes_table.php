@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOpcaosTable extends Migration
+class CreateOpcoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateOpcaosTable extends Migration
      */
     public function up()
     {
-        Schema::create("opcaos", function (Blueprint $table) {
+        Schema::create("opcoes", function (Blueprint $table) {
             $table->id();
-            $table->integer("adicionalId");
-            $table->string("nome");
-            $table->string("descricao");
-            $table->string("imagem");
-            $table->boolean("disponivel");
-            $table->float("valor");
-            
+            $table->integer("produto_id");
+            $table->string("titulo");
+            $table->float("maximo");
+            $table->float("minimo");
             $table->timestamps();
         });
     }
@@ -33,7 +30,7 @@ class CreateOpcaosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("opcaos");
+        Schema::dropIfExists("opcoes");
     }
 }
 

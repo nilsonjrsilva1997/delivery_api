@@ -48,7 +48,7 @@ class UnidadeController extends Controller
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'taxa_entrega' => 'required|numeric',
-            'restauranteId' => 'required|integer|exists:restaurantes,id',
+            'restaurante_id' => 'required|integer|exists:restaurantes,id',
             'slug' => 'required|string|max:255',
         ]);
 
@@ -56,7 +56,9 @@ class UnidadeController extends Controller
         $validatedData['foto'] = $fileNameToStore;
         $validatedData['banner'] = $fileNameToStore2;
 
-        return Unidade::create($validatedData);
+        $unidade = Unidade::create($validatedData);
+
+        return response(["data" => $unidade,"message" => "Dados retornado com sucesso"], 200);
     }
 
     public function update(Request $request, $id)
@@ -66,7 +68,7 @@ class UnidadeController extends Controller
             'slug' => 'string|max:255',
             'foto' => 'date',
             'taxa_entrega' => 'numeric',
-            'restauranteId' => 'integer|exists:restaurantes,id',
+            'restaurante_id' => 'integer|exists:restaurantes,id',
             'slug' => 'string|max:255',
         ]);
 
@@ -80,7 +82,8 @@ class UnidadeController extends Controller
         if (!empty($unidade)) {
             $unidade->fill($validatedData);
             $unidade->save();
-            return $unidade;
+        
+            return response(["data" => $unidade,"message" => "Dados retornado com sucesso"], 200);
         } else {
             return response(['message' => 'Unidade não encontrado']);
         }

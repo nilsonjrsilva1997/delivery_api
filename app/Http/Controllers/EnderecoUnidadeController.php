@@ -32,7 +32,7 @@ class EnderecoUnidadeController extends Controller
             'rua' => 'required|string|max:255',
             'numero' => 'required|string|max:255',
             'complemento' => 'required|string|max:255',
-            'unidadeId' => 'required|integer|exists:unidades,id',
+            'unidade_id' => 'required|integer|exists:unidades,id',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ]);
@@ -50,7 +50,7 @@ class EnderecoUnidadeController extends Controller
             'rua' => 'string|max:255',
             'numero' => 'string|max:255',
             'complemento' => 'string|max:255',
-            'unidadeId' => 'integer|exists:unidades,id',
+            'unidade_id' => 'integer|exists:unidades,id',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ]);

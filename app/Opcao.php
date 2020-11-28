@@ -3,18 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Adicional;
+use App\Produto;
 
 class Opcao extends Model
 {
-    protected $table = "opcaos";
+    protected $table = "opcoes";
 
-    protected $fillable = ["adicionalId", "nome", "descricao", "imagem", "disponivel", "valor", ];
+    protected $fillable = ["produto_id", "titulo", "maximo", "minimo", ];
 
     // relacionamentos
-    public function adicional()
+    public function produto()
     {
-        return $this->belongsTo(Adicional::class, "adicionalId", "id");
+        return $this->belongsTo(Produto::class, "produto_id", "id");
     }
 }
-

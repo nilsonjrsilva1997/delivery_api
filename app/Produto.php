@@ -12,35 +12,25 @@ class Produto extends Model
 {
     protected $table = "produtos";
 
-    protected $fillable = ["nome", "quantidade", "descricao", "valorAnterior", "valorAtual", "unidadeId", "categoriaId", "foto",];
+    protected $fillable = ["nome", "quantidade", "descricao", "valor_anterior", "valor_atual", "unidade_id", "categoria_id", "foto",];
 
-    // relacionamentos
     public function unidade()
     {
-        return $this->belongsTo(Unidade::class, 'unidadeId', 'id');
+        return $this->belongsTo(Unidade::class, 'unidade_id', 'id');
     }
 
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'categoriaId', 'id');
+        return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
     }
-
-    // public function opcao_porcoes()
-    // {
-    //     return $this->hasMany(OpcaoPorcao::class, 'produtoId');
-    // }
 
     public function adicional()
     {
-        return $this->hasOne(Adicional::class, "produtoId");
+        return $this->hasMany(Adicional::class);
     }
 
-    // public static function validateProdutosId($id)
-    // {
-    //     if(Produto::count() == 0) {
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
+    public function opcao()
+    {
+        return $this->hasMany(Opcao::class);
+    }
 }

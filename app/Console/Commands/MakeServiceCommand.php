@@ -103,7 +103,7 @@ $campos_string_model = '';
 for($i=0; $i < count($campos); $i++) {
     $campo = [];
     if($i != 0) {        
-        $campo = (explode('_', $campos[$i]));
+        $campo = (explode('.', $campos[$i]));
         $campos_string_model .= '"'.$campo[1].'"' . ', ';
     }
 }
@@ -163,7 +163,7 @@ Route::prefix("'.strtolower($service).'")->group(function () {
         for($i=0; $i < count($campos); $i++) {
             $campo = [];
             if($i != 0) {
-                $campo = (explode('_', $campos[$i]));
+                $campo = (explode('.', $campos[$i]));
                 $campos_string .= '$table->'.$campo[0].'("'.$campo[1].'");' . '
             ';
             }
@@ -224,7 +224,7 @@ $campos_rules2 = '';
         $campo = [];
 
         if($i != 0) {
-            $campo = (explode('_', $campos[$i]));
+            $campo = (explode('.', $campos[$i]));
 
             if($campo[0] == 'float') {
                 $campos_rules .= '"'.$campo[1].'" => "required|numeric",
@@ -243,7 +243,7 @@ $campos_rules2 = '';
         }
 
         if($i != 0) {
-            $campo = (explode('_', $campos[$i]));
+            $campo = (explode('.', $campos[$i]));
 
             if($campo[0] == 'float') {
                 $campos_rules2 .= '"'.$campo[1].'" => "numeric",
@@ -271,25 +271,25 @@ namespace App\Http\Services;
 
 class ' .$service .'ValidateService
 {
-public function getValidateRulesCreate()
-{
-$validateAttributes = 
-[
-    '.$campos_rules.'
-];
+    public function getValidateRulesCreate()
+    {
+        $validateAttributes = 
+        [
+            '.$campos_rules.'
+        ];
 
-return $validateAttributes;
-}
+        return $validateAttributes;
+    }
 
-public function getValidateRulesUpdate()
-{
-$validateAttributes = 
-[
-    '.$campos_rules2.'
-];
+    public function getValidateRulesUpdate()
+    {
+        $validateAttributes = 
+        [
+            '.$campos_rules2.'
+        ];
 
-return $validateAttributes;
-}
+        return $validateAttributes;
+    }
 }
 
 ');

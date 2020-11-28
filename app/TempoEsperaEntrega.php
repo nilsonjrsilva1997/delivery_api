@@ -7,12 +7,12 @@ use App\Unidade;
 
 class TempoEsperaEntrega extends Model
 {
-    protected $fillable = ['tempo_minimo', 'tempo_maximo', 'unidadeId'];
+    protected $fillable = ['tempo_minimo', 'tempo_maximo', 'unidade_id'];
 
     protected $table = 'tempo_espera_entregas';
 
     public function unidade()
     {
-        return $this->belongsTo(Unidade::class, 'unidadeId', 'id');
+        return $this->belongsTo(Unidade::class, 'unidade_id', 'id');
     }
 }

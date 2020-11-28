@@ -10,17 +10,27 @@ class ProdutoController extends BaseController
 {
     public function index()
     {
-        $produtos = Produto::all();
+        $produto = Produto::with('categoria')
+        ->with('adicional')
+        ->with('opcao')
+        ->get(); 
 
-        foreach($produtos as $key => $produto) {
-            $produtos[$key]->categoria = $produto->categoria;
-            $adicional = $produto->adicional;
-            $adicional->opcoes = $adicional->opcoes;
-            $produtos[$key]->adicional = $adicional;
+        return response(["message" => "Dados retornados com sucesso", "data" => $produto], 200);
+    }
+    
+    public function show($id)
+    {
+        $produto = Produto::find($id)
+        ->with('categoria')
+        ->with('adicional')
+        ->with('opcao')
+        ->get();
+
+        if(!empty($produto)) {
+            return response(["message" => "Dados retornados com sucesso", "data" => $produto], 200);
+        } else {
+            return reponse(["message" => "Produto não encontrado"], 422);
         }
-
-        return response(['data' => $produtos, 'message' => 'Dados retornados com sucesso']);
-
     }
 
     public function create(Request $request)

@@ -8,7 +8,9 @@ class PedidoValidateService
     {
         $validateAttributes = 
         [
-            "produto_id" => "required|integer|exists:produtos,id",
+            "valor_total" => "required|numeric",
+            "user_id" => "required|integer|exists:users,id",
+            "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
         ];
 
         return $validateAttributes;
@@ -18,7 +20,9 @@ class PedidoValidateService
     {
         $validateAttributes = 
         [
-            "produto_id" => "integer|exists:produtos,id",
+            "valor_total" => "numeric",
+            "user_id" => "integer|exists:users,id",
+            "enderecos_entrega_id" => "integer|exists:enderecos_entrega,id",
         ];
 
         return $validateAttributes;

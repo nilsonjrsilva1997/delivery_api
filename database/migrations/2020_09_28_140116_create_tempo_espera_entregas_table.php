@@ -17,7 +17,7 @@ class CreateTempoEsperaEntregasTable extends Migration
             $table->id();
             $table->time('tempo_minimo');
             $table->time('tempo_maximo');
-            $table->integer('unidadeId');
+            $table->integer('unidade_id');
             $table->timestamps();
         });
     }

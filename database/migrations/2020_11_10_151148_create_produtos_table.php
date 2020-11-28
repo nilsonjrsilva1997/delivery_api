@@ -18,10 +18,10 @@ class CreateProdutosTable extends Migration
             $table->string("nome");
             $table->integer("quantidade");
             $table->string("descricao");
-            $table->float("valorAnterior");
-            $table->float("valorAtual");
-            $table->integer("unidadeId");
-            $table->integer("categoriaId");
+            $table->float("valor_anterior");
+            $table->float("valor_atual");
+            $table->integer("unidade_id");
+            $table->integer("categoria_id");
             $table->string("foto");
             $table->timestamps();
         });

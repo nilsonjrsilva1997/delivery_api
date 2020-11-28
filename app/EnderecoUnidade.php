@@ -7,13 +7,13 @@ use App\Unidade;
 
 class EnderecoUnidade extends Model
 {
-    protected $fillable = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numero', 'complemento', 'unidadeId', 'lat', 'lng'];
+    protected $fillable = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numero', 'complemento', 'unidade_id', 'lat', 'lng'];
 
     protected $table = 'endereco_unidades';
 
 
     public function unidade()
     {
-        return $this->belongsTo(Unidade::class, 'unidadeId', 'id');
+        return $this->belongsTo(Unidade::class, 'unidade_id', 'id');
     }
 }

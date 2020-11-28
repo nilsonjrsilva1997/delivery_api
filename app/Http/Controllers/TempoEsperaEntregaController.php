@@ -27,7 +27,7 @@ class TempoEsperaEntregaController extends Controller
         $validatedData = $request->validate([
             'tempo_minimo' => 'required|date_format:H:i',
             'tempo_maximo' => 'required|date_format:H:i',
-            'unidadeId' => 'required|integer|exists:unidades,id',
+            'unidade_id' => 'required|integer|exists:unidades,id',
         ]);
 
         return TempoEsperaEntrega::create($validatedData);
@@ -38,7 +38,7 @@ class TempoEsperaEntregaController extends Controller
         $validatedData = $request->validate([
             'tempo_minimo' => 'date_format:H:i',
             'tempo_maximo' => 'date_format:H:i',
-            'unidadeId' => 'integer|exists:unidades,id',
+            'unidade_id' => 'integer|exists:unidades,id',
         ]);
 
         $tempoEspera = TempoEsperaEntrega::find($id);

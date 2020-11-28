@@ -56,14 +56,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', 'FormaPagamentoController@destroy');
     });
 
-    // Route::prefix('opcao_porcao')->group(function () {
-    //     Route::get('/', 'OpcaoPorcaoController@index');
-    //     Route::get('show/{id}', 'OpcaoPorcaoController@show');
-    //     Route::post('create', 'OpcaoPorcaoController@create');
-    //     Route::put('update/{id}', 'OpcaoPorcaoController@update');
-    //     Route::delete('destroy/{id}', 'OpcaoPorcaoController@destroy');
-    // });
-
     Route::prefix('produto')->group(function () {
         Route::get('/', 'FormaPagamentoController@index');
         Route::get('show/{id}', 'FormaPagamentoController@show');
@@ -157,15 +149,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "AdicionalController@destroy");
     });
 
-
-    Route::prefix("opcao")->group(function () {
-        Route::get("/", "OpcaoController@index");
-        Route::get("show/{id}", "OpcaoController@show");
-        Route::post("create", "OpcaoController@create");
-        Route::put("update/{id}", "OpcaoController@update");
-        Route::delete("destroy/{id}", "OpcaoController@destroy");
-    });
-
     Route::prefix("restaurante")->group(function () {
         Route::get("/", "RestauranteController@index");
         Route::get("show/{id}", "RestauranteController@show");
@@ -183,11 +166,33 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "EnderecoEntregaController@destroy");
     });
 
+    Route::prefix("opcao")->group(function () {
+        Route::get("/", "OpcaoController@index");
+        Route::get("show/{id}", "OpcaoController@show");
+        Route::post("create", "OpcaoController@create");
+        Route::put("update/{id}", "OpcaoController@update");
+        Route::delete("destroy/{id}", "OpcaoController@destroy");
+    });
+
+    Route::prefix("adicionais")->group(function () {
+        Route::get("/", "AdicionaisController@index");
+        Route::get("show/{id}", "AdicionaisController@show");
+        Route::post("create", "AdicionaisController@create");
+        Route::put("update/{id}", "AdicionaisController@update");
+        Route::delete("destroy/{id}", "AdicionaisController@destroy");
+    });
+
+    Route::prefix("pedido")->group(function () {
+        Route::get("/", "PedidoController@index");
+        Route::get("show/{id}", "PedidoController@show");
+        Route::post("create", "PedidoController@create");
+        Route::put("update/{id}", "PedidoController@update");
+        Route::delete("destroy/{id}", "PedidoController@destroy");
+    });
+
     Route::prefix("pedido")->group(function () {
         Route::post("/fazer_pedido", "PedidoController@fazerPedido");
     });
-
-    
 });
 
 Route::get("/{apelido}", "UnidadeRestauranteController@byApelido");

@@ -22,7 +22,7 @@ class CreateEnderecoUnidadesTable extends Migration
             $table->string('rua');
             $table->string('numero');
             $table->string('complemento');
-            $table->integer('unidadeId');
+            $table->integer('unidade_id');
             $table->decimal("lat", 9, 6);
             $table->decimal("lng", 9, 6);
             $table->timestamps();

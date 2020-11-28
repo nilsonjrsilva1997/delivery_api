@@ -27,7 +27,7 @@ class HorarioFuncionamentoController extends Controller
         $validatedData = $request->validate([
             'abertura' => 'required|date_format:H:i',
             'fechamento' => 'required|date_format:H:i',
-            'unidadeId' => 'required|integer|exists:unidades,id',
+            'unidade_id' => 'required|integer|exists:unidades,id',
         ]);
 
         return HorarioFuncionamento::create($validatedData);
@@ -38,7 +38,7 @@ class HorarioFuncionamentoController extends Controller
         $validatedData = $request->validate([
             'abertura' => 'date_format:H:i',
             'fechamento' => 'date_format:H:i',
-            'unidadeId' => 'integer|exists:unidades,id',
+            'unidade_id' => 'integer|exists:unidades,id',
         ]);
 
         $horarioFuncionamento = HorarioFuncionamento::find($id);

@@ -11,11 +11,10 @@ class ProdutoValidateService
                 "nome" => "required|string|max:255",
                 "quantidade" => "required|integer",
                 "descricao" => "required|string|max:255",
-                "valorAnterior" => "required|numeric",
-                "valorAtual" => "required|numeric",
-                "unidadeId" => "required|integer|exists:unidades,id",
-                "categoriaId" => "required|integer|exists:categorias,id",
-                // 'foto' => 'required|image|mimes:jpeg,png,jpg',
+                "valor_anterior" => "required|numeric",
+                "valor_atual" => "required|numeric",
+                "unidade_id" => "required|integer|exists:unidades,id",
+                "categoria_id" => "required|integer|exists:categorias,id",
             ];
 
         return $validateAttributes;
@@ -28,11 +27,10 @@ class ProdutoValidateService
                 "nome" => "string|max:255",
                 "quantidade" => "integer",
                 "descricao" => "string|max:255",
-                "valorAnterior" => "numeric",
-                "valorAtual" => "numeric",
-                "unidadeId" => "integer",
-                "categoriaId" => "integer",
-                // 'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                "valor_anterior" => "numeric",
+                "valor_atual" => "numeric",
+                "unidade_id" => "integer|exists:unidades,id",
+                "categoria_id" => "integer|exists:categorias,id",
             ];
 
         return $validateAttributes;

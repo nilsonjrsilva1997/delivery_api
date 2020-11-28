@@ -17,7 +17,7 @@ class CreateHorarioFuncionamentosTable extends Migration
             $table->id();
             $table->time('abertura');
             $table->time('fechamento');
-            $table->integer('unidadeId');
+            $table->integer('unidade_id');
             $table->timestamps();
         });
     }
