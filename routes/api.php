@@ -190,6 +190,22 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "PedidoController@destroy");
     });
 
+    Route::prefix("produto_pedido")->group(function () {
+        Route::get("/", "ProdutoPedidoController@index");
+        Route::get("show/{id}", "ProdutoPedidoController@show");
+        Route::post("create", "ProdutoPedidoController@create");
+        Route::put("update/{id}", "ProdutoPedidoController@update");
+        Route::delete("destroy/{id}", "ProdutoPedidoController@destroy");
+    });
+
+    Route::prefix("pedido_adicional")->group(function () {
+        Route::get("/", "PedidoAdicionalController@index");
+        Route::get("show/{id}", "PedidoAdicionalController@show");
+        Route::post("create", "PedidoAdicionalController@create");
+        Route::put("update/{id}", "PedidoAdicionalController@update");
+        Route::delete("destroy/{id}", "PedidoAdicionalController@destroy");
+    });
+
     Route::prefix("pedido")->group(function () {
         Route::post("/fazer_pedido", "PedidoController@fazerPedido");
     });

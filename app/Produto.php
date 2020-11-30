@@ -7,6 +7,7 @@ use App\Categoria;
 use App\Unidade;
 use App\Adicional;
 use App\Pedido;
+use App\ProdutoPedido;
 
 class Produto extends Model
 {
@@ -32,5 +33,10 @@ class Produto extends Model
     public function opcao()
     {
         return $this->hasMany(Opcao::class);
+    }
+
+    public function produto_pedido()
+    {
+        return $this->hasMany(ProdutoPedido::class);
     }
 }

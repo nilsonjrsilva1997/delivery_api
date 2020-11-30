@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnderecoTestesTable extends Migration
+class CreatePivotPedidosAdicionaisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateEnderecoTestesTable extends Migration
      */
     public function up()
     {
-        Schema::create("enderecotestes", function (Blueprint $table) {
+        Schema::create("pivot_pedidos_adicionais", function (Blueprint $table) {
             $table->id();
-            $table->string("cep");
-            $table->string("rua");
-            $table->string("estado");
-            $table->string("cidade");
-            $table->integer("numero");
-            
+            $table->integer("adicional_id");
+            $table->integer("produto_pedido_id");
+            $table->float("valor_atual");
+            $table->string("nome");
+            $table->string("descricao");
             $table->timestamps();
         });
     }
@@ -32,8 +31,6 @@ class CreateEnderecoTestesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("enderecotestes");
+        Schema::dropIfExists("pivot_pedidos_adicionais");
     }
 }
-
-

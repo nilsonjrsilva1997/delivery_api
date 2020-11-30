@@ -189,6 +189,10 @@ return [
     */
 
     'aliases' => [
+        'PedidoAdicional' => App\PedidoAdicional::class,
+        'PedidoAdicionalValidateService' => App\Http\Services\PedidoAdicionalValidateService::class,
+        'ProdutoPedido' => App\ProdutoPedido::class,
+        'ProdutoPedidoValidateService' => App\Http\Services\ProdutoPedidoValidateService::class,
         'Pedido' => App\Pedido::class,
         'PedidoValidateService' => App\Http\Services\PedidoValidateService::class,
         'Adicional' => App\Adicional::class,

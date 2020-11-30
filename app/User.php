@@ -47,9 +47,8 @@ class User extends Authenticatable
         return $this->hasMany(EnderecoEntrega::class);
     }
 
-    // public function pedido_logs()
-    // {
-    //     return $this->hasMany(PedidoLog::class);
-    // }
-
+    public function pedido()
+    {
+        return $this->hasMany(Pedido::class);
+    }
 }

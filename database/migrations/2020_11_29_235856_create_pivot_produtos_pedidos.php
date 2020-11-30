@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRestauranteTestesTable extends Migration
+class CreatePivotProdutosPedidos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateRestauranteTestesTable extends Migration
      */
     public function up()
     {
-        Schema::create("restaurantetestes", function (Blueprint $table) {
+        Schema::create("pivot_produtos_pedidos", function (Blueprint $table) {
             $table->id();
-            $table->integer("endereco");
+            $table->integer("pedido_id");
+            $table->integer("produto_id");
+            $table->float("valor_atual");
             $table->string("nome");
-            $table->string("contato");
-            
+            $table->string("descricao");
             $table->timestamps();
         });
     }
@@ -30,8 +31,6 @@ class CreateRestauranteTestesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("restaurantetestes");
+        Schema::dropIfExists("pivot_produtos_pedidos");
     }
 }
-
-
