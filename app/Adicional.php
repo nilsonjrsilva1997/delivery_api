@@ -10,11 +10,16 @@ class Adicional extends Model
 {
     protected $table = "adicionais";
 
-    protected $fillable = ["produto_id", "titulo", "maximo", "minimo", ];
+    protected $fillable = ["produto_id", "titulo", "maximo", "minimo",];
 
     // relacionamentos
     public function produto()
     {
         return $this->belongsTo(Produto::class, "produto_id", "id");
+    }
+
+    public function opcoes()
+    {
+        return $this->hasMany(Opcao::class, "adicional_id", "id");
     }
 }

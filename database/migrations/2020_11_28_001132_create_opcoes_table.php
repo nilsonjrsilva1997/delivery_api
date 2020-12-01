@@ -15,7 +15,7 @@ class CreateOpcoesTable extends Migration
     {
         Schema::create("opcoes", function (Blueprint $table) {
             $table->id();
-            $table->integer("produto_id");
+            $table->integer("adicional_id");
             $table->string("titulo");
             $table->float("maximo");
             $table->float("minimo");
@@ -33,5 +33,3 @@ class CreateOpcoesTable extends Migration
         Schema::dropIfExists("opcoes");
     }
 }
-
-
