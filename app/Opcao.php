@@ -9,7 +9,7 @@ class Opcao extends Model
 {
     protected $table = "opcoes";
 
-    protected $fillable = ["adicional_id", "titulo", "maximo", "minimo",];
+    protected $fillable = ["adicional_id", "titulo", "descricao", "disponivel", "valor", "imagem", "maximo", "minimo"];
 
     // relacionamentos
     public function adicional()

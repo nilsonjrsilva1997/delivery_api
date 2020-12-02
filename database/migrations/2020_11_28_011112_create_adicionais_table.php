@@ -17,8 +17,8 @@ class CreateAdicionaisTable extends Migration
             $table->id();
             $table->integer("produto_id");
             $table->string("titulo");
-            $table->float("maximo");
-            $table->float("minimo");
+            $table->integer("maximo");
+            $table->integer("minimo");
             $table->timestamps();
         });
     }
@@ -33,5 +33,3 @@ class CreateAdicionaisTable extends Migration
         Schema::dropIfExists("adicionais");
     }
 }
-
-

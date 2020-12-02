@@ -17,6 +17,10 @@ class CreateOpcoesTable extends Migration
             $table->id();
             $table->integer("adicional_id");
             $table->string("titulo");
+            $table->string("descricao");
+            $table->boolean("disponivel");
+            $table->decimal("valor", 9, 2);
+            $table->string("imagem");
             $table->float("maximo");
             $table->float("minimo");
             $table->timestamps();
