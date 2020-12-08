@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Produto;
+use App\PedidoAdicionalOpcao;
 
 class Opcao extends Model
 {
@@ -15,5 +16,10 @@ class Opcao extends Model
     public function produto()
     {
         return $this->belongsTo(Produto::class, "produto_id", "id");
+    }
+
+    public function pedido_adicional_opcao()
+    {
+        return $this->hasMany(PedidoAdicionalOpcao::class);
     }
 }

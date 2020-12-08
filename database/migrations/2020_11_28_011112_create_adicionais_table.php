@@ -17,6 +17,7 @@ class CreateAdicionaisTable extends Migration
             $table->id();
             $table->integer("produto_id");
             $table->string("titulo");
+            $table->float("valor");
             $table->float("maximo");
             $table->float("minimo");
             $table->timestamps();

@@ -189,6 +189,8 @@ return [
     */
 
     'aliases' => [
+        'PedidoAdicionalOpcao' => App\PedidoAdicionalOpcao::class,
+        'PedidoAdicionalOpcaoValidateService' => App\Http\Services\PedidoAdicionalOpcaoValidateService::class,
         'PedidoAdicional' => App\PedidoAdicional::class,
         'PedidoAdicionalValidateService' => App\Http\Services\PedidoAdicionalValidateService::class,
         'ProdutoPedido' => App\ProdutoPedido::class,

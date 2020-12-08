@@ -12,6 +12,7 @@ class AdicionalValidateService
             "titulo" => "required|string|max:255",
             "maximo" => "required|numeric",
             "minimo" => "required|numeric",
+            "valor" => "required|numeric",
         ];
 
         return $validateAttributes;
@@ -25,6 +26,7 @@ class AdicionalValidateService
             "titulo" => "string|max:255",
             "maximo" => "numeric",
             "minimo" => "numeric",
+            "valor" => "numeric",
         ];
 
         return $validateAttributes;

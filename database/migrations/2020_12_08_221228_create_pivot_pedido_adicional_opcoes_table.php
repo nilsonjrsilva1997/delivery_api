@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePivotPedidosAdicionaisTable extends Migration
+class CreatePivotPedidoAdicionalOpcoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreatePivotPedidosAdicionaisTable extends Migration
      */
     public function up()
     {
-        Schema::create("pivot_pedidos_adicionais", function (Blueprint $table) {
+        Schema::create("pivot_pedido_adicional_opcoes", function (Blueprint $table) {
             $table->id();
-            $table->integer("adicional_id");
-            $table->integer("produto_pedido_id");
-            $table->string("titulo");
+            $table->integer("opcao_id");
+            $table->integer("pedido_adicional_id");
             $table->timestamps();
         });
     }
@@ -29,6 +28,8 @@ class CreatePivotPedidosAdicionaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("pivot_pedidos_adicionais");
+        Schema::dropIfExists("pivot_pedido_adicional_opcoes");
     }
 }
+
+

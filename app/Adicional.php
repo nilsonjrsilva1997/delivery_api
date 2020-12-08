@@ -10,7 +10,7 @@ class Adicional extends Model
 {
     protected $table = "adicionais";
 
-    protected $fillable = ["produto_id", "titulo", "maximo", "minimo", ];
+    protected $fillable = ["produto_id", "titulo", "maximo", "minimo", "valor"];
 
     // relacionamentos
     public function produto()
