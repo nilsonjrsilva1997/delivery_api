@@ -9,6 +9,8 @@ use App\HorarioFuncionamento;
 use App\SobreNos;
 use App\Restaurante;
 use App\Produto;
+use App\ConfigEntrega;
+use App\HorarioFuncionamentoDelivery;
 
 class Unidade extends Model
 {
@@ -26,10 +28,10 @@ class Unidade extends Model
         return $this->hasOne(TempoEsperaEntrega::class, 'unidade_id', 'id');
     }
 
-    public function horario_funcionamento()
-    {
-        return $this->hasOne(HorarioFuncionamento::class, 'unidade_id', 'id');
-    }
+    // public function horario_funcionamento()
+    // {
+    //     return $this->hasOne(HorarioFuncionamento::class, 'unidade_id', 'id');
+    // }
 
     public function sobre_nos()
     {
@@ -44,5 +46,15 @@ class Unidade extends Model
     public function restaurante()
     {
         return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
+    }
+    
+    public function config_entrega()
+    {
+        return $this->hasOne(ConfigEntrega::class);
+    }
+
+    public function horario_funcionamento()
+    {
+        return $this->hasMany(HorarioFuncionamentoDelivery::class);
     }
 }

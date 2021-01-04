@@ -8,6 +8,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Pedido;
 use App\EnderecoEntrega;
+use App\Resposta;
+use App\Entregador;
+use App\DadosEmpresa;
 
 class User extends Authenticatable
 {
@@ -50,5 +53,20 @@ class User extends Authenticatable
     public function pedido()
     {
         return $this->hasMany(Pedido::class);
+    }
+
+    public function resposta()
+    {
+        return $this->hasMany(Resposta::class);
+    }
+
+    public function entregador()
+    {
+        return $this->hasMany(Entregador::class);
+    }
+
+    public function dados_empresa()
+    {
+        return $this->hasOne(DadosEmpresa::class);
     }
 }

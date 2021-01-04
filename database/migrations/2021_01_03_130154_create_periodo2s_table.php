@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCupomDescontosTable extends Migration
+class CreatePeriodo2sTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateCupomDescontosTable extends Migration
      */
     public function up()
     {
-        Schema::create("cupomdescontos", function (Blueprint $table) {
+        Schema::create("periodo2s", function (Blueprint $table) {
             $table->id();
-            $table->enum("prefixo", ["PORCENTAGEM", 'DINHEIRO']);
-            $table->float("valor");
-            $table->date("data");
-            $table->string("codigo");
-            $table->boolean("umCliente");
+            $table->string("hora_inicial");
+            $table->string("hora_final");
+            $table->integer("dia_semana_id");
             
             $table->timestamps();
         });
@@ -32,7 +30,7 @@ class CreateCupomDescontosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("cupomdescontos");
+        Schema::dropIfExists("periodo2s");
     }
 }
 

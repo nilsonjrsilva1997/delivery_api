@@ -13,7 +13,7 @@ class PedidoAdicionalOpcao extends Model
     protected $fillable = ["opcao_id", "pedido_adicional_id", ];
 
     // relacionamentos
-    public function  opcoes()
+    public function opcoes()
     {
         return $this->belongsTo(Opcao::class, "opcao_id", "id");
     }

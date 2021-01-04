@@ -213,9 +213,106 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put("update/{id}", "PedidoAdicionalOpcaoController@update");
         Route::delete("destroy/{id}", "PedidoAdicionalOpcaoController@destroy");
     });
+
+    Route::prefix("pergunta")->group(function () {
+        Route::get("/", "PerguntaController@index");
+        Route::get("show/{id}", "PerguntaController@show");
+        Route::post("create", "PerguntaController@create");
+        Route::put("update/{id}", "PerguntaController@update");
+        Route::delete("destroy/{id}", "PerguntaController@destroy");
+    });
+
+    Route::prefix("pesquisa")->group(function() {
+        Route::post("/criar_pesquisa", "PesquisaSatisfacaoController@criarPesquisa");
+    });
     
     Route::prefix("pedido")->group(function () {
         Route::post("/fazer_pedido", "PedidoController@fazerPedido");
+    });
+
+    Route::prefix("extrato")->group(function () {
+        Route::get("/", "ExtratoController@getData");
+    });
+
+    Route::prefix("entregador")->group(function () {
+        Route::get("/", "EntregadorController@index");
+        Route::get("show/{id}", "EntregadorController@show");
+        Route::post("create", "EntregadorController@create");
+        Route::put("update/{id}", "EntregadorController@update");
+        Route::delete("destroy/{id}", "EntregadorController@destroy");
+    });
+
+    Route::prefix("dados_empresa")->group(function () {
+        Route::get("/", "DadosEmpresaController@index");
+        Route::get("show/{id}", "DadosEmpresaController@show");
+        Route::post("create", "DadosEmpresaController@create");
+        Route::put("update/{id}", "DadosEmpresaController@update");
+        Route::delete("destroy/{id}", "DadosEmpresaController@destroy");
+    });
+
+    Route::prefix("config_entrega")->group(function () {
+        Route::get("/", "ConfigEntregaController@index");
+        Route::get("show/{id}", "ConfigEntregaController@show");
+        Route::post("create", "ConfigEntregaController@create");
+        Route::put("update/{id}", "ConfigEntregaController@update");
+        Route::delete("destroy/{id}", "ConfigEntregaController@destroy");
+    });
+
+    Route::prefix("area_entrega")->group(function () {
+        Route::get("/", "AreaEntregaController@index");
+        Route::get("show/{id}", "AreaEntregaController@show");
+        Route::post("create", "AreaEntregaController@create");
+        Route::put("update/{id}", "AreaEntregaController@update");
+        Route::delete("destroy/{id}", "AreaEntregaController@destroy");
+    });
+
+    Route::prefix("cupom_desconto")->group(function () {
+        Route::get("/", "CupomDescontoController@index");
+        Route::get("show/{id}", "CupomDescontoController@show");
+        Route::post("create", "CupomDescontoController@create");
+        Route::put("update/{id}", "CupomDescontoController@update");
+        Route::delete("destroy/{id}", "CupomDescontoController@destroy");
+    });
+
+    
+    Route::prefix("dias_semana")->group(function () {
+        Route::get("/", "DiasSemanaHorarioDeliveryController@index");
+        Route::get("show/{id}", "DiasSemanaHorarioDeliveryController@show");
+        Route::post("create", "DiasSemanaHorarioDeliveryController@create");
+        Route::put("update/{id}", "DiasSemanaHorarioDeliveryController@update");
+        Route::delete("destroy/{id}", "DiasSemanaHorarioDeliveryController@destroy");
+    });
+
+    Route::prefix("periodo1")->group(function () {
+        Route::get("/", "Periodo1Controller@index");
+        Route::get("show/{id}", "Periodo1Controller@show");
+        Route::post("create", "Periodo1Controller@create");
+        Route::put("update/{id}", "Periodo1Controller@update");
+        Route::delete("destroy/{id}", "Periodo1Controller@destroy");
+    });
+
+    Route::prefix("periodo2")->group(function () {
+        Route::get("/", "Periodo2Controller@index");
+        Route::get("show/{id}", "Periodo2Controller@show");
+        Route::post("create", "Periodo2Controller@create");
+        Route::put("update/{id}", "Periodo2Controller@update");
+        Route::delete("destroy/{id}", "Periodo2Controller@destroy");
+    });
+
+    Route::prefix("fuso_horario")->group(function () {
+        Route::get("/", "FusoHorarioController@index");
+        Route::get("show/{id}", "FusoHorarioController@show");
+        Route::post("create", "FusoHorarioController@create");
+        Route::put("update/{id}", "FusoHorarioController@update");
+        Route::delete("destroy/{id}", "FusoHorarioController@destroy");
+    });
+
+    Route::prefix("horario_funcionamento_delivery")->group(function () {
+        Route::get("/", "HorarioFuncionamentoDeliveryController@index");
+        Route::get("show/{id}", "HorarioFuncionamentoDeliveryController@show");
+        Route::post("create", "HorarioFuncionamentoDeliveryController@create");
+        Route::put("update/{id}", "HorarioFuncionamentoDeliveryController@update");
+        Route::delete("destroy/{id}", "HorarioFuncionamentoDeliveryController@destroy");
     });
 });
 

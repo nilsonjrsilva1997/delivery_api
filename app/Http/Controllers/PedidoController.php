@@ -64,7 +64,6 @@ class PedidoController extends BaseController
         $pedido = Pedido::create($validatedData);
 
         // criando produto pedido
-
         foreach($request->produtos as $produto) {
             $produtoBd = Produto::find($produto["id"]);
 
