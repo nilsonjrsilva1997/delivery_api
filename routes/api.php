@@ -228,6 +228,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     
     Route::prefix("pedido")->group(function () {
         Route::post("/fazer_pedido", "PedidoController@fazerPedido");
+        Route::get("/index", "PedidoController@index");
+        Route::put("/update_status_pedido/{id}", "PedidoController@updateStatusPedido");
+        Route::get("/show/{id}", "PedidoController@show");
     });
 
     Route::prefix("extrato")->group(function () {
@@ -313,6 +316,10 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post("create", "HorarioFuncionamentoDeliveryController@create");
         Route::put("update/{id}", "HorarioFuncionamentoDeliveryController@update");
         Route::delete("destroy/{id}", "HorarioFuncionamentoDeliveryController@destroy");
+    });
+
+    Route::prefix("estatistica")->group(function () {
+        Route::get("/receita_dia", "EstatiscaController@receitaDia");
     });
 });
 

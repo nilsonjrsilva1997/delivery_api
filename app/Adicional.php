@@ -17,4 +17,9 @@ class Adicional extends Model
     {
         return $this->belongsTo(Produto::class, "produto_id", "id");
     }
+
+    public function opcoes()
+    {
+        return $this->hasMany(Opcao::class, "adicional_id", "id");
+    }
 }

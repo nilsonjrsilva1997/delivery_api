@@ -10,12 +10,12 @@ class Opcao extends Model
 {
     protected $table = "opcoes";
 
-    protected $fillable = ["produto_id", "titulo", "maximo", "minimo", ];
+    protected $fillable = ["adicional_id", "titulo", "descricao", "disponivel", "valor", "imagem", "maximo", "minimo"];
 
     // relacionamentos
-    public function produto()
+    public function adicional()
     {
-        return $this->belongsTo(Produto::class, "produto_id", "id");
+        return $this->belongsTo(Adicional::class, "adicional_id", "id");
     }
 
     public function pedido_adicional_opcao()

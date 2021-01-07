@@ -14,6 +14,6 @@ class Restaurante extends Model
     // relacionamentos
     public function unidade()
     {
-        return $this->hasMany(Unidade::class, 'restauranteId');
+        return $this->hasMany(Unidade::class, 'restaurante_id');
     }
 }

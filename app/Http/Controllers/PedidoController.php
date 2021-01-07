@@ -16,23 +16,37 @@ class PedidoController extends BaseController
 {
     public function index()
     {
-        $pedidos = Pedido::with("usuario")
-        ->with("enderecos_entrega")
-        ->get();
-
-        if(!empty($pedidos)) {
-            return response(["data" => $pedidos, "message" => "Pedidos retornados com sucesso"], 200);
-        } else {
-            return response(["message" => "Nenhum registro encontrado"]);
-        }
+        return Pedido::with("produto_pedido")
+                        ->with("usuario")
+                        ->with("usuario.endereco_entrega")
+                        ->with("produto_pedido.produto")
+                        ->with("produto_pedido.produto.categoria")
+                        ->with("produto_pedido.produto.unidade")
+                        ->with("produto_pedido.produto.unidade.restaurante")
+                        ->with("produto_pedido.pedido_adicional")
+                        ->with("produto_pedido.pedido_adicional.adicional")
+                        ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
+                        ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
+                        ->with("enderecos_entrega")
+                        ->get();
     }
 
     public function show($id)
     {
-        $pedido = Pedido::with("usuario")
-                            ->with("enderecos_entrega")
-                            ->where(["id" => $id])
-                            ->first();
+       return Pedido::with("produto_pedido")
+                        ->with("usuario")
+                        ->with("usuario.endereco_entrega")
+                        ->with("produto_pedido.produto")
+                        ->with("produto_pedido.produto.categoria")
+                        ->with("produto_pedido.produto.unidade")
+                        ->with("produto_pedido.produto.unidade.restaurante")
+                        ->with("produto_pedido.pedido_adicional")
+                        ->with("produto_pedido.pedido_adicional.adicional")
+                        ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
+                        ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
+                        ->with("enderecos_entrega")
+                        ->where(["id" => $id])
+                        ->first();
 
         if(!empty($pedido)) {
             return response(["data" => $pedido, "message" => "Pedido retornado com sucesso"]);
@@ -50,11 +64,29 @@ class PedidoController extends BaseController
         return response(["data" => $pedido, "message" => "Pedido inserido com sucesso"]);
     }
 
+    public function updateStatusPedido(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'status_pedido' => 'in:EM_ANALISE,EM_TRANSITO,REPROVADO,APROVADO,PREPARANDO',
+        ]);
+
+        $pedido = Pedido::find($id);
+
+        if(!empty($pedido)) {
+            $pedido->fill($validatedData);
+            $pedido->save();
+            return $pedido;
+        } else {
+            return response(['message' => 'Pedido não encontrado']);
+        }
+    }
+
     public function fazerPedido(Request $request)
     {
         // criando pedido
         $validatedData = $request->validate([
             "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
+            "status_pedido" => "required|in:EM_ANALISE",
         ]);
 
         $validatedData["user_id"] = \Auth::id();

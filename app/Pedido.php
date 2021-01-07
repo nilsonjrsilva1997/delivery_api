@@ -10,7 +10,7 @@ class Pedido extends Model
 {
     protected $table = "pedidos";
 
-    protected $fillable = ["valor_total", "user_id", "enderecos_entrega_id", ];
+    protected $fillable = ["valor_total", "user_id", "enderecos_entrega_id", "status_pedido"];
 
     // relacionamentos
     public function usuario()

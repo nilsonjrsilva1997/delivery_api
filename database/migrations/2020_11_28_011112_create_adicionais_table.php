@@ -34,5 +34,3 @@ class CreateAdicionaisTable extends Migration
         Schema::dropIfExists("adicionais");
     }
 }
-
-
