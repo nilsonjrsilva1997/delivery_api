@@ -319,7 +319,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::prefix("estatistica")->group(function () {
-        Route::get("/receita_dia", "EstatiscaController@receitaDia");
+        Route::get("/receita_dia", "EstatisticaController@receitaDia"); 
+        Route::get("/num_pedidos_dia", "EstatisticaController@pedidosPorDia");
     });
 });
 
