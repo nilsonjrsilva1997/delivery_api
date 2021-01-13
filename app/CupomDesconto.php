@@ -15,5 +15,10 @@ class CupomDesconto extends Model
     {
         return $this->belongsTo(Unidade::class, "unidade_id", "id");
     }
+
+    public function pedido()
+    {
+        return $this->hasMany(Pedido::class);
+    }
 }
 

@@ -11,6 +11,7 @@ use App\Adicional;
 use App\PedidoAdicional;
 use App\Opcao;
 use App\PedidoAdicionalOpcao;
+use App\CupomDesconto;
 
 class PedidoController extends BaseController
 {
@@ -28,6 +29,7 @@ class PedidoController extends BaseController
                         ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
                         ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
                         ->with("enderecos_entrega")
+                        ->with("cupom_desconto")
                         ->get();
     }
 
@@ -45,6 +47,7 @@ class PedidoController extends BaseController
                         ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
                         ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
                         ->with("enderecos_entrega")
+                        ->with("cupom_desconto")
                         ->where(["id" => $id])
                         ->first();
 
@@ -88,6 +91,8 @@ class PedidoController extends BaseController
             "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
             "status_pedido" => "required|in:EM_ANALISE",
         ]);
+
+        $cupomDesconto = CupomDesconto::where(["codigo" => $request->cupom_desconto])->get();
 
         $validatedData["user_id"] = \Auth::id();
         $validatedData["valor_total"] = 12; // calcular depois
