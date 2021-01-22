@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Periodo1;
+use App\Periodo;
 
-class Periodo1Controller extends BaseController
+class PeriodoController extends BaseController
 {
-   
+
 }

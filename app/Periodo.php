@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\DiasSemanaHorarioDelivery;
 use App\HorarioFuncionamentoDelivery;
 
-class Periodo2 extends Model
+class Periodo extends Model
 {
-    protected $table = "periodo2s";
+    protected $table = "periodos";
 
     protected $fillable = ["hora_inicial", "hora_final", "dia_semana_id", ];
 

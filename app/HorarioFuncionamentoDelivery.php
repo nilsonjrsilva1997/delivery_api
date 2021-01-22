@@ -3,8 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Periodo1;
-use App\Periodo2;
+use App\Periodo;
 use App\Unidade;
 use App\FusoHorario;
 
@@ -15,14 +14,9 @@ class HorarioFuncionamentoDelivery extends Model
     protected $fillable = ["period1_id", "periodo2_id", "unidade_id", "pedidos_agendados", "fuso_horario_id", ];
 
     // relacionamentos
-    public function periodo1()
+    public function periodo()
     {
-        return $this->belongsTo(Periodo1::class, "periodo1_id", "id");
-    }
-
-    public function periodo2()
-    {
-        return $this->belongsTo(Periodo2::class, "periodo2_id", "id");
+        return $this->belongsTo(Periodo::class, "periodo_id", "id");
     }
 
     public function unidade()

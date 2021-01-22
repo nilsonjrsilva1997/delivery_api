@@ -225,7 +225,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix("pesquisa")->group(function() {
         Route::post("/criar_pesquisa", "PesquisaSatisfacaoController@criarPesquisa");
     });
-    
+
     Route::prefix("pedido")->group(function () {
         Route::post("/fazer_pedido", "PedidoController@fazerPedido");
         Route::get("/index", "PedidoController@index");
@@ -277,7 +277,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "CupomDescontoController@destroy");
     });
 
-    
+
     Route::prefix("dias_semana")->group(function () {
         Route::get("/", "DiasSemanaHorarioDeliveryController@index");
         Route::get("show/{id}", "DiasSemanaHorarioDeliveryController@show");
@@ -286,20 +286,12 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "DiasSemanaHorarioDeliveryController@destroy");
     });
 
-    Route::prefix("periodo1")->group(function () {
-        Route::get("/", "Periodo1Controller@index");
-        Route::get("show/{id}", "Periodo1Controller@show");
-        Route::post("create", "Periodo1Controller@create");
-        Route::put("update/{id}", "Periodo1Controller@update");
-        Route::delete("destroy/{id}", "Periodo1Controller@destroy");
-    });
-
-    Route::prefix("periodo2")->group(function () {
-        Route::get("/", "Periodo2Controller@index");
-        Route::get("show/{id}", "Periodo2Controller@show");
-        Route::post("create", "Periodo2Controller@create");
-        Route::put("update/{id}", "Periodo2Controller@update");
-        Route::delete("destroy/{id}", "Periodo2Controller@destroy");
+    Route::prefix("periodo")->group(function () {
+        Route::get("/", "PeriodoController@index");
+        Route::get("show/{id}", "PeriodoController@show");
+        Route::post("create", "PeriodoController@create");
+        Route::put("update/{id}", "PeriodoController@update");
+        Route::delete("destroy/{id}", "PeriodoController@destroy");
     });
 
     Route::prefix("fuso_horario")->group(function () {
@@ -319,7 +311,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::prefix("estatistica")->group(function () {
-        Route::get("/receita_dia", "EstatisticaController@receitaDia"); 
+        Route::get("/receita_dia", "EstatisticaController@receitaDia");
         Route::get("/num_pedidos_dia", "EstatisticaController@pedidosPorDia");
     });
 });

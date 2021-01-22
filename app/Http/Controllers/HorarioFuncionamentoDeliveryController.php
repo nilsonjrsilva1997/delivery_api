@@ -9,8 +9,7 @@ class HorarioFuncionamentoDeliveryController extends BaseController
 {
    public function index()
    {
-       return HorarioFuncionamentoDelivery::with("periodo1")
-                                    ->with("periodo2")
+       return HorarioFuncionamentoDelivery::with("periodo")
                                     ->with("unidade")
                                     ->with("fuso_horario")
                                     ->get();

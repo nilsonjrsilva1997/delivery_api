@@ -3,8 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Periodo1;
-use App\Periodo2;
+use App\Periodo;
 
 class DiasSemanaHorarioDelivery extends Model
 {
@@ -13,14 +12,9 @@ class DiasSemanaHorarioDelivery extends Model
     protected $fillable = ["nome", ];
 
     // relacionamentos
-    public function periodo1()
+    public function periodo()
     {
-        return $this->hasMany(Periodo1::class);
-    }
-
-    public function periodo2()
-    {
-        return $this->hasMany(Periodo2::class);
+        return $this->hasMany(Periodo::class);
     }
 }
 
