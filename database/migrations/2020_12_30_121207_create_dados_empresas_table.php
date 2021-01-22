@@ -26,7 +26,7 @@ class CreateDadosEmpresasTable extends Migration
             $table->string("uf");
             $table->string("celular");
             $table->string("email");
-            $table->integer("user_id");
+            $table->integer("unidade_id");
             $table->timestamps();
         });
     }

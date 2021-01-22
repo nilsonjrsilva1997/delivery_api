@@ -6,7 +6,7 @@ class DadosEmpresaValidateService
 {
     public function getValidateRulesCreate()
     {
-        $validateAttributes = 
+        $validateAttributes =
         [
             "nome_delivery" => "required|string|max:255",
             "site" => "required|url",
@@ -19,6 +19,7 @@ class DadosEmpresaValidateService
             "uf" => "required|string|max:255",
             "celular" => "required|celular_com_ddd",
             "email" => "required|email",
+            "unidade_id" => "required|integer|exists:unidades,id",
         ];
 
         return $validateAttributes;
@@ -26,7 +27,7 @@ class DadosEmpresaValidateService
 
     public function getValidateRulesUpdate()
     {
-        $validateAttributes = 
+        $validateAttributes =
         [
             "nome_delivery" => "string|max:255",
             "site" => "url",
@@ -39,6 +40,7 @@ class DadosEmpresaValidateService
             "uf" => "string|max:255",
             "celular" => "celular_com_ddd",
             "email" => "email",
+            "unidade_id" => "integer|exists:unidades,id",
         ];
 
         return $validateAttributes;

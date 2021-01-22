@@ -10,7 +10,6 @@ use App\Pedido;
 use App\EnderecoEntrega;
 use App\Resposta;
 use App\Entregador;
-use App\DadosEmpresa;
 
 class User extends Authenticatable
 {
@@ -23,8 +22,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nome_completo', 'email', 'password', 'aniversario', 'celular', 'tp_user'
-    ];  
- 
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -63,10 +62,5 @@ class User extends Authenticatable
     public function entregador()
     {
         return $this->hasMany(Entregador::class);
-    }
-
-    public function dados_empresa()
-    {
-        return $this->hasOne(DadosEmpresa::class);
     }
 }
