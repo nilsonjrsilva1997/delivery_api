@@ -7,7 +7,7 @@ use App\User;
 
 class EnderecoEntrega extends Model
 {
-    protected $fillable = ["cep", "estado", "rua", "cidade", "complemento", "bairro", "numero", "user_id"];
+    protected $fillable = ["cep", "estado", "rua", "cidade", "complemento", "bairro", "numero", "user_id", "latitude", "longitude"];
 
     protected $table = "enderecos_entrega";
 

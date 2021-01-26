@@ -6,7 +6,7 @@ class EnderecoEntregaValidateService
 {
     public function getValidateRulesCreate()
     {
-        $validateAttributes = 
+        $validateAttributes =
         [
             "cep" => "required|string|max:255",
             "rua" => "required|string|max:255",
@@ -15,6 +15,8 @@ class EnderecoEntregaValidateService
             "complemento" => "required|string|max:255",
             "bairro" => "required|string|max:255",
             "numero" => "required|integer",
+            "latitude" => "required|numeric",
+            "longitude" => "required|numeric",
         ];
 
         return $validateAttributes;
@@ -22,7 +24,7 @@ class EnderecoEntregaValidateService
 
     public function getValidateRulesUpdate()
     {
-        $validateAttributes = 
+        $validateAttributes =
         [
             "cep" => "string|max:255",
             "rua" => "string|max:255",
@@ -31,6 +33,8 @@ class EnderecoEntregaValidateService
             "complemento" => "string|max:255",
             "bairro" => "string|max:255",
             "numero" => "integer",
+            "latitude" => "numeric",
+            "longitude" => "numeric",
         ];
 
         return $validateAttributes;
