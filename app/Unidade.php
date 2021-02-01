@@ -47,7 +47,7 @@ class Unidade extends Model
     {
         return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
     }
-    
+
     public function config_entrega()
     {
         return $this->hasOne(ConfigEntrega::class);
@@ -56,5 +56,10 @@ class Unidade extends Model
     public function horario_funcionamento()
     {
         return $this->hasMany(HorarioFuncionamentoDelivery::class);
+    }
+
+    public function pagamento_unidade()
+    {
+        return $this->hasMany(PagamentoUnidade::class);
     }
 }

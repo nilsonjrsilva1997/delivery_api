@@ -314,6 +314,11 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get("/receita_dia", "EstatisticaController@receitaDia");
         Route::get("/num_pedidos_dia", "EstatisticaController@pedidosPorDia");
     });
+
+    Route::prefix("pagamento_unidade")->group(function () {
+        Route::post("/associar", "PagamentoUnidadeController@associar");
+        Route::post("/desassociar", "PagamentoUnidadeController@desassociar");
+    });
 });
 
 Route::get("/{apelido}", "UnidadeRestauranteController@byApelido");

@@ -27,7 +27,21 @@ class FormaPagamentoController extends Controller
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
         ]);
-        
+
+        $fileNameToStore = '';
+
+        if($request->hasFile('icone')) {
+            $filenameWithExt = $request->file('icone')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('icone')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('icone')->storeAs('public/images', $fileNameToStore);
+        } else {
+            return response(['icone' => 'A imagem é obrigatória']);
+        }
+
+        $validatedData['icone'] = $fileNameToStore;
+
         return FormaPagamento::create($validatedData);
     }
 
@@ -40,8 +54,23 @@ class FormaPagamentoController extends Controller
         $formaPagamento = FormaPagamento::find($id);
 
         if(!empty($formaPagamento)) {
+            if($request->hasFile('icone')) {
+                unlink(storage_path('app/public/images/'. $formaPagamento->icone));
+            }
+
+            $fileNameToStore = '';
+            $filenameWithExt = $request->file('icone')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('icone')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('icone')->storeAs('public/images', $fileNameToStore);
+
+            $validatedData['icone'] = $fileNameToStore;
+
             $formaPagamento->fill($validatedData);
             $formaPagamento->save();
+
+
             return $formaPagamento;
         } else {
             return response(['message' => 'Forma de pagamento  não encontrado']);
@@ -53,6 +82,7 @@ class FormaPagamentoController extends Controller
         $formaPagamento = FormaPagamento::find($id);
 
         if(!empty($formaPagamento)) {
+            unlink(storage_path('app/public/images/'. $formaPagamento->icone));
             FormaPagamento::find($id)->delete();
         } else {
             return response(['message' => 'Forma de pagamento  não encontrado']);
