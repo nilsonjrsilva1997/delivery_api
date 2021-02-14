@@ -52,6 +52,12 @@ class UnidadeController extends Controller
             'slug' => 'required|string|max:255',
         ]);
 
+        $unidadeSlugCount = Unidade::where(['slug' => $request->slug])->count();
+
+        if($unidadeSlugCount != 0) {
+            return response(['message' => 'Esse slug já está sendo utilizado por outra unidade']);
+        }
+
 
         $validatedData['foto'] = $fileNameToStore;
         $validatedData['banner'] = $fileNameToStore2;
