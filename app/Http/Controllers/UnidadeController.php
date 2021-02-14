@@ -57,7 +57,7 @@ class UnidadeController extends Controller
         }]);
 
         if(count($slug) > 0) {
-            return $slug;
+            return response(['message' => 'Não e possivel criar a unidade'], 422);
         }
 
         $validatedData['foto'] = $fileNameToStore;
@@ -107,14 +107,12 @@ class UnidadeController extends Controller
         }
     }
 
-    public function checkSlug($slug)
+    public function checkSlug($restaurante, $slug)
     {
-        $unidadeSlugCount = Unidade::where(['slug' => $slug])->count();
+        $slug = Unidade::where(['slug' => $slug])->with(['restaurante' => function ($query) use ($restaurante) {
+            $query->where(['slug' => $restaurante]);
+        }]);
 
-        if($unidadeSlugCount != 0) {
-            return response(['message' => 'Esse slug já está sendo utilizado por outra unidade'], 422);
-        } else {
-            return response(['message' => 'Slug disponível']);
-        }
+        return $slug;
     }
 }
