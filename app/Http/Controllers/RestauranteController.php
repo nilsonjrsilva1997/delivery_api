@@ -23,4 +23,15 @@ class RestauranteController extends BaseController
 
         return Restaurante::create($validatedData);
    }
+
+   public function checkSlug($slug)
+    {
+        $unidadeSlugCount = Restaurante::where(['slug' => $slug])->count();
+
+        if($unidadeSlugCount != 0) {
+            return response(['message' => 'Esse slug já está sendo utilizado por outro restaurante'], 422);
+        } else {
+            return response(['message' => 'Slug disponível']);
+        }
+    }
 }

@@ -153,6 +153,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix("restaurante")->group(function () {
         Route::get("/", "RestauranteController@index");
         Route::get("show/{id}", "RestauranteController@show");
+        Route::get("check_slug/{slug}", "RestauranteController@checkSlug");
         Route::post("create", "RestauranteController@create");
         Route::put("update/{id}", "RestauranteController@update");
         Route::delete("destroy/{id}", "RestauranteController@destroy");
