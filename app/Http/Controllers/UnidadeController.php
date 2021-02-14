@@ -52,12 +52,13 @@ class UnidadeController extends Controller
             'slug' => 'required|string|max:255',
         ]);
 
-        $unidadeSlugCount = Unidade::where(['slug' => $request->slug])->count();
+        $slug = Unidade::where(['slug' => $request->slug])->with(['restaurante' => function ($query) use ($request) {
+            $query->where(['slug' => $request->restaurante]);
+        }]);
 
-        if($unidadeSlugCount != 0) {
-            return response(['message' => 'Esse slug já está sendo utilizado por outra unidade']);
+        if(count($slug) > 0) {
+            return $slug;
         }
-
 
         $validatedData['foto'] = $fileNameToStore;
         $validatedData['banner'] = $fileNameToStore2;
