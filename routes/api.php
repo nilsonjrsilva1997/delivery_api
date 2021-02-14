@@ -11,6 +11,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix('unidade')->group(function () {
         Route::get('/', 'UnidadeController@index');
         Route::get('show/{id}', 'UnidadeController@show');
+        Route::get('check_slug/{slug}', 'UnidadeController@checkSlug');
         Route::post('create', 'UnidadeController@create');
         Route::put('update/{id}', 'UnidadeController@update');
         Route::delete('destroy/{id}', 'UnidadeController@destroy');

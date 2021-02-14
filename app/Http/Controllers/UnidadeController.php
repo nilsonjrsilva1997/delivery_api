@@ -105,4 +105,15 @@ class UnidadeController extends Controller
             return response(['message' => 'Unidade não encontrado']);
         }
     }
+
+    public function checkSlug($slug)
+    {
+        $unidadeSlugCount = Unidade::where(['slug' => $slug])->count();
+
+        if($unidadeSlugCount != 0) {
+            return response(['message' => 'Esse slug já está sendo utilizado por outra unidade'], 422);
+        } else {
+            return response(['message' => 'Slug disponível']);
+        }
+    }
 }
