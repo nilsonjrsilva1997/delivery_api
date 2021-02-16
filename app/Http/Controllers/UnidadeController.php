@@ -52,11 +52,11 @@ class UnidadeController extends Controller
             'slug' => 'required|string|max:255',
         ]);
 
-        $slug = Unidade::where(['slug' => $slug])->whereHas('restaurante', function ($query) use ($restaurante) {
-            $query->where(['slug' => $restaurante]);
+        $slug = Unidade::where(['slug' => $request->slug])->whereHas('restaurante', function ($query) use ($request) {
+            $query->where(['id' => $request->restaurante_id]);
         })->first();
 
-        if(count($slug) > 0) {
+        if ($slug) {
             return response(['message' => 'Não e possivel criar a unidade'], 422);
         }
 
