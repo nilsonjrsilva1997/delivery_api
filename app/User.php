@@ -10,6 +10,8 @@ use App\Pedido;
 use App\EnderecoEntrega;
 use App\Resposta;
 use App\Entregador;
+use App\Restaurante;
+use App\UsuarioUnidade;
 
 class User extends Authenticatable
 {
@@ -62,5 +64,15 @@ class User extends Authenticatable
     public function entregador()
     {
         return $this->hasMany(Entregador::class);
+    }
+
+    public function restaurante()
+    {
+        return $this->hasMany(Restaurante::class);
+    }
+
+    public function usuario_unidade()
+    {
+        return $this->hasMany(UsuarioUnidade::class);
     }
 }

@@ -11,6 +11,7 @@ use App\Restaurante;
 use App\Produto;
 use App\ConfigEntrega;
 use App\HorarioFuncionamentoDelivery;
+use App\UsuarioUnidade;
 
 class Unidade extends Model
 {
@@ -61,5 +62,10 @@ class Unidade extends Model
     public function pagamento_unidade()
     {
         return $this->hasMany(PagamentoUnidade::class);
+    }
+
+    public function usuario_unidade()
+    {
+        return $this->hasMany(UsuarioUnidade::class);
     }
 }

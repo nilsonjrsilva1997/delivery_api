@@ -9,11 +9,16 @@ class Restaurante extends Model
 {
     protected $table = "restaurantes";
 
-    protected $fillable = ["nome", "slug"];
+    protected $fillable = ["nome", "slug", "user_id"];
 
     // relacionamentos
     public function unidade()
     {
         return $this->hasMany(Unidade::class, 'restaurante_id');
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

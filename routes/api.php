@@ -184,6 +184,11 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "AdicionaisController@destroy");
     });
 
+
+    Route::prefix("usuario")->group(function () {
+        Route::get("/meus_restaurantes", "UsuarioController@meusRestaurantes");
+    });
+
     Route::prefix("pedido")->group(function () {
         Route::get("/", "PedidoController@index");
         Route::get("show/{id}", "PedidoController@show");

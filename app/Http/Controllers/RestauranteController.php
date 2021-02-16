@@ -21,6 +21,8 @@ class RestauranteController extends BaseController
             return response(['message' => 'Esse slug já está sendo utilizado por outro restaurante']);
         }
 
+        $validatedData['user_id'] = \Auth::id();
+
         return Restaurante::create($validatedData);
    }
 
