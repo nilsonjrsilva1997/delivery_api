@@ -15,9 +15,9 @@ class RestauranteController extends BaseController
             'nome' => 'required|string|max:255',
         ]);
 
-        $restauranteSlugCount = Restaurante::where(['slug' => $request->slug])->count();
+        $restauranteSlug = Restaurante::where(['slug' => $request->slug])->first();
 
-        if($restauranteSlugCount != 0) {
+        if($restauranteSlug) {
             return response(['message' => 'Esse slug já está sendo utilizado por outro restaurante']);
         }
 
