@@ -189,6 +189,8 @@ return [
     */
 
     'aliases' => [
+        'Permissao' => App\Permissao::class,
+        'PermissaoValidateService' => App\Http\Services\PermissaoValidateService::class,
         'HorarioFuncionamentoDelivery' => App\HorarioFuncionamentoDelivery::class,
         'HorarioFuncionamentoDeliveryValidateService' => App\Http\Services\HorarioFuncionamentoDeliveryValidateService::class,
         'HorarioFuncionamentoDelivery' => App\HorarioFuncionamentoDelivery::class,
@@ -293,7 +295,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
 
 ];

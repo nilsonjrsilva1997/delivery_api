@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UsuarioUnidade::class);
     }
+
+    public function permissao()
+    {
+        return $this->hasMany(\App\Permissao::class);
+    }
 }

@@ -6,8 +6,6 @@ use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\ConfirmacaoController;
 
 Route::group(['middleware' => ['auth:api']], function () {
-
-    // teste
     Route::prefix('unidade')->group(function () {
         Route::get('/', 'UnidadeController@index');
         Route::get('show/{id}', 'UnidadeController@show');
@@ -266,6 +264,14 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post("create", "ConfigEntregaController@create");
         Route::put("update/{id}", "ConfigEntregaController@update");
         Route::delete("destroy/{id}", "ConfigEntregaController@destroy");
+    });
+
+    Route::prefix("permissao")->group(function () {
+        Route::get("/", "PermissaoController@index");
+        Route::get("show/{id}", "PermissaoController@show");
+        Route::post("create", "PermissaoController@create");
+        Route::put("update/{id}", "PermissaoController@update");
+        Route::delete("destroy/{id}", "PermissaoController@destroy");
     });
 
     Route::prefix("area_entrega")->group(function () {
