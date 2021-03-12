@@ -11,7 +11,6 @@ class Restaurante extends Model
 
     protected $fillable = ["nome", "slug", "user_id"];
 
-    // relacionamentos
     public function unidade()
     {
         return $this->hasMany(Unidade::class, 'restaurante_id');

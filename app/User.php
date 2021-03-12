@@ -71,7 +71,7 @@ class User extends Authenticatable
         return $this->hasMany(Restaurante::class);
     }
 
-    public function usuario_unidade()
+    public function usuario_unidades()
     {
         return $this->hasMany(UsuarioUnidade::class);
     }

@@ -8,8 +8,16 @@ class UsuarioController extends Controller
 {
     public function meusRestaurantes()
     {
-        return \Auth::user()->with('restaurante')
-        ->with('restaurante.usuario_unidades.unidade')
-        ->get();
+        $restaurantes = \Auth::user()->with('restaurante')
+            ->with('restaurante.unidade')
+            ->get();
+
+        $restaurantesArray = [];
+
+        foreach ($restaurantes as $restaurante) {
+            $restaurantesArray[] = $restaurante['restaurante'];
+        }
+
+        return $restaurantesArray;
     }
 }
