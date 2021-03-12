@@ -189,6 +189,7 @@ return [
     */
 
     'aliases' => [
+        'Helper' => App\Helpers\Helper::class,
         'Permissao' => App\Permissao::class,
         'PermissaoValidateService' => App\Http\Services\PermissaoValidateService::class,
         'HorarioFuncionamentoDelivery' => App\HorarioFuncionamentoDelivery::class,

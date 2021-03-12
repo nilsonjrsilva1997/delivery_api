@@ -8,7 +8,7 @@ class Permissao extends Model
 {
     protected $table = "permissoes";
 
-    protected $fillable = ["user_id", "unidade_id", "tipo", ];
+    protected $fillable = ["user_id", "unidade_id", "tipo"];
 
     // relacionamentos
     public function usuario()

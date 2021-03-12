@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Helpers\Helper;
 
 class PermissaoAdmin
 {
@@ -15,7 +16,6 @@ class PermissaoAdmin
      */
     public function handle($request, Closure $next)
     {
-        dd(\Auth::user());
         return $next($request);
     }
 }

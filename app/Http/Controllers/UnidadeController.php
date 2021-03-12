@@ -57,7 +57,7 @@ class UnidadeController extends Controller
         })->first();
 
         if ($slug) {
-            return response(['message' => 'Não e possivel criar a unidade'], 422);
+            return response(['message' => 'Não é possivel criar a unidade'], 422);
         }
 
         $validatedData['foto'] = $fileNameToStore;

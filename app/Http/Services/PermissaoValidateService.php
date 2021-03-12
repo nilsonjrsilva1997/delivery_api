@@ -10,7 +10,7 @@ class PermissaoValidateService
         [
             "user_id" => "required|integer|exists:users,id",
             "unidade_id" => "required|integer|exists:unidades,id",
-            "tipo" => "required|in:ADMINISTRADOR,GERENTE,FUNCIONARIO",
+            "tipo" => "required|in:ADMINISTRADOR,FUNCIONARIO,GERENTE",
         ];
 
         return $validateAttributes;

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermissaosTable extends Migration
+class CreatePermissoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreatePermissaosTable extends Migration
             $table->id();
             $table->integer("user_id");
             $table->integer("unidade_id");
-            $table->enum("tipo", ["ADMINISTRADOR", "GENRETE", "FUNCIONARIO"]);            
+            $table->enum('tipo', ['ADMINISTRADOR', 'GERENTE', 'FUNCIONARIO']);
             $table->timestamps();
         });
     }
