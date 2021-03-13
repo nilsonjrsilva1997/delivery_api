@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Storage;
 
 class UnidadeController extends Controller
 {
+    private $data = [
+        'MESSAGE' => "Usuário não possui permissão para executar essa tarefa",
+    ];
+
     public function index()
     {
         return Unidade::all();
@@ -16,10 +20,16 @@ class UnidadeController extends Controller
     public function show($id)
     {
         $unidade = Unidade::find($id);
-        if (!empty($unidade)) {
-            return $unidade;
+        $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $id);
+
+        if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE' || $permissao == 'FUNCIONARIO') {
+            if (!empty($unidade) && $permissao['tipo'] == 'ADMINISTRADOR') {
+                return $unidade;
+            } else {
+                return response(['message' => 'Unidade não encontrado']);
+            }
         } else {
-            return response(['message' => 'Unidade não encontrado']);
+            return response(['message' => $this->data['MESSAGE']], 401);
         }
     }
 
@@ -65,45 +75,56 @@ class UnidadeController extends Controller
 
         $unidade = Unidade::create($validatedData);
 
-        return response(["data" => $unidade,"message" => "Dados retornado com sucesso"], 200);
+        return response(["data" => $unidade, "message" => "Dados retornado com sucesso"], 200);
     }
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'nome' => 'string|max:255',
-            'slug' => 'string|max:255',
-            'foto' => 'date',
-            'taxa_entrega' => 'numeric',
-            'restaurante_id' => 'integer|exists:restaurantes,id',
-            'slug' => 'string|max:255',
-        ]);
+        $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $id);
 
-        $unidade = Unidade::find($id);
+        if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
+            $validatedData = $request->validate([
+                'nome' => 'string|max:255',
+                'slug' => 'string|max:255',
+                'foto' => 'date',
+                'taxa_entrega' => 'numeric',
+                'restaurante_id' => 'integer|exists:restaurantes,id',
+                'slug' => 'string|max:255',
+            ]);
 
-        $disk = Storage::disk('local');
-        $disk->delete('public/images/' . $unidade->banner);
+            $unidade = Unidade::find($id);
 
-        File::delete('images/' . $unidade->banner);
+            $disk = Storage::disk('local');
+            $disk->delete('public/images/' . $unidade->banner);
 
-        if (!empty($unidade)) {
-            $unidade->fill($validatedData);
-            $unidade->save();
-        
-            return response(["data" => $unidade,"message" => "Dados retornado com sucesso"], 200);
+            \File::delete('images/' . $unidade->banner);
+
+            if (!empty($unidade)) {
+                $unidade->fill($validatedData);
+                $unidade->save();
+
+                return response(["data" => $unidade, "message" => "Dados retornado com sucesso"], 200);
+            } else {
+                return response(['message' => 'Unidade não encontrado']);
+            }
         } else {
-            return response(['message' => 'Unidade não encontrado']);
+            return response(['message' => $this->data['MESSAGE']], 401);
         }
     }
 
     public function destroy($id)
     {
-        $unidade = Unidade::find($id);
+        $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $id);
 
-        if (!empty($unidade)) {
-            Unidade::find($id)->delete();
-        } else {
-            return response(['message' => 'Unidade não encontrado']);
+        if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
+
+            $unidade = Unidade::find($id);
+
+            if (!empty($unidade)) {
+                Unidade::find($id)->delete();
+            } else {
+                return response(['message' => 'Unidade não encontrado']);
+            }
         }
     }
 

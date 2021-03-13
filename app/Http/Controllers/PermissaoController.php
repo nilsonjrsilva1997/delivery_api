@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Http\Services\PermissaoValidateService;
 use Illuminate\Http\Request;
 use App\Permissao;

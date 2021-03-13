@@ -4,8 +4,14 @@ namespace App\Helpers;
 
 class Helper
 {
-    public static function checkIsAdmin($userId)
+    public static function getPermissoes($userId, $unidadeId)
     {
-        return \App\User::where(['id' => $userId])->with('permissao')->get();
+         $permissao = \App\Permissao::where(['user_id' => $userId, 'unidade_id' => $unidadeId])->first();
+
+         if(!empty($permissao)) {
+            return $permissao['tipo'];
+         } else {
+             return null;
+         }
     }
 }
