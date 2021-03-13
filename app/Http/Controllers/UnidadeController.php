@@ -86,18 +86,12 @@ class UnidadeController extends Controller
             $validatedData = $request->validate([
                 'nome' => 'string|max:255',
                 'slug' => 'string|max:255',
-                'foto' => 'date',
                 'taxa_entrega' => 'numeric',
                 'restaurante_id' => 'integer|exists:restaurantes,id',
                 'slug' => 'string|max:255',
             ]);
 
             $unidade = Unidade::find($id);
-
-            $disk = Storage::disk('local');
-            $disk->delete('public/images/' . $unidade->banner);
-
-            \File::delete('images/' . $unidade->banner);
 
             if (!empty($unidade)) {
                 $unidade->fill($validatedData);
