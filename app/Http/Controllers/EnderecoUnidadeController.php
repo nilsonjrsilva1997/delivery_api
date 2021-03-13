@@ -15,8 +15,15 @@ class EnderecoUnidadeController extends Controller
     public function show($id)
     {
         $endereco = EnderecoUnidade::find($id);
+        
         if (!empty($endereco)) {
-            return $endereco;
+            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $endereco->unidade_id);
+
+            if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
+                return $endereco;
+            } else {
+                return response(['message' => 'Usuário não possui permissão para executar esta ação'], 401);
+            }
         } else {
             return response(['message' => 'Endereço não encontrado']);
         }
@@ -58,9 +65,15 @@ class EnderecoUnidadeController extends Controller
         $endereco = EnderecoUnidade::find($id);
 
         if (!empty($endereco)) {
-            $endereco->fill($validatedData);
-            $endereco->save();
-            return $endereco;
+            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $endereco->unidade_id);
+
+            if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
+                $endereco->fill($validatedData);
+                $endereco->save();
+                return $endereco;
+            } else {
+                return response(['message' => 'Usuário não possui permissão para executar esta ação'], 401);
+            }
         } else {
             return response(['message' => 'Endereço não encontrado']);
         }
@@ -71,7 +84,18 @@ class EnderecoUnidadeController extends Controller
         $endereco = EnderecoUnidade::find($id);
 
         if (!empty($endereco)) {
-            EnderecoUnidade::find($id)->delete();
+            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $endereco->unidade_id);
+
+            if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
+                if($endereco->delete()) {
+                    return response(['message' => 'Endereço deletado com sucesso']);
+                }
+
+            } else {
+                return response(['message' => 'Usuário não possui permissão para executar esta ação'], 401);
+            }
+            
+            
         } else {
             return response(['message' => 'Endereço não encontrado']);
         }

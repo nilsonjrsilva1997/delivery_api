@@ -11,7 +11,6 @@ class EnderecoUnidade extends Model
 
     protected $table = 'endereco_unidades';
 
-
     public function unidade()
     {
         return $this->belongsTo(Unidade::class, 'unidade_id', 'id');

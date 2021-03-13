@@ -16,7 +16,6 @@ class EnderecoEstabelecimentoValidateService
                 "bairro" => "required|string|max:255",
                 "numero" => "required|string|max:255",
                 "restauranteId" => "required|integer|exists:restaurante,id",
-
             ];
 
         return $validateAttributes;
