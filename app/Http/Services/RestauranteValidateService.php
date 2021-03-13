@@ -7,8 +7,7 @@ class RestauranteValidateService {
     {
         $validateAttributes = [
             "nome" => "required|string|max:255",
-            "slug" => "required|string|max:255"
-
+            "slug" => "required|string|max:255|unique:restaurantes,slug"
         ];
 
         return $validateAttributes;
@@ -18,7 +17,7 @@ class RestauranteValidateService {
     {
         $validateAttributes = [
             "nome" => "string|max:255",
-            "slug" => "string|max:255"
+            "slug" => "string|max:255|unique:restaurantes,slug"
         ];
 
         return $validateAttributes;

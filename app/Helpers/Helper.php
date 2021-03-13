@@ -14,4 +14,9 @@ class Helper
              return null;
          }
     }
+
+    public static function getUserCreate()
+    {
+        
+    }
 }
