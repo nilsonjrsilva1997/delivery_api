@@ -38,6 +38,20 @@ class RestauranteController extends BaseController
         }
     }
 
+    public function getUnidades($restaurante_id)
+    {
+
+        $restaurante = \App\REstaurante::where(['id' => $restaurante_id])->with('unidade')->first();
+
+        
+
+        if(!empty($restaurante['unidade'])) {
+            return $restaurante['unidade'];
+        } else {
+            return response(['message' => 'Restaurante não encotrado'], 422);
+        }
+    }
+
     public function update(Request $request, $id)
     {
         $restauranteValidateService = new RestauranteValidateService;
