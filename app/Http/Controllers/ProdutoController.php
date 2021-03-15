@@ -10,23 +10,24 @@ class ProdutoController extends BaseController
 {
     public function index()
     {
+
         $produto = Produto::with('categoria')
-        ->with('adicional')
-        ->with('opcao')
-        ->get(); 
+            ->with('adicional')
+            ->with('opcao')
+            ->get();
 
         return response(["message" => "Dados retornados com sucesso", "data" => $produto], 200);
     }
-    
+
     public function show($id)
     {
         $produto = Produto::find($id)
-        ->with('categoria')
-        ->with('adicional')
-        ->with('opcao')
-        ->get();
+            ->with('categoria')
+            ->with('adicional')
+            ->with('opcao')
+            ->get();
 
-        if(!empty($produto)) {
+        if (!empty($produto)) {
             return response(["message" => "Dados retornados com sucesso", "data" => $produto], 200);
         } else {
             return reponse(["message" => "Produto não encontrado"], 422);
@@ -42,16 +43,16 @@ class ProdutoController extends BaseController
 
         $fileNameToStore = '';
 
-        if($request->hasFile('foto')) {
+        if ($request->hasFile('foto')) {
             $filenameWithExt = $request->file('foto')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('foto')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
         } else {
             return response(['foto' => 'A foto é obrigatória']);
         }
-        
+
         $validatedData['foto'] = $fileNameToStore;
 
         return response(['data' => Produto::create($validatedData), 'message' => 'Dados inseridos com sucesso']);
@@ -61,12 +62,12 @@ class ProdutoController extends BaseController
     {
         $fileNameToStore = '';
 
-        if($request->hasFile('imagem')) {
+        if ($request->hasFile('imagem')) {
             return 'entrou';
             $filenameWithExt = $request->file('imagem')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('imagem')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('imagem')->storeAs('public/images', $fileNameToStore);
         }
 
@@ -83,16 +84,21 @@ class ProdutoController extends BaseController
 
         return $fileNameToStore;
 
-        if($fileNameToStore != '') {
+        if ($fileNameToStore != '') {
             $validatedData['imagem'] = $fileNameToStore;
         }
 
         $produto = Produto::find($id);
 
-        if(!empty($produto)) {
-            $produto->fill($validatedData);
-            $produto->save();
-            return $produto;
+        if (!empty($produto)) {
+            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $produto->unidade_id);
+            if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
+                $produto->fill($validatedData);
+                $produto->save();
+                return $produto;
+            } else {
+                return response(['message' => 'Usuário não possui permissão para executar está ação'], 401);
+            }
         } else {
             return response(['message' => 'Produto não encontrado']);
         }
@@ -102,8 +108,13 @@ class ProdutoController extends BaseController
     {
         $produto = Produto::find($id);
 
-        if(!empty($produto)) {
-            Produto::find($id)->delete();
+        if (!empty($produto)) {
+            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $produto->unidade_id);
+            if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
+                Produto::find($id)->delete();
+            } else {
+                return response(['message' => 'Usuário não possui permissão para executar está ação'], 401);
+            }
         } else {
             return response(['message' => 'Produto não encontrado']);
         }
