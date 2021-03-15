@@ -30,6 +30,8 @@ class TempoEsperaEntregaController extends Controller
             'unidade_id' => 'required|integer|exists:unidades,id',
         ]);
 
+        return \Auth::user()->usuario_unidades;
+
         return TempoEsperaEntrega::create($validatedData);
     }
 

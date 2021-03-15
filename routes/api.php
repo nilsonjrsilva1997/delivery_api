@@ -14,6 +14,11 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', 'EnderecoUnidadeController@destroy');
     });
 
+    Route::prefix('usuario_unidade')->group(function() {
+        Route::post('/associar', 'UsuarioUnidadeController@associar');
+        Route::delete('/desassociar/{unidade_id}/{usuario_id}', 'UsuarioUnidadeController@desassociar');
+    });
+
     Route::prefix('unidade')->group(function () {
         Route::get('/', 'UnidadeController@index');
         Route::get('show/{id}', 'UnidadeController@show');
