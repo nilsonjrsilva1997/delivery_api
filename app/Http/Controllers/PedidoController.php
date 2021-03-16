@@ -18,40 +18,42 @@ class PedidoController extends BaseController
     public function index()
     {
         return Pedido::with("produto_pedido")
-                        ->with("usuario")
-                        ->with("usuario.endereco_entrega")
-                        ->with("produto_pedido.produto")
-                        ->with("produto_pedido.produto.categoria")
-                        ->with("produto_pedido.produto.unidade")
-                        ->with("produto_pedido.produto.unidade.restaurante")
-                        ->with("produto_pedido.pedido_adicional")
-                        ->with("produto_pedido.pedido_adicional.adicional")
-                        ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
-                        ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
-                        ->with("enderecos_entrega")
-                        ->with("cupom_desconto")
-                        ->get();
+            ->with("usuario")
+            ->with("usuario.endereco_entrega")
+            ->with("produto_pedido.produto")
+            ->with("produto_pedido.produto.categoria")
+            ->with("produto_pedido.produto.unidade")
+            ->with("produto_pedido.produto.unidade.restaurante")
+            ->with("produto_pedido.pedido_adicional")
+            ->with("produto_pedido.pedido_adicional.adicional")
+            ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
+            ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
+            ->with("enderecos_entrega")
+            ->with("cupom_desconto")
+            ->get();
     }
 
     public function show($id)
     {
-       return Pedido::with("produto_pedido")
-                        ->with("usuario")
-                        ->with("usuario.endereco_entrega")
-                        ->with("produto_pedido.produto")
-                        ->with("produto_pedido.produto.categoria")
-                        ->with("produto_pedido.produto.unidade")
-                        ->with("produto_pedido.produto.unidade.restaurante")
-                        ->with("produto_pedido.pedido_adicional")
-                        ->with("produto_pedido.pedido_adicional.adicional")
-                        ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
-                        ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
-                        ->with("enderecos_entrega")
-                        ->with("cupom_desconto")
-                        ->where(["id" => $id])
-                        ->first();
+        return Pedido::with("produto_pedido")
+            ->with("usuario")
+            ->with("usuario.endereco_entrega")
+            ->with("produto_pedido.produto")
+            ->with("produto_pedido.produto.categoria")
+            ->with("produto_pedido.produto.unidade")
+            ->with("produto_pedido.produto.unidade.restaurante")
+            ->with("produto_pedido.pedido_adicional")
+            ->with("produto_pedido.pedido_adicional.adicional")
+            ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
+            ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
+            ->with("enderecos_entrega")
+            ->with("cupom_desconto")
+            ->where(["id" => $id])
+            ->first();
 
-        if(!empty($pedido)) {
+        
+
+        if (!empty($pedido)) {
             return response(["data" => $pedido, "message" => "Pedido retornado com sucesso"]);
         } else {
             return response(["message" => "Pedido não encontrado"]);
@@ -75,7 +77,7 @@ class PedidoController extends BaseController
 
         $pedido = Pedido::find($id);
 
-        if(!empty($pedido)) {
+        if (!empty($pedido)) {
             $pedido->fill($validatedData);
             $pedido->save();
             return $pedido;
@@ -101,12 +103,12 @@ class PedidoController extends BaseController
         $pedido = Pedido::create($validatedData);
 
         // criando produto pedido
-        foreach($request->produtos as $produto) {
+        foreach ($request->produtos as $produto) {
             $produtoBd = Produto::find($produto["id"]);
 
             $produtoPedido = null;
 
-            if(!empty($produtoBd)) {
+            if (!empty($produtoBd)) {
                 // criando pedido/produto
                 $produtoPedido = ProdutoPedido::create([
                     "pedido_id" => $pedido->id,
@@ -118,20 +120,20 @@ class PedidoController extends BaseController
                 ]);
 
                 // verifica se pedido tem adicional
-                if(count($produto["adicional"]) > 0) {
-                    foreach($produto["adicional"] as $adicional) {
+                if (count($produto["adicional"]) > 0) {
+                    foreach ($produto["adicional"] as $adicional) {
                         $adicionalBd = Adicional::find($adicional["id"]);
 
-                        if(!empty($adicional)) {
+                        if (!empty($adicional)) {
                             $pedidoAdicional = PedidoAdicional::create([
                                 "adicional_id" => $adicionalBd->id,
                                 "produto_pedido_id" => $produtoPedido->id,
                                 "titulo" => $adicionalBd->titulo,
                             ]);
 
-                            foreach($adicional["opcoes_ids"] as $opcaoId) {
+                            foreach ($adicional["opcoes_ids"] as $opcaoId) {
                                 $opcaoBd = Opcao::find($opcaoId);
-                                if(!empty($opcaoBd)) {
+                                if (!empty($opcaoBd)) {
                                     PedidoAdicionalOpcao::create([
                                         "pedido_adicional_id" => $pedidoAdicional->id,
                                         "opcao_id" => $opcaoBd->id,
@@ -145,7 +147,6 @@ class PedidoController extends BaseController
                         }
                     }
                 }
-
             } else {
                 return response(["message" => "Produto nao encontrado, ID do produto: " . $produto["id"]], 422);
             }

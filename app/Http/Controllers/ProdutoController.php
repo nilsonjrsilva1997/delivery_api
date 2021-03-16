@@ -92,7 +92,7 @@ class ProdutoController extends BaseController
 
         if (!empty($produto)) {
             $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $produto->unidade_id);
-            if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
+            if ($permissao == 'ADMINISTRADOR') {
                 $produto->fill($validatedData);
                 $produto->save();
                 return $produto;

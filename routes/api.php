@@ -14,44 +14,12 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', 'EnderecoUnidadeController@destroy');
     });
 
-    Route::prefix('usuario_unidade')->group(function() {
+    Route::prefix('usuario_unidade')->group(function () {
         Route::post('/associar', 'UsuarioUnidadeController@associar');
         Route::delete('/desassociar/{unidade_id}/{usuario_id}', 'UsuarioUnidadeController@desassociar');
     });
 
-    Route::prefix('unidade')->group(function () {
-        Route::get('/', 'UnidadeController@index');
-        Route::get('show/{id}', 'UnidadeController@show');
-        Route::get('check_slug/{restaurante}/{slug}', 'UnidadeController@checkSlug');
-        Route::post('create', 'UnidadeController@create');
-        Route::put('update/{id}', 'UnidadeController@update');
-        Route::delete('destroy/{id}', 'UnidadeController@destroy');
 
-
-        Route::prefix('tempo_espera_entrega')->group(function () {
-            Route::get('/', 'TempoEsperaEntregaController@index');
-            Route::get('show/{id}', 'TempoEsperaEntregaController@show');
-            Route::post('create', 'TempoEsperaEntregaController@create');
-            Route::put('update/{id}', 'TempoEsperaEntregaController@update');
-            Route::delete('destroy/{id}', 'TempoEsperaEntregaController@destroy');
-        });
-
-        Route::prefix('horario_funcionamento')->group(function () {
-            Route::get('/', 'HorarioFuncionamentoController@index');
-            Route::get('show/{id}', 'HorarioFuncionamentoController@show');
-            Route::post('create', 'HorarioFuncionamentoController@create');
-            Route::put('update/{id}', 'HorarioFuncionamentoController@update');
-            Route::delete('destroy/{id}', 'HorarioFuncionamentoController@destroy');
-        });
-
-        Route::prefix('sobre_nos')->group(function () {
-            Route::get('/', 'SobreNosController@index');
-            Route::get('show/{id}', 'SobreNosController@show');
-            Route::post('create', 'SobreNosController@create');
-            Route::put('update/{id}', 'SobreNosController@update');
-            Route::delete('destroy/{id}', 'SobreNosController@destroy');
-        });
-    });
 
     Route::prefix('forma_pagamento')->group(function () {
         Route::get('/', 'FormaPagamentoController@index');
@@ -154,6 +122,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("destroy/{id}", "AdicionalController@destroy");
     });
 
+    // aki
     Route::prefix("restaurante")->group(function () {
         Route::get("/", "RestauranteController@index");
         Route::get("show/{id}", "RestauranteController@show");
@@ -162,6 +131,51 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post("create", "RestauranteController@create");
         Route::put("update/{id}", "RestauranteController@update");
         Route::delete("destroy/{id}", "RestauranteController@destroy");
+
+        Route::prefix('unidade')->group(function () {
+            Route::get('/', 'UnidadeController@index');
+            Route::get('show/{id}', 'UnidadeController@show');
+            Route::get('check_slug/{restaurante}/{slug}', 'UnidadeController@checkSlug');
+            Route::post('create', 'UnidadeController@create');
+            Route::put('update/{id}', 'UnidadeController@update');
+            Route::delete('destroy/{id}', 'UnidadeController@destroy');
+
+            Route::prefix("pedido")->group(function () {
+                Route::post("/fazer_pedido", "PedidoController@fazerPedido");
+                Route::get("/index", "PedidoController@index");
+                Route::put("/update_status_pedido/{id}", "PedidoController@updateStatusPedido");
+                Route::get("/show/{id}", "PedidoController@show");
+            });
+
+            Route::prefix("extrato")->group(function () {
+                Route::get("/", "ExtratoController@getData");
+            });
+
+
+            Route::prefix('tempo_espera_entrega')->group(function () {
+                Route::get('/', 'TempoEsperaEntregaController@index');
+                Route::get('show/{id}', 'TempoEsperaEntregaController@show');
+                Route::post('create', 'TempoEsperaEntregaController@create');
+                Route::put('update/{id}', 'TempoEsperaEntregaController@update');
+                Route::delete('destroy/{id}', 'TempoEsperaEntregaController@destroy');
+            });
+
+            Route::prefix('horario_funcionamento')->group(function () {
+                Route::get('/', 'HorarioFuncionamentoController@index');
+                Route::get('show/{id}', 'HorarioFuncionamentoController@show');
+                Route::post('create', 'HorarioFuncionamentoController@create');
+                Route::put('update/{id}', 'HorarioFuncionamentoController@update');
+                Route::delete('destroy/{id}', 'HorarioFuncionamentoController@destroy');
+            });
+
+            Route::prefix('sobre_nos')->group(function () {
+                Route::get('/', 'SobreNosController@index');
+                Route::get('show/{id}', 'SobreNosController@show');
+                Route::post('create', 'SobreNosController@create');
+                Route::put('update/{id}', 'SobreNosController@update');
+                Route::delete('destroy/{id}', 'SobreNosController@destroy');
+            });
+        });
     });
 
     Route::prefix("endereco_entrega")->group(function () {
@@ -192,14 +206,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::prefix("usuario")->group(function () {
         Route::get("/meus_restaurantes", "UsuarioController@meusRestaurantes");
-    });
-
-    Route::prefix("pedido")->group(function () {
-        Route::get("/", "PedidoController@index");
-        Route::get("show/{id}", "PedidoController@show");
-        Route::post("create", "PedidoController@create");
-        Route::put("update/{id}", "PedidoController@update");
-        Route::delete("destroy/{id}", "PedidoController@destroy");
     });
 
     Route::prefix("produto_pedido")->group(function () {
@@ -236,17 +242,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::prefix("pesquisa")->group(function () {
         Route::post("/criar_pesquisa", "PesquisaSatisfacaoController@criarPesquisa");
-    });
-
-    Route::prefix("pedido")->group(function () {
-        Route::post("/fazer_pedido", "PedidoController@fazerPedido");
-        Route::get("/index", "PedidoController@index");
-        Route::put("/update_status_pedido/{id}", "PedidoController@updateStatusPedido");
-        Route::get("/show/{id}", "PedidoController@show");
-    });
-
-    Route::prefix("extrato")->group(function () {
-        Route::get("/", "ExtratoController@getData");
     });
 
     Route::prefix("entregador")->group(function () {
