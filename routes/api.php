@@ -5,45 +5,45 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\ConfirmacaoController;
 
-Route::group(['middleware' => ['auth:api']], function () {
-    Route::prefix('endereco')->group(function () {
-        Route::get('/', 'EnderecoUnidadeController@index');
-        Route::get('show/{id}', 'EnderecoUnidadeController@show');
-        Route::post('create', 'EnderecoUnidadeController@create');
-        Route::put('update/{id}', 'EnderecoUnidadeController@update');
-        Route::delete('destroy/{id}', 'EnderecoUnidadeController@destroy');
+Route::group(["middleware" => ["auth:api"]], function () {
+    Route::prefix("endereco")->group(function () {
+        Route::get("/", "EnderecoUnidadeController@index");
+        Route::get("show/{id}", "EnderecoUnidadeController@show");
+        Route::post("create", "EnderecoUnidadeController@create");
+        Route::put("update/{id}", "EnderecoUnidadeController@update");
+        Route::delete("destroy/{id}", "EnderecoUnidadeController@destroy");
     });
 
-    Route::prefix('usuario_unidade')->group(function () {
-        Route::post('/associar', 'UsuarioUnidadeController@associar');
-        Route::delete('/desassociar/{unidade_id}/{usuario_id}', 'UsuarioUnidadeController@desassociar');
-    });
-
-
-
-    Route::prefix('forma_pagamento')->group(function () {
-        Route::get('/', 'FormaPagamentoController@index');
-        Route::get('show/{id}', 'FormaPagamentoController@show');
-        Route::post('create', 'FormaPagamentoController@create');
-        Route::put('update/{id}', 'FormaPagamentoController@update');
-        Route::delete('destroy/{id}', 'FormaPagamentoController@destroy');
-    });
-
-    Route::prefix('produto')->group(function () {
-        Route::get('/', 'FormaPagamentoController@index');
-        Route::get('show/{id}', 'FormaPagamentoController@show');
-        Route::post('create', 'FormaPagamentoController@create');
-        Route::put('update/{id}', 'FormaPagamentoController@update');
-        Route::delete('destroy/{id}', 'FormaPagamentoController@destroy');
+    Route::prefix("usuario_unidade")->group(function () {
+        Route::post("/associar", "UsuarioUnidadeController@associar");
+        Route::delete("/desassociar/{unidade_id}/{usuario_id}", "UsuarioUnidadeController@desassociar");
     });
 
 
-    Route::prefix('categoria')->group(function () {
-        Route::get('/', 'CategoriaController@index');
-        Route::get('show/{id}', 'CategoriaController@show');
-        Route::post('create', 'CategoriaController@create');
-        Route::put('update/{id}', 'CategoriaController@update');
-        Route::delete('destroy/{id}', 'CategoriaController@destroy');
+
+    Route::prefix("forma_pagamento")->group(function () {
+        Route::get("/", "FormaPagamentoController@index");
+        Route::get("show/{id}", "FormaPagamentoController@show");
+        Route::post("create", "FormaPagamentoController@create");
+        Route::put("update/{id}", "FormaPagamentoController@update");
+        Route::delete("destroy/{id}", "FormaPagamentoController@destroy");
+    });
+
+    Route::prefix("produto")->group(function () {
+        Route::get("/", "FormaPagamentoController@index");
+        Route::get("show/{id}", "FormaPagamentoController@show");
+        Route::post("create", "FormaPagamentoController@create");
+        Route::put("update/{id}", "FormaPagamentoController@update");
+        Route::delete("destroy/{id}", "FormaPagamentoController@destroy");
+    });
+
+
+    Route::prefix("categoria")->group(function () {
+        Route::get("/", "CategoriaController@index");
+        Route::get("show/{id}", "CategoriaController@show");
+        Route::post("create", "CategoriaController@create");
+        Route::put("update/{id}", "CategoriaController@update");
+        Route::delete("destroy/{id}", "CategoriaController@destroy");
     });
 
     Route::prefix("uploadfile")->group(function () {
@@ -132,13 +132,13 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put("update/{id}", "RestauranteController@update");
         Route::delete("destroy/{id}", "RestauranteController@destroy");
 
-        Route::prefix('unidade')->group(function () {
-            Route::get('/', 'UnidadeController@index');
-            Route::get('show/{id}', 'UnidadeController@show');
-            Route::get('check_slug/{restaurante}/{slug}', 'UnidadeController@checkSlug');
-            Route::post('create', 'UnidadeController@create');
-            Route::put('update/{id}', 'UnidadeController@update');
-            Route::delete('destroy/{id}', 'UnidadeController@destroy');
+        Route::prefix("unidade")->group(function () {
+            Route::get("/", "UnidadeController@index");
+            Route::get("show/{id}", "UnidadeController@show");
+            Route::get("check_slug/{restaurante}/{slug}", "UnidadeController@checkSlug");
+            Route::post("create", "UnidadeController@create");
+            Route::put("update/{id}", "UnidadeController@update");
+            Route::delete("destroy/{id}", "UnidadeController@destroy");
 
             Route::prefix("pedido")->group(function () {
                 Route::post("/fazer_pedido", "PedidoController@fazerPedido");
@@ -152,28 +152,28 @@ Route::group(['middleware' => ['auth:api']], function () {
             });
 
 
-            Route::prefix('tempo_espera_entrega')->group(function () {
-                Route::get('/', 'TempoEsperaEntregaController@index');
-                Route::get('show/{id}', 'TempoEsperaEntregaController@show');
-                Route::post('create', 'TempoEsperaEntregaController@create');
-                Route::put('update/{id}', 'TempoEsperaEntregaController@update');
-                Route::delete('destroy/{id}', 'TempoEsperaEntregaController@destroy');
+            Route::prefix("tempo_espera_entrega")->group(function () {
+                Route::get("/", "TempoEsperaEntregaController@index");
+                Route::get("show/{id}", "TempoEsperaEntregaController@show");
+                Route::post("create", "TempoEsperaEntregaController@create");
+                Route::put("update/{id}", "TempoEsperaEntregaController@update");
+                Route::delete("destroy/{id}", "TempoEsperaEntregaController@destroy");
             });
 
-            Route::prefix('horario_funcionamento')->group(function () {
-                Route::get('/', 'HorarioFuncionamentoController@index');
-                Route::get('show/{id}', 'HorarioFuncionamentoController@show');
-                Route::post('create', 'HorarioFuncionamentoController@create');
-                Route::put('update/{id}', 'HorarioFuncionamentoController@update');
-                Route::delete('destroy/{id}', 'HorarioFuncionamentoController@destroy');
+            Route::prefix("horario_funcionamento")->group(function () {
+                Route::get("/", "HorarioFuncionamentoController@index");
+                Route::get("show/{id}", "HorarioFuncionamentoController@show");
+                Route::post("create", "HorarioFuncionamentoController@create");
+                Route::put("update/{id}", "HorarioFuncionamentoController@update");
+                Route::delete("destroy/{id}", "HorarioFuncionamentoController@destroy");
             });
 
-            Route::prefix('sobre_nos')->group(function () {
-                Route::get('/', 'SobreNosController@index');
-                Route::get('show/{id}', 'SobreNosController@show');
-                Route::post('create', 'SobreNosController@create');
-                Route::put('update/{id}', 'SobreNosController@update');
-                Route::delete('destroy/{id}', 'SobreNosController@destroy');
+            Route::prefix("sobre_nos")->group(function () {
+                Route::get("/", "SobreNosController@index");
+                Route::get("show/{id}", "SobreNosController@show");
+                Route::post("create", "SobreNosController@create");
+                Route::put("update/{id}", "SobreNosController@update");
+                Route::delete("destroy/{id}", "SobreNosController@destroy");
             });
         });
     });

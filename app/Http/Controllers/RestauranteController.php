@@ -9,8 +9,8 @@ use App\Unidade;
 
 class RestauranteController extends BaseController
 {
-   public function create(Request $request) 
-   {
+    public function create(Request $request)
+    {
         $validatedData = $request->validate([
             'slug' => 'required|string|max:255',
             'nome' => 'required|string|max:255',
@@ -18,24 +18,20 @@ class RestauranteController extends BaseController
 
         $restauranteSlug = Restaurante::where(['slug' => $request->slug])->first();
 
-        if($restauranteSlug) {
+        if ($restauranteSlug) {
             return response(['message' => 'Esse slug já está sendo utilizado por outro restaurante']);
         }
 
         $validatedData['user_id'] = \Auth::id();
 
         return Restaurante::create($validatedData);
-   }
+    }
 
-   public function checkSlug($slug)
+    public function checkSlug($slug)
     {
-        $unidadeSlugCount = Restaurante::where(['slug' => $slug])->count();
+        $slug = Restaurante::where(['slug' => $slug])->first();
 
-        if($unidadeSlugCount != 0) {
-            return response(['message' => 'Esse slug já está sendo utilizado por outro restaurante'], 422);
-        } else {
-            return response(['message' => 'Slug disponível']);
-        }
+        return $slug;
     }
 
     public function getUnidades($restaurante_id)
@@ -43,9 +39,9 @@ class RestauranteController extends BaseController
 
         $restaurante = \App\REstaurante::where(['id' => $restaurante_id])->with('unidade')->first();
 
-        
 
-        if(!empty($restaurante['unidade'])) {
+
+        if (!empty($restaurante['unidade'])) {
             return $restaurante['unidade'];
         } else {
             return response(['message' => 'Restaurante não encotrado'], 422);
@@ -60,7 +56,7 @@ class RestauranteController extends BaseController
         $restaurante = Restaurante::find($id);
 
         if (!empty($restaurante)) {
-            if(\Auth::id() != $restaurante['user_id']) {
+            if (\Auth::id() != $restaurante['user_id']) {
                 return response(['message' => 'Usuário não possui permissão para executar essa ação'], 401);
             }
 
@@ -77,7 +73,7 @@ class RestauranteController extends BaseController
         $restaurante = Restaurante::find($id);
 
         if (!empty($restaurante)) {
-            if(\Auth::id() != $restaurante['user_id']) {
+            if (\Auth::id() != $restaurante['user_id']) {
                 return response(['message' => 'Usuário não possui permissão para executar essa ação'], 401);
             }
 

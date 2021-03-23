@@ -128,10 +128,6 @@ class UnidadeController extends Controller
             $query->where(['slug' => $restaurante]);
         })->first();
 
-        if (empty($slug)) {
-            return response(['message' => 'Slug não encontrado'], 404);
-        }
-
         return $slug;
     }
 }
