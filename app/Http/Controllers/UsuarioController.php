@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Restaurante;
 use Illuminate\Http\Request;
+
+use Auth;
 
 class UsuarioController extends Controller
 {
     public function meusRestaurantes()
     {
-        $restaurantes = \Auth::user()->with('restaurante')
-            ->with('restaurante.unidade')
+
+        $user_id = Auth::id();
+        $restaurantes = Restaurante::query()
+            ->where('user_id', $user_id)
+            ->with('unidade')
             ->get();
 
-        $restaurantesArray = [];
 
-        foreach ($restaurantes as $restaurante) {
-            $restaurantesArray[] = $restaurante['restaurante'];
-        }
-
-        return $restaurantesArray;
+        return $restaurantes;
     }
 }
