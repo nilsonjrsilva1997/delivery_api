@@ -20,7 +20,6 @@ class UsuarioController extends Controller
                     ->with('tempo_espera_entrega')
                     ->with('horario_funcionamento')
                     ->with('sobre_nos')
-                    ->with('restaurante')
                     ->with(['produtos' => function ($query) {
                         $query->with('categoria')
                             ->with(['adicional' => function ($query) {
