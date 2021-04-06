@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Unidade;
+use App\Permissao;
+use Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UnidadeController extends Controller
@@ -20,7 +22,7 @@ class UnidadeController extends Controller
     public function show($id)
     {
         $unidade = Unidade::find($id);
-        $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $id);
+        $permissao = \App\Helpers\Helper::getPermissoes(Auth::id(), $id);
 
         if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE' || $permissao == 'FUNCIONARIO') {
             if (!empty($unidade) && $permissao['tipo'] == 'ADMINISTRADOR') {
@@ -75,12 +77,18 @@ class UnidadeController extends Controller
 
         $unidade = Unidade::create($validatedData);
 
-        return response(["data" => $unidade, "message" => "Dados retornado com sucesso"], 200);
+        $permissao = Permissao::create([
+            'user_id' => Auth::id(),
+            'unidade_id' => $unidade->id,
+            'tipo' => 'ADMINISTRADOR',
+        ]);
+
+        return response(["data" => $unidade, "permissao" => $permissao, "message" => "Dados retornado com sucesso"], 200);
     }
 
     public function update(Request $request, $id)
     {
-        $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $id);
+        $permissao = \App\Helpers\Helper::getPermissoes(Auth::id(), $id);
 
         if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
             $validatedData = $request->validate([
@@ -108,7 +116,7 @@ class UnidadeController extends Controller
 
     public function destroy($id)
     {
-        $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $id);
+        $permissao = \App\Helpers\Helper::getPermissoes(Auth::id(), $id);
 
         if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
 

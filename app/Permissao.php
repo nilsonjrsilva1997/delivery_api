@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
+use App\Unidade;
+
 
 class Permissao extends Model
 {
@@ -13,12 +16,11 @@ class Permissao extends Model
     // relacionamentos
     public function usuario()
     {
-        return $this->belongsTo(\App\User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function unidade()
     {
-        return $this->belongsTo(\App\Unidade::class, 'unidade_id', 'id');
+        return $this->belongsTo(Unidade::class, 'unidade_id', 'id');
     }
 }
-
