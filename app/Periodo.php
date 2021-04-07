@@ -10,7 +10,7 @@ class Periodo extends Model
 {
     protected $table = "periodos";
 
-    protected $fillable = ["hora_inicial", "hora_final", "dia_semana_id", ];
+    protected $fillable = ["hora_inicial", "hora_final", "dia_semana_id"];
 
     // relacionamentos
     public function dia_semana()
@@ -23,4 +23,3 @@ class Periodo extends Model
         return $this->hasMany(HorarioFuncionamentoDelivery::class);
     }
 }
-

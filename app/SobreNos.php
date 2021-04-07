@@ -7,7 +7,7 @@ use App\Unidade;
 
 class SobreNos extends Model
 {
-    protected $fillable = ['facebook', 'instagram', 'unidade_id'];
+    protected $fillable = ['descrição', 'facebook', 'instagram', 'unidade_id'];
 
     protected $table = 'sobre_nos';
 

@@ -15,6 +15,7 @@ class CreateSobreNosTable extends Migration
     {
         Schema::create('sobre_nos', function (Blueprint $table) {
             $table->id();
+            $table->text('descricao');
             $table->string('facebook');
             $table->string('instagram');
             $table->integer('unidade_id');

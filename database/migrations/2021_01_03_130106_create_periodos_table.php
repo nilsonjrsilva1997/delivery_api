@@ -18,7 +18,6 @@ class CreatePeriodosTable extends Migration
             $table->time("hora_inicial");
             $table->time("hora_final");
             $table->integer("dia_semana_id");
-            $table->integer("num_periodo");
             $table->timestamps();
         });
     }
@@ -33,5 +32,3 @@ class CreatePeriodosTable extends Migration
         Schema::dropIfExists("periodos");
     }
 }
-
-

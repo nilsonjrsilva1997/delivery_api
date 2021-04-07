@@ -131,20 +131,19 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::post("create", "RestauranteController@create");
         Route::put("update/{id}", "RestauranteController@update");
         Route::delete("destroy/{id}", "RestauranteController@destroy");
-
-        Route::prefix("unidade")->group(function () {
-            Route::get("/", "UnidadeController@index");
-            Route::get("show/{id}", "UnidadeController@show");
-            Route::get("check_slug/{restaurante}/{slug}", "UnidadeController@checkSlug");
-            Route::post("create", "UnidadeController@create");
-            Route::put("update/{id}", "UnidadeController@update");
-            Route::delete("destroy/{id}", "UnidadeController@destroy");
-        });
     });
 
 
-    Route::prefix("{restaurante}/{prefix}")->group(function () {
+    Route::prefix("unidade")->group(function () {
+        Route::get("/", "UnidadeController@index");
+        Route::get("show/{id}", "UnidadeController@show");
+        Route::get("check_slug/{restaurante}/{slug}", "UnidadeController@checkSlug");
+        Route::post("create", "UnidadeController@create");
+        Route::put("update/{id}", "UnidadeController@update");
+        Route::delete("destroy/{id}", "UnidadeController@destroy");
+
         Route::prefix("pedido")->group(function () {
+            Route::get('/by_slug/{unidade}', "PedidoController@bySlug");
             Route::post("/fazer_pedido", "PedidoController@fazerPedido");
             Route::get("/index", "PedidoController@index");
             Route::put("/update_status_pedido/{id}", "PedidoController@updateStatusPedido");
@@ -242,9 +241,9 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::delete("destroy/{id}", "PerguntaController@destroy");
     });
 
-    Route::prefix("pesquisa")->group(function () {
+    /* Route::prefix("pesquisa")->group(function () {
         Route::post("/criar_pesquisa", "PesquisaSatisfacaoController@criarPesquisa");
-    });
+    }); */
 
     Route::prefix("entregador")->group(function () {
         Route::get("/", "EntregadorController@index");

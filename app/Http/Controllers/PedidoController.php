@@ -12,12 +12,14 @@ use App\PedidoAdicional;
 use App\Opcao;
 use App\PedidoAdicionalOpcao;
 use App\CupomDesconto;
+use App\Unidade;
 
 class PedidoController extends BaseController
 {
+
     public function index()
     {
-        return Pedido::with("produto_pedido")
+        $pedidos = Pedido::with("produto_pedido")
             ->with("usuario")
             ->with("usuario.endereco_entrega")
             ->with("produto_pedido.produto")
@@ -31,6 +33,36 @@ class PedidoController extends BaseController
             ->with("enderecos_entrega")
             ->with("cupom_desconto")
             ->get();
+
+        return $pedidos;
+    }
+
+    public function bySlug($unidade)
+    {
+
+        $unidade = Unidade::where('slug', $unidade)->first();
+        if ($unidade) {
+
+            $pedidos = Pedido::with("produto_pedido")
+                ->with("usuario")
+                ->with("usuario.endereco_entrega")
+                ->with("produto_pedido.produto")
+                ->with("produto_pedido.produto.categoria")
+                ->with("produto_pedido.produto.unidade")
+                ->with("produto_pedido.produto.unidade.restaurante")
+                ->with("produto_pedido.pedido_adicional")
+                ->with("produto_pedido.pedido_adicional.adicional")
+                ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
+                ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
+                ->with("enderecos_entrega")
+                ->with("cupom_desconto")
+                ->where('unidade_id', $unidade->id)
+                ->get();
+
+            return ["pedidos" => $pedidos, "unidade" => $unidade];
+        } else {
+            return response(["message" => "Unidade nao encontrada"], 422);
+        }
     }
 
     public function show($id)
