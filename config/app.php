@@ -217,7 +217,6 @@ return [
         'Pergunta' => App\Pergunta::class,
         'PerguntaValidateService' => App\Http\Services\PerguntaValidateService::class,
         'PesquisaSatisfacao' => App\PesquisaSatisfacao::class,
-        'PesquisaSatisfacaoValidateService' => App\Http\Services\PesquisaSatisfacaoValidateService::class,
         'PedidoAdicionalOpcao' => App\PedidoAdicionalOpcao::class,
         'PedidoAdicionalOpcaoValidateService' => App\Http\Services\PedidoAdicionalOpcaoValidateService::class,
         'PedidoAdicional' => App\PedidoAdicional::class,

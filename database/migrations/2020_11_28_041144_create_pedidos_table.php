@@ -20,6 +20,7 @@ class CreatePedidosTable extends Migration
             $table->enum("status_pedido", ["EM_ANALISE", "REPROVADO", "APROVADO", "PREPARANDO", "EM_TRANSITO"]);
             $table->integer("enderecos_entrega_id");
             $table->integer("cupom_desconto_id")->nullable();
+            $table->integer("unidade_id");
             $table->timestamps();
         });
     }
@@ -34,5 +35,3 @@ class CreatePedidosTable extends Migration
         Schema::dropIfExists("pedidos");
     }
 }
-
-

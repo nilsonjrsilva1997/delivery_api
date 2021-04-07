@@ -12,6 +12,7 @@ use App\Produto;
 use App\ConfigEntrega;
 use App\HorarioFuncionamentoDelivery;
 use App\UsuarioUnidade;
+use App\Pedido;
 
 class Unidade extends Model
 {
@@ -42,6 +43,11 @@ class Unidade extends Model
     public function produtos()
     {
         return $this->hasMany(Produto::class, 'unidade_id', 'id');
+    }
+
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class, 'unidade_id', 'id');
     }
 
     public function restaurante()

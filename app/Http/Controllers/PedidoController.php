@@ -51,7 +51,7 @@ class PedidoController extends BaseController
             ->where(["id" => $id])
             ->first();
 
-        
+
 
         if (!empty($pedido)) {
             return response(["data" => $pedido, "message" => "Pedido retornado com sucesso"]);

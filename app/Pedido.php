@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\ProdutoPedido;
 use App\CupomDesconto;
+use App\Unidade;
 
 class Pedido extends Model
 {
     protected $table = "pedidos";
 
-    protected $fillable = ["valor_total", "user_id", "enderecos_entrega_id", "status_pedido", "cupom_desconto_id"];
+    protected $fillable = ["valor_total", "user_id", "enderecos_entrega_id", "status_pedido", "cupom_desconto_id", "unidade_id"];
 
     // relacionamentos
     public function usuario()
@@ -29,9 +30,13 @@ class Pedido extends Model
         return $this->hasMany(ProdutoPedido::class);
     }
 
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class, "unidade_id", "id");
+    }
+
     public function cupom_desconto()
     {
         return $this->belongsTo(CupomDesconto::class, "cupom_desconto_id", "id");
     }
 }
-

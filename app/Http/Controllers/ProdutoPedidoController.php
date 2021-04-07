@@ -10,10 +10,10 @@ class ProdutoPedidoController extends BaseController
     public function index()
     {
         $produtoPedido = ProdutoPedido::with("produto")
-                                        ->with("pedido")
-                                        ->get();
+            ->with("pedido")
+            ->get();
 
-        if(!empty($produtoPedido)) {
+        if (!empty($produtoPedido)) {
             return response(["data" => $produtoPedido, "message" => "Dados retornados com sucesso"]);
         } else {
             return response(["message" => "Nenhum Produto/pedido cadastrado"]);
@@ -23,11 +23,11 @@ class ProdutoPedidoController extends BaseController
     public function show($id)
     {
         $produtoPedido = ProdutoPedido::with("produto")
-                                        ->with("pedido")
-                                        ->where(["id" => $id])
-                                        ->get();
+            ->with("pedido")
+            ->where(["id" => $id])
+            ->get();
 
-        if(!empty($produtoPedido)) {
+        if (!empty($produtoPedido)) {
             return response(["data" => $produtoPedido, "message" => "Dados retornados com sucesso"]);
         } else {
             return response(["message" => "Produto/pedido não encontrado"]);
