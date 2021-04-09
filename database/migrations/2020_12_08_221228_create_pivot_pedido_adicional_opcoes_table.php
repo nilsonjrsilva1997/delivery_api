@@ -17,6 +17,7 @@ class CreatePivotPedidoAdicionalOpcoesTable extends Migration
             $table->id();
             $table->integer("opcao_id");
             $table->integer("pedido_adicional_id");
+            $table->integer("quantidade");
             $table->string("titulo");
             $table->float("valor");
             $table->float("maximo");

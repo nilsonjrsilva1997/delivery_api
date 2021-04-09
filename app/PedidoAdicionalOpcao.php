@@ -10,7 +10,8 @@ class PedidoAdicionalOpcao extends Model
 {
     protected $table = "pivot_pedido_adicional_opcoes";
 
-    protected $fillable = ["opcao_id", "pedido_adicional_id", ];
+    protected $fillable = ["opcao_id", "pedido_adicional_id", "quantidade", "titulo", "valor", "maximo", "minimo"];
+
 
     // relacionamentos
     public function opcoes()
@@ -18,9 +19,8 @@ class PedidoAdicionalOpcao extends Model
         return $this->belongsTo(Opcao::class, "opcao_id", "id");
     }
 
-    public function  pedido_adicional()
+    public function pedido_adicional()
     {
         return $this->belongsTo(PedidoAdicional::class, "pedido_adicional_id", "id");
     }
 }
-

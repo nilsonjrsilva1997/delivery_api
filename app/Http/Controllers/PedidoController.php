@@ -22,15 +22,9 @@ class PedidoController extends BaseController
     {
         $pedidos = Pedido::with("produto_pedido")
             ->with("usuario")
-            ->with("usuario.endereco_entrega")
             ->with("produto_pedido.produto")
-            ->with("produto_pedido.produto.categoria")
-            ->with("produto_pedido.produto.unidade")
-            ->with("produto_pedido.produto.unidade.restaurante")
             ->with("produto_pedido.pedido_adicional")
-            ->with("produto_pedido.pedido_adicional.adicional")
             ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
-            ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
             ->with("enderecos_entrega")
             ->with("cupom_desconto")
             ->get();
@@ -46,21 +40,15 @@ class PedidoController extends BaseController
 
             $pedidos = Pedido::with("produto_pedido")
                 ->with("usuario")
-                ->with("usuario.endereco_entrega")
                 ->with("produto_pedido.produto")
-                ->with("produto_pedido.produto.categoria")
-                ->with("produto_pedido.produto.unidade")
-                ->with("produto_pedido.produto.unidade.restaurante")
                 ->with("produto_pedido.pedido_adicional")
-                ->with("produto_pedido.pedido_adicional.adicional")
                 ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
-                ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
                 ->with("enderecos_entrega")
                 ->with("cupom_desconto")
                 ->where('unidade_id', $unidade->id)
                 ->get();
 
-            return ["pedidos" => $pedidos, "unidade" => $unidade];
+            return $pedidos;
         } else {
             return response(["message" => "Unidade nao encontrada"], 422);
         }
@@ -70,21 +58,13 @@ class PedidoController extends BaseController
     {
         return Pedido::with("produto_pedido")
             ->with("usuario")
-            ->with("usuario.endereco_entrega")
             ->with("produto_pedido.produto")
-            ->with("produto_pedido.produto.categoria")
-            ->with("produto_pedido.produto.unidade")
-            ->with("produto_pedido.produto.unidade.restaurante")
             ->with("produto_pedido.pedido_adicional")
-            ->with("produto_pedido.pedido_adicional.adicional")
             ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
-            ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao.opcoes")
             ->with("enderecos_entrega")
             ->with("cupom_desconto")
             ->where(["id" => $id])
             ->first();
-
-
 
         if (!empty($pedido)) {
             return response(["data" => $pedido, "message" => "Pedido retornado com sucesso"]);
@@ -125,39 +105,49 @@ class PedidoController extends BaseController
         $validatedData = $request->validate([
             "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
             "status_pedido" => "required|in:EM_ANALISE",
-            "unidade_id" => "required|integer|exists:unidades,id"
+            "unidade_id" => "required|integer|exists:unidades,id",
+            "observacao" => "string",
+            "cpf" => "string|max:14"
         ]);
+
+        $unidade = Unidade::findOrFail($validatedData['unidade_id']);
 
         $cupomDesconto = CupomDesconto::where(["codigo" => $request->cupom_desconto])
             ->first();
 
+
         $validatedData["user_id"] = Auth::id();
-
-        $validatedData["valor_total"] = 12; // calcular depois
-
+        $validatedData['taxa_entrega'] = $unidade->taxa_entrega;
+        $validatedData["valor_total"] = 0; // calcular depois
 
         $pedido = Pedido::create($validatedData);
+
+        $valor_total = $unidade->taxa_entrega;
 
         // criando produto pedido
         foreach ($request->produtos as $produto) {
             $produtoBd = Produto::find($produto["id"]);
 
-            $produtoPedido = null;
+            $produto_total = 0;
 
             if (!empty($produtoBd)) {
                 // criando pedido/produto
                 $produtoPedido = ProdutoPedido::create([
                     "pedido_id" => $pedido->id,
-                    "quantidade" => $produto["quantidade"],
                     "produto_id" => $produtoBd->id,
-                    "valor_atual" => $produtoBd->valor_atual,
                     "nome" => $produtoBd->nome,
-                    "descricao" => $produtoBd->descricao,
+                    "quantidade" => $produto["quantidade"],
+                    "valor_anterior" => $produtoBd->valor_anterior,
+                    "valor_atual" => $produtoBd->valor_atual,
                 ]);
+
+                $produto_total = $produto_total + $produtoBd->valor_atual;
+
 
                 // verifica se pedido tem adicional
                 if (count($produto["adicional"]) > 0) {
                     foreach ($produto["adicional"] as $adicional) {
+
                         $adicionalBd = Adicional::find($adicional["id"]);
 
                         if (!empty($adicional)) {
@@ -165,15 +155,26 @@ class PedidoController extends BaseController
                                 "adicional_id" => $adicionalBd->id,
                                 "produto_pedido_id" => $produtoPedido->id,
                                 "titulo" => $adicionalBd->titulo,
+                                "valor" => $adicionalBd->valor,
                             ]);
 
-                            foreach ($adicional["opcoes_ids"] as $opcaoId) {
-                                $opcaoBd = Opcao::find($opcaoId);
+                            $produto_total = $produto_total + $adicionalBd->valor;
+
+                            foreach ($adicional["opcoes"] as $opcao) {
+                                $opcaoBd = Opcao::find($opcao["id"]);
+
                                 if (!empty($opcaoBd)) {
                                     PedidoAdicionalOpcao::create([
-                                        "pedido_adicional_id" => $pedidoAdicional->id,
                                         "opcao_id" => $opcaoBd->id,
+                                        "pedido_adicional_id" => $pedidoAdicional->id,
+                                        "quantidade" => $opcao["quantidade"],
+                                        "titulo" => $opcaoBd->titulo,
+                                        "valor" => $opcaoBd->valor,
+                                        "maximo" => $opcaoBd->maximo,
+                                        "minimo" => $opcaoBd->minimo,
                                     ]);
+
+                                    $produto_total = $produto_total + ($opcaoBd->valor * $opcao["quantidade"]);
                                 } else {
                                     return response(["message" => "Opção não encontrada"], 422);
                                 }
@@ -183,11 +184,18 @@ class PedidoController extends BaseController
                         }
                     }
                 }
+
+                $produto_total = $produto_total * $produto['quantidade'];
+
+                $valor_total = $valor_total + $produto_total;
             } else {
                 return response(["message" => "Produto nao encontrado, ID do produto: " . $produto["id"]], 422);
             }
         }
 
-        return response(["message" => "Pedido feito com sucesso"], 200);
+        $pedido->valor_total = $valor_total;
+        $pedido->save();
+
+        return $this->show($pedido->id);
     }
 }

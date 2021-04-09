@@ -18,9 +18,12 @@ class CreatePedidosTable extends Migration
             $table->float("valor_total");
             $table->integer("user_id");
             $table->enum("status_pedido", ["EM_ANALISE", "REPROVADO", "APROVADO", "PREPARANDO", "EM_TRANSITO"]);
+            $table->integer("taxa_entrega");
             $table->integer("enderecos_entrega_id");
             $table->integer("cupom_desconto_id")->nullable();
             $table->integer("unidade_id");
+            $table->string('cpf');
+            $table->text('observacao');
             $table->timestamps();
         });
     }
