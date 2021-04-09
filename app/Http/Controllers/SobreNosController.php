@@ -25,7 +25,7 @@ class SobreNosController extends Controller
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-            'descricao' => 'required|string|max:255',
+            'descricao' => 'required|string',
             'facebook' => 'required|url',
             'instagram' => 'required|url',
             'unidade_id' => 'required|integer|exists:unidades,id',
@@ -37,7 +37,7 @@ class SobreNosController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'descricao' => 'string|max:255',
+            'descricao' => 'string',
             'facebook' => 'url',
             'instagram' => 'url',
             'unidade_id' => 'integer|exists:unidades,id',

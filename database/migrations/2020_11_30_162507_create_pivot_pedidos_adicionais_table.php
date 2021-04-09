@@ -18,6 +18,7 @@ class CreatePivotPedidosAdicionaisTable extends Migration
             $table->integer("adicional_id");
             $table->integer("produto_pedido_id");
             $table->string("titulo");
+            $table->float("valor");
             $table->timestamps();
         });
     }

@@ -17,10 +17,11 @@ class CreatePivotProdutosPedidos extends Migration
             $table->id();
             $table->integer("pedido_id");
             $table->integer("produto_id");
-            $table->float("valor_atual");
             $table->string("nome");
-            $table->string("descricao");
             $table->integer("quantidade");
+            $table->string("descricao");
+            $table->float("valor_anterior");
+            $table->float("valor_atual");
             $table->timestamps();
         });
     }

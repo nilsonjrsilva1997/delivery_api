@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Http\Services\PedidoValidateService;
 use App\Pedido;
 use App\Produto;
@@ -96,7 +97,7 @@ class PedidoController extends BaseController
     {
         $pedidoValidateService = new PedidoValidateService;
         $validatedData = $request->validate($pedidoValidateService->getValidateRulesCreate());
-        $validatedData["user_id"] = \Auth::id();
+        $validatedData["user_id"] = Auth::id();
         $pedido = Pedido::create($validatedData);
         return response(["data" => $pedido, "message" => "Pedido inserido com sucesso"]);
     }
@@ -124,11 +125,14 @@ class PedidoController extends BaseController
         $validatedData = $request->validate([
             "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
             "status_pedido" => "required|in:EM_ANALISE",
+            "unidade_id" => "required|integer|exists:unidades,id"
         ]);
 
-        $cupomDesconto = CupomDesconto::where(["codigo" => $request->cupom_desconto])->get();
+        $cupomDesconto = CupomDesconto::where(["codigo" => $request->cupom_desconto])
+            ->first();
 
-        $validatedData["user_id"] = \Auth::id();
+        $validatedData["user_id"] = Auth::id();
+
         $validatedData["valor_total"] = 12; // calcular depois
 
 
