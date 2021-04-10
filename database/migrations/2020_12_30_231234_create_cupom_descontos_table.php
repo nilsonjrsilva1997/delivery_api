@@ -21,14 +21,13 @@ class CreateCupomDescontosTable extends Migration
             $table->float("valor_beneficio")->nullable();
             $table->string("beneficio_descricao")->nullable();
             $table->integer("usos");
-            $table->enum("tipo", ["CLIENTE", "CLIENTE2"]);
             $table->enum("status", ["ATIVADO", "DESATIVO"]);
-            $table->date("validade")->nullable();
+            $table->date("validade");
             $table->integer("unidade_id");
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
@@ -39,5 +38,3 @@ class CreateCupomDescontosTable extends Migration
         Schema::dropIfExists("cupom_descontos");
     }
 }
-
-

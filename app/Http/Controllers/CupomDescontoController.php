@@ -6,17 +6,19 @@ use Illuminate\Http\Request;
 use App\CupomDesconto;
 use DB;
 use App\Http\Services\CupomDescontoValidateService;
+use Carbon\Carbon;
 
 class CupomDescontoController extends BaseController
 {
-   public function create(Request $request)
-   {
-        $cupons = DB::table("cupom_descontos")
-            ->where(["codigo" => $request->codigo, "unidade_id" => $request->unidade_id])
-            ->select(DB::raw("COUNT(*) as num_cupons"))
-            ->get();
+    public function create(Request $request)
+    {
+        $cupom = CupomDesconto::where('codigo', $request->codigo)
+            ->where('unidade_id', $request->unidade_id)
+            ->where('usos', '>', '0')
+            ->whereDate('validade', '>',  Carbon::now()->toDateString())
+            ->first();
 
-        if($cupons[0]->num_cupons == 1) {
+        if ($cupom) {
             return response(["message" => "Esse cupom de desconto já está cadastrado"], 422);
         } else {
             $cupomValidate = new CupomDescontoValidateService();
@@ -24,5 +26,5 @@ class CupomDescontoController extends BaseController
 
             return CupomDesconto::create($validatedData);
         }
-   }
+    }
 }
