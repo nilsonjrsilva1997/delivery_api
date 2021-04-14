@@ -23,7 +23,8 @@ class CreatePedidosTable extends Migration
                 "APROVADO",
                 "PREPARANDO",
                 "ESPERANDO_RETIRADA",
-                "EM_TRANSITO"
+                "EM_TRANSITO",
+                "FINALIZADO"
             ]);
             $table->integer("taxa_entrega");
             $table->integer("enderecos_entrega_id");

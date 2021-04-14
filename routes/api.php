@@ -146,7 +146,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
             Route::get('/by_slug/{unidade}', "PedidoController@bySlug");
             Route::post("/fazer_pedido", "PedidoController@fazerPedido");
             Route::get("/index", "PedidoController@index");
-            Route::put("/update_status_pedido/{id}", "PedidoController@updateStatusPedido");
+            Route::put("/update_status/{id}", "PedidoController@updateStatusPedido");
             Route::get("/show/{id}", "PedidoController@show");
         });
 

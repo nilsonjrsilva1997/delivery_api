@@ -20,6 +20,7 @@ class CreatePivotPedidoAdicionalOpcoesTable extends Migration
             $table->integer("quantidade");
             $table->string("titulo");
             $table->float("valor");
+            $table->float("valor_total");
             $table->float("maximo");
             $table->float("minimo");
             $table->timestamps();

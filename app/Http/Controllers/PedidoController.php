@@ -85,7 +85,7 @@ class PedidoController extends BaseController
     public function updateStatusPedido(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'status_pedido' => 'in:EM_ANALISE,EM_TRANSITO,REPROVADO,APROVADO,PREPARANDO',
+            'status_pedido' => 'in:EM_ANALISE,REPROVADO,APROVADO,PREPARANDO,ESPERANDO_RETIRADA,EM_TRANSITO,FINALIZADO',
         ]);
 
         $pedido = Pedido::find($id);
@@ -139,10 +139,10 @@ class PedidoController extends BaseController
                     "quantidade" => $produto["quantidade"],
                     "valor_anterior" => $produtoBd->valor_anterior,
                     "valor_atual" => $produtoBd->valor_atual,
+                    "valor_total" => 0,
                 ]);
 
                 $produto_total = $produto_total + $produtoBd->valor_atual;
-
 
                 // verifica se pedido tem adicional
                 if (count($produto["adicional"]) > 0) {
@@ -164,17 +164,21 @@ class PedidoController extends BaseController
                                 $opcaoBd = Opcao::find($opcao["id"]);
 
                                 if (!empty($opcaoBd)) {
+                                    $adicional_total = $opcaoBd->valor * $opcao["quantidade"];
+
                                     PedidoAdicionalOpcao::create([
                                         "opcao_id" => $opcaoBd->id,
                                         "pedido_adicional_id" => $pedidoAdicional->id,
                                         "quantidade" => $opcao["quantidade"],
                                         "titulo" => $opcaoBd->titulo,
                                         "valor" => $opcaoBd->valor,
+                                        "valor_total" => $adicional_total,
                                         "maximo" => $opcaoBd->maximo,
                                         "minimo" => $opcaoBd->minimo,
                                     ]);
 
-                                    $produto_total = $produto_total + ($opcaoBd->valor * $opcao["quantidade"]);
+
+                                    $produto_total = $produto_total + $adicional_total;
                                 } else {
                                     return response(["message" => "Opção não encontrada"], 422);
                                 }
@@ -186,6 +190,9 @@ class PedidoController extends BaseController
                 }
 
                 $produto_total = $produto_total * $produto['quantidade'];
+
+                $produtoPedido->produto_total = $produto_total;
+                $produtoPedido->save();
 
                 $valor_total = $valor_total + $produto_total;
             } else {
