@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class FormaPagamentoSeeder extends Seeder
 {
@@ -12,71 +13,23 @@ class FormaPagamentoSeeder extends Seeder
     public function run()
     {
         DB::table('forma_pagamentos')->insert([
-            'nome' => 'Alelo',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Diners Club',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Elo',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'M. Maestro (débito)',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Sodexo',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Visa Electron (débito)',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'American Express',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Dinheiro',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Greem Card Refeição',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Mastercard',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Ticket Restaurante',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'VR',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Banrisul',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Discover',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Hipercard',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Redeshop',
-        ]);
-
-        DB::table('forma_pagamentos')->insert([
-            'nome' => 'Visa (crédito)',
+            ['nome' => 'Alelo', 'icone' => ''],
+            ['nome' => 'Diners Club', 'icone' => ''],
+            ['nome' => 'Elo', 'icone' => ''],
+            ['nome' => 'M. Maestro (débito)', 'icone' => ''],
+            ['nome' => 'Sodexo', 'icone' => ''],
+            ['nome' => 'Visa Electron (débito)', 'icone' => ''],
+            ['nome' => 'American Express', 'icone' => ''],
+            ['nome' => 'Dinheiro', 'icone' => ''],
+            ['nome' => 'Greem Card Refeição', 'icone' => ''],
+            ['nome' => 'Mastercard', 'icone' => ''],
+            ['nome' => 'Ticket Restaurante', 'icone' => ''],
+            ['nome' => 'VR', 'icone' => ''],
+            ['nome' => 'Banrisul', 'icone' => ''],
+            ['nome' => 'Discover', 'icone' => ''],
+            ['nome' => 'Hipercard', 'icone' => ''],
+            ['nome' => 'Redeshop', 'icone' => ''],
+            ['nome' => 'Visa (crédito)', 'icone' => ''],
         ]);
     }
 }

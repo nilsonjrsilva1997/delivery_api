@@ -11,9 +11,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CategoriaCardapioSeeder::class);
-        // $this->call(FormaPagamentoSeeder::class);
-        // $this->call(AreaEntregaSeeder::class);
-        $this->call(DiasDaSemanaSeeder::class);
+        $this->call([
+            FormaPagamentoSeeder::class,
+            DiasDaSemanaSeeder::class,
+            UserSeeder::class,
+            RestauranteSeeder::class,
+            UnidadeSeeder::class,
+            UnidadeEnderecoSeeder::class,
+            TempoEsperaSeeder::class,
+            SobreNosSeeder::class,
+            ProdutoCategoriaSeeder::class,
+            ProdutoSeeder::class,
+            ProdutoAdicionalSeeder::class,
+            ProdutoOpcaoSeeder::class,
+        ]);
     }
 }

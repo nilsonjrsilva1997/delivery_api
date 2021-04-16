@@ -21,17 +21,23 @@ class UnidadeController extends Controller
 
     public function show($id)
     {
-        $unidade = Unidade::find($id);
-        $permissao = \App\Helpers\Helper::getPermissoes(Auth::id(), $id);
+        $unidade = Unidade::query()
+            ->where('id', $id)
+            ->with('enderecos')
+            ->with('tempo_espera_entrega')
+            ->with('horario_funcionamento')
+            ->with('sobre_nos')
+            ->with('produtos')
+            ->with('produtos.categoria')
+            ->with('produtos.adicional')
+            ->with('produtos.adicional.opcoes')
+            ->first();
 
-        if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE' || $permissao == 'FUNCIONARIO') {
-            if (!empty($unidade) && $permissao['tipo'] == 'ADMINISTRADOR') {
-                return $unidade;
-            } else {
-                return response(['message' => 'Unidade não encontrado']);
-            }
+
+        if ($unidade) {
+            return $unidade;
         } else {
-            return response(['message' => $this->data['MESSAGE']], 401);
+            return response(['message' => 'Unidade não encontrado']);
         }
     }
 
@@ -77,13 +83,16 @@ class UnidadeController extends Controller
 
         $unidade = Unidade::create($validatedData);
 
-        $permissao = Permissao::create([
-            'user_id' => Auth::id(),
-            'unidade_id' => $unidade->id,
-            'tipo' => 'ADMINISTRADOR',
+        Permissao::create([
+            "user_id" => Auth::id(),
+            "unidade_id" => $unidade->id,
+            "tipo" => "ADMINISTRADOR",
         ]);
 
-        return response(["data" => $unidade, "permissao" => $permissao, "message" => "Dados retornado com sucesso"], 200);
+        return response([
+            "data" => $this->show($unidade->id),
+            "message" => "Dados retornado com sucesso"
+        ], 200);
     }
 
     public function update(Request $request, $id)
@@ -105,7 +114,10 @@ class UnidadeController extends Controller
                 $unidade->fill($validatedData);
                 $unidade->save();
 
-                return response(["data" => $unidade, "message" => "Dados retornado com sucesso"], 200);
+                return response([
+                    "data" => $this->show($unidade->id),
+                    "message" => "Dados retornado com sucesso"
+                ], 200);
             } else {
                 return response(['message' => 'Unidade não encontrado']);
             }
@@ -132,9 +144,10 @@ class UnidadeController extends Controller
 
     public function checkSlug($restaurante, $slug)
     {
-        $slug = Unidade::where(['slug' => $slug])->whereHas('restaurante', function ($query) use ($restaurante) {
-            $query->where(['slug' => $restaurante]);
-        })->first();
+        $slug = Unidade::where(['slug' => $slug])
+            ->whereHas('restaurante', function ($query) use ($restaurante) {
+                $query->where(['slug' => $restaurante]);
+            })->first();
 
         return $slug;
     }

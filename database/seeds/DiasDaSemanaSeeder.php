@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DiasDaSemanaSeeder extends Seeder
 {
@@ -12,27 +13,12 @@ class DiasDaSemanaSeeder extends Seeder
     public function run()
     {
         DB::table('dias_semana_horario_deliverys')->insert([
-            'nome' => 'Domingo',
-        ]);
-
-        DB::table('dias_semana_horario_deliverys')->insert([
-            'nome' => 'Segunda-Feira',
-        ]);
-
-        DB::table('dias_semana_horario_deliverys')->insert([
-            'nome' => 'Terça-Feira',
-        ]);
-
-        DB::table('dias_semana_horario_deliverys')->insert([
-            'nome' => 'Quarta-Feira',
-        ]);
-
-        DB::table('dias_semana_horario_deliverys')->insert([
-            'nome' => 'Sexta-Feira',
-        ]);
-
-        DB::table('dias_semana_horario_deliverys')->insert([
-            'nome' => 'Sábado',
+            ['nome' => 'Domingo'],
+            ['nome' => 'Segunda-Feira'],
+            ['nome' => 'Terça-Feira'],
+            ['nome' => 'Quarta-Feira'],
+            ['nome' => 'Sexta-Feira'],
+            ['nome' => 'Sábado'],
         ]);
     }
 }

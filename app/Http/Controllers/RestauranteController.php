@@ -39,8 +39,6 @@ class RestauranteController extends BaseController
 
         $restaurante = \App\REstaurante::where(['id' => $restaurante_id])->with('unidade')->first();
 
-
-
         if (!empty($restaurante['unidade'])) {
             return $restaurante['unidade'];
         } else {

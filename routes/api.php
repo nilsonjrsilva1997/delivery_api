@@ -40,6 +40,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
 
     Route::prefix("categoria")->group(function () {
         Route::get("/", "CategoriaController@index");
+        Route::get("/by_slug/{slug}", "CategoriaController@indexBySlug");
         Route::get("show/{id}", "CategoriaController@show");
         Route::post("create", "CategoriaController@create");
         Route::put("update/{id}", "CategoriaController@update");
