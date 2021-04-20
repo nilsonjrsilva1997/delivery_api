@@ -21,7 +21,7 @@ class ProdutoSeeder extends Seeder
                 "valor_atual" => 18,
                 "unidade_id" => 1,
                 "categoria_id" => 1,
-                "foto" => 'Sem Título-1_1617827447.png',
+                "foto" => 'logo.png',
             ],
             [
                 "nome" => 'Super Cheddar Burguer',
@@ -31,7 +31,7 @@ class ProdutoSeeder extends Seeder
                 "valor_atual" => 21,
                 "unidade_id" => 1,
                 "categoria_id" => 1,
-                "foto" => 'Sem Título-1_1617827447.png',
+                "foto" => 'logo.png',
             ],
             [
                 "nome" => 'Special Chicken',
@@ -41,7 +41,7 @@ class ProdutoSeeder extends Seeder
                 "valor_atual" => 19,
                 "unidade_id" => 1,
                 "categoria_id" => 1,
-                "foto" => 'Sem Título-1_1617827447.png',
+                "foto" => 'logo.png',
             ],
             [
                 "nome" => 'Porção de Fritas',
@@ -51,7 +51,7 @@ class ProdutoSeeder extends Seeder
                 "valor_atual" => 15,
                 "unidade_id" => 1,
                 "categoria_id" => 2,
-                "foto" => 'Sem Título-1_1617827447.png',
+                "foto" => 'logo.png',
             ],
             [
                 "nome" => 'Coca cola 2l',
@@ -61,7 +61,7 @@ class ProdutoSeeder extends Seeder
                 "valor_atual" => 8,
                 "unidade_id" => 1,
                 "categoria_id" => 3,
-                "foto" => 'Sem Título-1_1617827447.png',
+                "foto" => 'logo.png',
             ],
             [
                 "nome" => 'Açai',
@@ -71,7 +71,7 @@ class ProdutoSeeder extends Seeder
                 "valor_atual" => 10,
                 "unidade_id" => 1,
                 "categoria_id" => 4,
-                "foto" => 'Sem Título-1_1617827447.png',
+                "foto" => 'logo.png',
             ],
         ]);
     }
