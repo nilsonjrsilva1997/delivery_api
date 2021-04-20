@@ -8,6 +8,18 @@ use App\Opcao;
 
 class OpcaoController extends BaseController
 {
+    public function show($id)
+    {
+        $opcao = Opcao::where('id', $id)
+            ->first();
+
+        if ($opcao) {
+            return response(["message" => "Dados retornados com sucesso", "data" => $opcao], 200);
+        } else {
+            return response(["message" => "Opção não encontrada"], 422);
+        }
+    }
+
     public function create(Request $request)
     {
         $opcaoValidate = new OpcaoValidateService;
@@ -26,6 +38,8 @@ class OpcaoController extends BaseController
 
         $validatedData['imagem'] = $fileNameToStore;
 
-        return response(['data' => Opcao::create($validatedData), 'message' => 'Dados inseridos com sucesso']);
+        $opcao = Opcao::create($validatedData);
+
+        return $this->show($opcao->id);
     }
 }

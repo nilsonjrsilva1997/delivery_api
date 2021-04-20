@@ -5,32 +5,33 @@ namespace App\Http\Controllers;
 use App\Http\Services\ProdutoValidateService;
 use Illuminate\Http\Request;
 use App\Produto;
+use Auth;
 
 class ProdutoController extends BaseController
 {
     public function index()
     {
 
-        $produto = Produto::with('categoria')
+        $produto = Produto::query()
+            ->with('categoria')
             ->with('adicional')
-            ->with('opcao')
-            ->get();
+            ->with('adicional.opcoes');
 
         return response(["message" => "Dados retornados com sucesso", "data" => $produto], 200);
     }
 
     public function show($id)
     {
-        $produto = Produto::find($id)
+        $produto = Produto::where('id', $id)
             ->with('categoria')
             ->with('adicional')
-            ->with('opcao')
-            ->get();
+            ->with('adicional.opcoes')
+            ->first();
 
-        if (!empty($produto)) {
+        if ($produto) {
             return response(["message" => "Dados retornados com sucesso", "data" => $produto], 200);
         } else {
-            return reponse(["message" => "Produto não encontrado"], 422);
+            return response(["message" => "Produto não encontrado"], 422);
         }
     }
 
@@ -50,55 +51,40 @@ class ProdutoController extends BaseController
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
         } else {
-            return response(['foto' => 'A foto é obrigatória']);
+            return response(['foto' => 'A foto é obrigatória'], 422);
         }
 
         $validatedData['foto'] = $fileNameToStore;
 
-        return response(['data' => Produto::create($validatedData), 'message' => 'Dados inseridos com sucesso']);
+        $produto = Produto::create($validatedData);
+
+        return $this->show($produto->id);
     }
 
     public function update(Request $request, $id)
     {
+        $produtoValidate = new ProdutoValidateService;
+
+        $validatedData = $request->validate($produtoValidate->getValidateRulesUpdate());
+
         $fileNameToStore = '';
 
-        if ($request->hasFile('imagem')) {
-            return 'entrou';
-            $filenameWithExt = $request->file('imagem')->getClientOriginalName();
+        if ($request->hasFile('foto')) {
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('imagem')->getClientOriginalExtension();
+            $extension = $request->file('foto')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('imagem')->storeAs('public/images', $fileNameToStore);
+            $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
         }
 
-        $validatedData = $request->validate([
-            'nome' => 'string|max:255',
-            'categoria_id' => 'integer|exists:categoria,id',
-            'marca_id' => 'integer|exists:marcas,id',
-            'tipo_unidade_id' => 'integer|exists:tipo_unidade,id',
-            'medida' => 'string|max:255',
-            'preco_uni_venda' => 'numeric',
-            'preco_uni_compra' => 'numeric',
-            'qtd_estoque' => 'integer',
-        ]);
+        $validatedData['foto'] = $fileNameToStore;
 
-        return $fileNameToStore;
+        $produto = Produto::where('id', $id)->first();
 
-        if ($fileNameToStore != '') {
-            $validatedData['imagem'] = $fileNameToStore;
-        }
-
-        $produto = Produto::find($id);
-
-        if (!empty($produto)) {
-            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $produto->unidade_id);
-            if ($permissao == 'ADMINISTRADOR') {
-                $produto->fill($validatedData);
-                $produto->save();
-                return $produto;
-            } else {
-                return response(['message' => 'Usuário não possui permissão para executar está ação'], 401);
-            }
+        if ($produto) {
+            $produto->fill($validatedData);
+            $produto->save();
+            return $this->show($produto->id);
         } else {
             return response(['message' => 'Produto não encontrado']);
         }
@@ -109,7 +95,7 @@ class ProdutoController extends BaseController
         $produto = Produto::find($id);
 
         if (!empty($produto)) {
-            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $produto->unidade_id);
+            $permissao = \App\Helpers\Helper::getPermissoes(Auth::id(), $produto->unidade_id);
             if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
                 Produto::find($id)->delete();
             } else {
