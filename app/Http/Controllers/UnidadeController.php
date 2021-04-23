@@ -27,6 +27,7 @@ class UnidadeController extends Controller
             ->with('tempo_espera_entrega')
             ->with('horario_funcionamento')
             ->with('sobre_nos')
+            ->with('dados_empresa')
             ->with('produtos')
             ->with('produtos.categoria')
             ->with('produtos.adicional')

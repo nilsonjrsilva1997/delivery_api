@@ -77,7 +77,9 @@ class ProdutoController extends BaseController
             $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
         }
 
-        $validatedData['foto'] = $fileNameToStore;
+        if ($fileNameToStore !== '') {
+            $validatedData['foto'] = $fileNameToStore;
+        }
 
         $produto = Produto::where('id', $id)->first();
 

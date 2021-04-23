@@ -16,11 +16,11 @@ class CreateUnidadesTable extends Migration
         Schema::create('unidades', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->string('banner');
             $table->string('foto');
             $table->float('taxa_entrega');
             $table->integer('restaurante_id');
             $table->string("slug");
-            $table->string('banner');
             $table->timestamps();
         });
     }

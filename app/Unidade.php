@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\EnderecoUnidade;
 use App\TempoEsperaEntrega;
-use App\HorarioFuncionamento;
+use App\DadosEmpresa;
 use App\SobreNos;
 use App\Restaurante;
 use App\Produto;
@@ -38,6 +38,11 @@ class Unidade extends Model
     public function sobre_nos()
     {
         return $this->hasOne(SobreNos::class, 'unidade_id', 'id');
+    }
+
+    public function dados_empresa()
+    {
+        return $this->hasOne(DadosEmpresa::class, 'unidade_id', 'id');
     }
 
     public function produtos()

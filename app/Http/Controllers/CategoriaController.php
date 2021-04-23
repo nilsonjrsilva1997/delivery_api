@@ -34,8 +34,14 @@ class CategoriaController extends Controller
 
     public function show($id)
     {
-        $categoria = Categoria::find($id);
-        if (!empty($categoria)) {
+
+        $categoria = Categoria::where('id', $id)
+            ->with('produtos')
+            ->with('produtos.adicional')
+            ->with('produtos.adicional.opcoes')
+            ->first();
+
+        if ($categoria) {
             return $categoria;
         } else {
             return response(['message' => 'Categoria não encontrado']);
@@ -46,24 +52,54 @@ class CategoriaController extends Controller
     {
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
+            'descricao' => 'string|max:255',
             'unidade_id' => 'required|integer|exists:unidades,id'
         ]);
 
-        return Categoria::create($validatedData);
+        $fileNameToStore = '';
+
+        if ($request->hasFile('plano_fundo')) {
+            $filenameWithExt = $request->file('plano_fundo')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('plano_fundo')->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        }
+
+        $validatedData['plano_fundo'] = $fileNameToStore;
+
+        $categoria = Categoria::create($validatedData);
+
+        return $this->show($categoria->id);
     }
 
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'nome' => 'string|max:255',
+            'descricao' => 'string|max:255',
         ]);
 
-        $categoria = Categoria::find($id);
+        $fileNameToStore = '';
 
-        if (!empty($categoria)) {
+        if ($request->hasFile('plano_fundo')) {
+            $filenameWithExt = $request->file('plano_fundo')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('plano_fundo')->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        }
+
+        if ($fileNameToStore !== '') {
+            $validatedData['plano_fundo'] = $fileNameToStore;
+        }
+
+        $categoria = Categoria::where('id', $id)
+            ->first();
+
+        if ($categoria) {
             $categoria->fill($validatedData);
             $categoria->save();
-            return $categoria;
+
+            return $this->show($categoria->id);
         } else {
             return response(['message' => 'Categoria não encontrado']);
         }
@@ -71,10 +107,11 @@ class CategoriaController extends Controller
 
     public function destroy($id)
     {
-        $categoria = Categoria::find($id);
+        $categoria = Categoria::where('id', $id);
 
-        if (!empty($categoria)) {
-            Categoria::find($id)->delete();
+        if ($categoria) {
+            $categoria->delete();
+            return true;
         } else {
             return response(['message' => 'Categoria não encontrado']);
         }

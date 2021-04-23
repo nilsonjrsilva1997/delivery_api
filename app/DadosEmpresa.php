@@ -9,12 +9,18 @@ class DadosEmpresa extends Model
 {
     protected $table = "dados_empresas";
 
-    protected $fillable = ["nome_delivery", "site", "cep", "endereco", "numero", "bairro", "complemento", "cidade", "uf", "celular", "email", "unidade_id"];
+    protected $fillable = [
+        "site",
+        "telefone",
+        "email",
+        "telefone_financeiro",
+        "email_financeiro",
+        "unidade_id",
+    ];
 
     // relacionamentos
     public function unidade()
     {
-        return $this->belongsTo(Unidade::class);
+        return $this->belongsTo(Unidade::class, 'unidade_id', 'id');
     }
 }
-

@@ -22,8 +22,8 @@ class CreateEnderecosEntregaTable extends Migration
             $table->string("complemento");
             $table->string("bairro");
             $table->string("numero");
-            $table->float("latitude");
-            $table->float("longitude");
+            $table->float("lat");
+            $table->float("lng");
             $table->integer("user_id");
             $table->timestamps();
         });

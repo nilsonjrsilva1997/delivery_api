@@ -22,18 +22,18 @@ class UnidadeRestauranteController extends Controller
 
     public function byApelidoCidade($apelido, $cidade)
     {
-        $unidade = Unidade::where(['slug' => $cidade])
+        $unidade = Unidade::query()
+            ->where(['slug' => $cidade])
             ->with('enderecos')
             ->with('tempo_espera_entrega')
             ->with('horario_funcionamento')
             ->with('sobre_nos')
+            ->with('dados_empresa')
             ->with('restaurante')
-            ->with(['produtos' => function ($query) {
-                $query->with('categoria')
-                    ->with(['adicional' => function ($query) {
-                        $query->with('opcoes');
-                    }]);
-            }])
+            ->with('produtos')
+            ->with('produtos.categoria')
+            ->with('produtos.adicional')
+            ->with('produtos.adicional.opcoes')
             ->whereHas('restaurante', function ($query) use ($apelido) {
                 $query->where(['slug' => $apelido]);
             })->first();

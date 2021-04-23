@@ -15,17 +15,11 @@ class CreateDadosEmpresasTable extends Migration
     {
         Schema::create("dados_empresas", function (Blueprint $table) {
             $table->id();
-            $table->string("nome_delivery");
             $table->string("site");
-            $table->string("cep");
-            $table->string("endereco");
-            $table->integer("numero");
-            $table->string("bairro");
-            $table->string("complemento");
-            $table->string("cidade");
-            $table->string("uf");
-            $table->string("celular");
+            $table->string("telefone");
             $table->string("email");
+            $table->string("telefone_financeiro");
+            $table->string("email_financeiro");
             $table->integer("unidade_id");
             $table->timestamps();
         });
@@ -41,5 +35,3 @@ class CreateDadosEmpresasTable extends Migration
         Schema::dropIfExists("dados_empresas");
     }
 }
-
-
