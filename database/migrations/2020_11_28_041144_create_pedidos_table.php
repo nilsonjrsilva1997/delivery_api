@@ -15,7 +15,6 @@ class CreatePedidosTable extends Migration
     {
         Schema::create("pedidos", function (Blueprint $table) {
             $table->id();
-            $table->float("valor_total");
             $table->integer("user_id");
             $table->enum("status_pedido", [
                 "EM_ANALISE",
@@ -30,8 +29,13 @@ class CreatePedidosTable extends Migration
             $table->integer("enderecos_entrega_id");
             $table->integer("cupom_desconto_id")->nullable();
             $table->integer("unidade_id");
-            $table->string('cpf');
-            $table->text('observacao');
+            $table->string('cpf')->nullable();
+            $table->text('observacao')->nullable();
+
+            $table->float("subtotal");
+            $table->float("desconto");
+            $table->float("subtotal_desconto");
+            $table->float("valor_total");
             $table->timestamps();
         });
     }

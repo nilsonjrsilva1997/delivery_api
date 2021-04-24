@@ -103,30 +103,25 @@ class PedidoController extends BaseController
     {
         // criando pedido
         $validatedData = $request->validate([
-            "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
             "status_pedido" => "required|in:EM_ANALISE",
+
+            "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
             "unidade_id" => "required|integer|exists:unidades,id",
+            "cupom_desconto_id" => "integer|exists:cupom_descontos,id",
+
+            "taxa_entrega" => "required|numeric",
+            "subtotal" => "required|numeric",
+            "desconto" => "required|numeric",
+            "subtotal_desconto" => "required|numeric",
+            "valor_total" => "required|numeric",
+
             "observacao" => "",
             "cpf" => ""
         ]);
 
-        $unidade = Unidade::findOrFail($validatedData['unidade_id']);
-
-        $cupomDesconto = CupomDesconto::where([
-            "codigo" => $request->cupom_desconto,
-            'unidade_id' => $unidade->id
-        ])->first();
-
-        if ($cupomDesconto) {
-        }
-
         $validatedData["user_id"] = Auth::id();
-        $validatedData['taxa_entrega'] = $unidade->taxa_entrega;
-        $validatedData["valor_total"] = 0; // calcular depois
 
         $pedido = Pedido::create($validatedData);
-
-        $valor_total = $unidade->taxa_entrega;
 
         // criando produto pedido
         foreach ($request->produtos as $produto) {
@@ -143,7 +138,8 @@ class PedidoController extends BaseController
                     "quantidade" => $produto["quantidade"],
                     "valor_anterior" => $produtoBd->valor_anterior,
                     "valor_atual" => $produtoBd->valor_atual,
-                    "valor_total" => 0,
+                    "valor_total" => $produtoBd->valor_atual * $produto["quantidade"],
+                    "observacao" => $produto['observacao'],
                 ]);
 
                 $produto_total = $produto_total + $produtoBd->valor_atual;
@@ -195,18 +191,13 @@ class PedidoController extends BaseController
 
                 $produto_total = $produto_total * $produto['quantidade'];
 
-                $produtoPedido->produto_total = $produto_total;
+                $produtoPedido->valor_total = $produto_total;
                 $produtoPedido->save();
-
-                $valor_total = $valor_total + $produto_total;
             } else {
                 return response(["message" => "Produto nao encontrado, ID do produto: " . $produto["id"]], 422);
             }
         }
 
-
-        $pedido->valor_total = $valor_total;
-        $pedido->save();
 
         return $this->show($pedido->id);
     }

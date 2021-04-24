@@ -12,7 +12,21 @@ class Pedido extends Model
 {
     protected $table = "pedidos";
 
-    protected $fillable = ["valor_total", "user_id", "enderecos_entrega_id", "status_pedido", "taxa_entrega", "cupom_desconto_id", "unidade_id", 'cpf', 'observacao'];
+    protected $fillable = [
+        "user_id",
+        "enderecos_entrega_id",
+        "status_pedido",
+        "taxa_entrega",
+        "cupom_desconto_id",
+        "unidade_id",
+        'cpf',
+        'observacao',
+
+        "subtotal",
+        "desconto",
+        "subtotal_desconto",
+        "valor_total",
+    ];
 
     // relacionamentos
     public function usuario()

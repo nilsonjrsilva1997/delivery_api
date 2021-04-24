@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ProdutoOpcaoSeeder::class,
             DadosEmpresaSeeder::class,
             UserEnderecoSeeder::class,
+            CupomDescontoSeeder::class,
         ]);
     }
 }

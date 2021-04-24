@@ -22,6 +22,7 @@ class CreatePivotProdutosPedidos extends Migration
             $table->float("valor_anterior");
             $table->float("valor_atual");
             $table->float("valor_total");
+            $table->text('observacao')->nullable();
             $table->timestamps();
         });
     }

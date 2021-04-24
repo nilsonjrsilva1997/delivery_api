@@ -9,7 +9,7 @@ use App\PedidoAdicional;
 
 class ProdutoPedido extends Model
 {
-    protected $fillable = ["pedido_id", "produto_id", "nome", "quantidade",  "valor_anterior", "valor_atual"];
+    protected $fillable = ["pedido_id", "produto_id", "nome", "quantidade",  "valor_anterior", "valor_atual", "valor_total", "observacao"];
 
     protected $table = "pivot_produtos_pedidos";
 

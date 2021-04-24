@@ -10,8 +10,7 @@ class PedidoAdicionalOpcao extends Model
 {
     protected $table = "pivot_pedido_adicional_opcoes";
 
-    protected $fillable = ["opcao_id", "pedido_adicional_id", "quantidade", "titulo", "valor", "maximo", "minimo"];
-
+    protected $fillable = ["opcao_id", "pedido_adicional_id", "quantidade", "titulo", "valor", "valor_total", "maximo", "minimo"];
 
     // relacionamentos
     public function opcoes()
