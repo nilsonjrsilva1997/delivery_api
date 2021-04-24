@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\EnderecoEntrega;
-use  App\Http\Services\EnderecoEntregaValidateService;
+use App\Http\Services\EnderecoEntregaValidateService;
 
 class EnderecoEntregaController extends BaseController
 {
@@ -12,20 +13,19 @@ class EnderecoEntregaController extends BaseController
     {
         $validateService = new EnderecoEntregaValidateService;
         $validatedData = $request->validate($this->validateService->getValidateRulesCreate());
-        $validatedData["user_id"] = \Auth::id();
+        $validatedData["user_id"] = Auth::id();
         return EnderecoEntrega::create($validatedData);
     }
 
     public function getEnderecosEntregaAuthUser()
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $enderecos = $user->endereco_entrega;
 
-        if(count($enderecos) == 0) {
+        if (count($enderecos) == 0) {
             return response(["message" => "Usuário não possui endereços de entrega cadastrados"], 422);
         } else {
             return response(["data" => $enderecos, "message" => "Dados retornados com sucesso"], 200);
         }
     }
-
 }

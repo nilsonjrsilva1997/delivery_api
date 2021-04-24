@@ -289,6 +289,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
     Route::prefix("cupom_desconto")->group(function () {
         Route::get("/", "CupomDescontoController@index");
         Route::get("show/{id}", "CupomDescontoController@show");
+        Route::post('verify', "CupomDescontoController@showByCode");
         Route::post("create", "CupomDescontoController@create");
         Route::put("update/{id}", "CupomDescontoController@update");
         Route::delete("destroy/{id}", "CupomDescontoController@destroy");

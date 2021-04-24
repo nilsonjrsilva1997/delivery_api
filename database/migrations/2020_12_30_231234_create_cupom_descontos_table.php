@@ -18,7 +18,7 @@ class CreateCupomDescontosTable extends Migration
             $table->string("codigo");
             $table->enum("tp_beneficio", ["DESCONTO", "OUTRO"]);
             $table->enum("sufixo_beneficio", ["VALOR", "PORCENTAGEM"]);
-            $table->float("valor_beneficio")->nullable();
+            $table->float("valor_beneficio");
             $table->string("beneficio_descricao")->nullable();
             $table->integer("usos");
             $table->enum("status", ["ATIVADO", "DESATIVO"]);

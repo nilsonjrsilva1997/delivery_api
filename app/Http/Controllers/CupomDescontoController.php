@@ -15,6 +15,7 @@ class CupomDescontoController extends BaseController
         $cupom = CupomDesconto::where('codigo', $request->codigo)
             ->where('unidade_id', $request->unidade_id)
             ->where('usos', '>', '0')
+            ->where('status', 'ATIVADO')
             ->whereDate('validade', '>',  Carbon::now()->toDateString())
             ->first();
 
@@ -24,7 +25,30 @@ class CupomDescontoController extends BaseController
             $cupomValidate = new CupomDescontoValidateService();
             $validatedData = $request->validate($cupomValidate->getValidateRulesCreate());
 
-            return CupomDesconto::create($validatedData);
+            $cupom = CupomDesconto::create($validatedData);
+
+            return $cupom;
+        }
+    }
+
+    public function showByCode(Request $request)
+    {
+        $validatedData = $request->validate([
+            "codigo" => "string|max:255",
+            "unidade_id" => "integer|exists:unidades,id",
+        ]);
+
+        $cupom = CupomDesconto::where('codigo', $validatedData['codigo'])
+            ->where('unidade_id', $validatedData['unidade_id'])
+            ->where('usos', '>', '0')
+            ->where('status', 'ATIVADO')
+            ->whereDate('validade', '>',  Carbon::now()->toDateString())
+            ->first();
+
+        if ($cupom) {
+            return $cupom;
+        } else {
+            return response(['message' => 'Cupom não existente'], 404);
         }
     }
 }

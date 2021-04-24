@@ -8,7 +8,18 @@ class CupomDesconto extends Model
 {
     protected $table = "cupom_descontos";
 
-    protected $fillable = ["codigo", "tp_beneficio", "sufixo_beneficio", "valor_beneficio", "beneficio_descricao", "usos", "tipo", "status", "validade", "unidade_id"];
+    protected $fillable = [
+        "codigo",
+        "tp_beneficio",
+        "sufixo_beneficio",
+        "valor_beneficio",
+        "beneficio_descricao",
+        "usos",
+        "tipo",
+        "status",
+        "validade",
+        "unidade_id"
+    ];
 
     // relacionamentos
     public function unidade()
@@ -21,4 +32,3 @@ class CupomDesconto extends Model
         return $this->hasMany(Pedido::class);
     }
 }
-

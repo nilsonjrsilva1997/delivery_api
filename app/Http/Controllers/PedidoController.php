@@ -106,15 +106,19 @@ class PedidoController extends BaseController
             "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
             "status_pedido" => "required|in:EM_ANALISE",
             "unidade_id" => "required|integer|exists:unidades,id",
-            "observacao" => "string",
-            "cpf" => "string|max:14"
+            "observacao" => "",
+            "cpf" => ""
         ]);
 
         $unidade = Unidade::findOrFail($validatedData['unidade_id']);
 
-        $cupomDesconto = CupomDesconto::where(["codigo" => $request->cupom_desconto])
-            ->first();
+        $cupomDesconto = CupomDesconto::where([
+            "codigo" => $request->cupom_desconto,
+            'unidade_id' => $unidade->id
+        ])->first();
 
+        if ($cupomDesconto) {
+        }
 
         $validatedData["user_id"] = Auth::id();
         $validatedData['taxa_entrega'] = $unidade->taxa_entrega;
@@ -199,6 +203,7 @@ class PedidoController extends BaseController
                 return response(["message" => "Produto nao encontrado, ID do produto: " . $produto["id"]], 422);
             }
         }
+
 
         $pedido->valor_total = $valor_total;
         $pedido->save();
