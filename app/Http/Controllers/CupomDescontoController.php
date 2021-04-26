@@ -27,7 +27,7 @@ class CupomDescontoController extends BaseController
 
             $cupom = CupomDesconto::create($validatedData);
 
-            return $cupom;
+            return response(["data" => $cupom, "message" => "Esse cupom de desconto já está cadastrado"]);
         }
     }
 
@@ -50,5 +50,13 @@ class CupomDescontoController extends BaseController
         } else {
             return response(['message' => 'Cupom não existente'], 404);
         }
+    }
+
+    public function byUnidade($unidade)
+    {
+        $cupons = CupomDesconto::where('unidade_id', $unidade)
+            ->get();
+
+        return response(['data' => $cupons, 'message' => 'Cupons listados com sucesso']);
     }
 }

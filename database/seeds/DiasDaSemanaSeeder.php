@@ -17,6 +17,7 @@ class DiasDaSemanaSeeder extends Seeder
             ['nome' => 'Segunda-Feira'],
             ['nome' => 'Terça-Feira'],
             ['nome' => 'Quarta-Feira'],
+            ['nome' => 'Quinta-Feira'],
             ['nome' => 'Sexta-Feira'],
             ['nome' => 'Sábado'],
         ]);

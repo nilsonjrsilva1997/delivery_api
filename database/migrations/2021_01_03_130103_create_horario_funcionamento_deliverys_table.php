@@ -15,7 +15,7 @@ class CreateHorarioFuncionamentoDeliverysTable extends Migration
     {
         Schema::create("horario_funcionamento_deliverys", function (Blueprint $table) {
             $table->id();
-            $table->integer("period1_id")->nullable();
+            $table->integer("periodo1_id")->nullable();
             $table->integer("periodo2_id")->nullable();
             $table->integer("unidade_id");
             $table->boolean("pedidos_agendados");
@@ -34,5 +34,3 @@ class CreateHorarioFuncionamentoDeliverysTable extends Migration
         Schema::dropIfExists("horario_funcionamento_deliverys");
     }
 }
-
-

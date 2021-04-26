@@ -40,7 +40,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
 
     Route::prefix("categoria")->group(function () {
         Route::get("/", "CategoriaController@index");
-        Route::get("/by_slug/{slug}", "CategoriaController@indexBySlug");
+        Route::get("/by_slug/{restaurante}/{unidade}", "CategoriaController@indexBySlug");
         Route::get("show/{id}", "CategoriaController@show");
         Route::post("create", "CategoriaController@create");
         Route::put("update/{id}", "CategoriaController@update");
@@ -71,24 +71,6 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::post("create", "CategoriaMenuController@create");
         Route::put("update/{id}", "CategoriaMenuController@update");
         Route::delete("destroy/{id}", "CategoriaMenuController@destroy");
-    });
-
-
-    Route::prefix("cupomdesconto")->group(function () {
-        Route::get("/", "CupomDescontoController@index");
-        Route::get("show/{id}", "CupomDescontoController@show");
-        Route::post("create", "CupomDescontoController@create");
-        Route::put("update/{id}", "CupomDescontoController@update");
-        Route::delete("destroy/{id}", "CupomDescontoController@destroy");
-    });
-
-
-    Route::prefix("cupomdesconto")->group(function () {
-        Route::get("/", "CupomDescontoController@index");
-        Route::get("show/{id}", "CupomDescontoController@show");
-        Route::post("create", "CupomDescontoController@create");
-        Route::put("update/{id}", "CupomDescontoController@update");
-        Route::delete("destroy/{id}", "CupomDescontoController@destroy");
     });
 
     Route::prefix("endereco_restaurante")->group(function () {
@@ -144,7 +126,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::delete("destroy/{id}", "UnidadeController@destroy");
 
         Route::prefix("pedido")->group(function () {
-            Route::get('/by_slug/{unidade}', "PedidoController@bySlug");
+            Route::get('/by_slug/{restaurante}/{unidade}', "PedidoController@bySlug");
             Route::post("/fazer_pedido", "PedidoController@fazerPedido");
             Route::get("/index", "PedidoController@index");
             Route::put("/update_status/{id}", "PedidoController@updateStatusPedido");
@@ -249,6 +231,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
     Route::prefix("entregador")->group(function () {
         Route::get("/", "EntregadorController@index");
         Route::get("show/{id}", "EntregadorController@show");
+        Route::get('by_unidade/{unidade}', "EntregadorController@byUnidade");
         Route::post("create", "EntregadorController@create");
         Route::put("update/{id}", "EntregadorController@update");
         Route::delete("destroy/{id}", "EntregadorController@destroy");
@@ -289,6 +272,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
     Route::prefix("cupom_desconto")->group(function () {
         Route::get("/", "CupomDescontoController@index");
         Route::get("show/{id}", "CupomDescontoController@show");
+        Route::get("by_unidade/{unidade}", "CupomDescontoController@byUnidade");
         Route::post('verify', "CupomDescontoController@showByCode");
         Route::post("create", "CupomDescontoController@create");
         Route::put("update/{id}", "CupomDescontoController@update");
@@ -336,6 +320,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
     Route::prefix("pagamento_unidade")->group(function () {
         Route::post("/associar", "PagamentoUnidadeController@associar");
         Route::post("/desassociar", "PagamentoUnidadeController@desassociar");
+        Route::post("/limpar", "PagamentoUnidadeController@limpar");
     });
 });
 

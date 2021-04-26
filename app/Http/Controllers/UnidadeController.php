@@ -24,7 +24,7 @@ class UnidadeController extends Controller
         $unidade = Unidade::query()
             ->where('id', $id)
             ->with('enderecos')
-            ->with('tempo_espera_entrega')
+            ->with('config_entrega')
             ->with('horario_funcionamento')
             ->with('sobre_nos')
             ->with('dados_empresa')
@@ -66,7 +66,6 @@ class UnidadeController extends Controller
 
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'taxa_entrega' => 'required|numeric',
             'restaurante_id' => 'required|integer|exists:restaurantes,id',
             'slug' => 'required|string|max:255',
         ]);
@@ -104,7 +103,8 @@ class UnidadeController extends Controller
             $validatedData = $request->validate([
                 'nome' => 'string|max:255',
                 'slug' => 'string|max:255',
-                'taxa_entrega' => 'numeric',
+                'cor_fundo' => 'string|max:255',
+                'cor_categoria' => 'string|max:255',
                 'restaurante_id' => 'integer|exists:restaurantes,id',
                 'slug' => 'string|max:255',
             ]);

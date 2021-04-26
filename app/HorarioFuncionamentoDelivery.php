@@ -11,12 +11,17 @@ class HorarioFuncionamentoDelivery extends Model
 {
     protected $table = "horario_funcionamento_deliverys";
 
-    protected $fillable = ["period1_id", "periodo2_id", "unidade_id", "pedidos_agendados", "fuso_horario_id", ];
+    protected $fillable = ["periodo1_id", "periodo2_id", "unidade_id", "pedidos_agendados", "fuso_horario_id",];
 
     // relacionamentos
-    public function periodo()
+    public function primeiro_periodo()
     {
-        return $this->belongsTo(Periodo::class, "periodo_id", "id");
+        return $this->belongsTo(Periodo::class, "periodo1_id", "id");
+    }
+
+    public function segundo_periodo()
+    {
+        return $this->belongsTo(Periodo::class, "periodo2_id", "id");
     }
 
     public function unidade()
@@ -29,4 +34,3 @@ class HorarioFuncionamentoDelivery extends Model
         return $this->belongsTo(FusoHorario::class, "fuso_horario_id", "id");
     }
 }
-

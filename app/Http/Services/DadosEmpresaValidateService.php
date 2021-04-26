@@ -8,11 +8,11 @@ class DadosEmpresaValidateService
     {
         $validateAttributes =
             [
-                "site" => "required|url",
+                "site" => "url",
                 "telefone" => 'required|celular_com_ddd',
                 "email" => 'required|email',
-                "telefone_financeiro" => "required|celular_com_ddd",
-                "email_financeiro" => "required|email",
+                "telefone_financeiro" => "",
+                "email_financeiro" => "",
                 "unidade_id" => "required|integer|exists:unidades,id",
             ];
 
@@ -26,8 +26,8 @@ class DadosEmpresaValidateService
                 "site" => "url",
                 "telefone" => 'celular_com_ddd',
                 "email" => 'email',
-                "telefone_financeiro" => "celular_com_ddd",
-                "email_financeiro" => "email",
+                "telefone_financeiro" => "",
+                "email_financeiro" => "",
             ];
 
         return $validateAttributes;

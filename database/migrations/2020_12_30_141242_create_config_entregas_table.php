@@ -15,13 +15,17 @@ class CreateConfigEntregasTable extends Migration
     {
         Schema::create("config_entregas", function (Blueprint $table) {
             $table->id();
-            $table->float("pedido_minimo_delivery");
-            $table->integer("tempo_espera_min");
-            $table->integer("tempo_espera_max");
+            $table->boolean("pedido_minimo");
+            $table->float("pedido_minimo_valor");
+            $table->time("tempo_minimo");
+            $table->time("tempo_maximo");
+            $table->float("taxa_entrega");
+            $table->float("multiplicador_taxa_entrega");
+            $table->float("area_maxima");
             $table->boolean("integracao_loggi");
             $table->boolean("integracao_rapiddo");
             $table->boolean("retirada_loja");
-            $table->integer("tempo_retirada");
+            $table->time("tempo_retirada");
             $table->integer("unidade_id");
             $table->timestamps();
         });
@@ -37,5 +41,3 @@ class CreateConfigEntregasTable extends Migration
         Schema::dropIfExists("config_entregas");
     }
 }
-
-

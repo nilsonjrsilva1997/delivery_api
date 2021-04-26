@@ -15,7 +15,7 @@ class EnderecoUnidadeController extends Controller
     public function show($id)
     {
         $endereco = EnderecoUnidade::find($id);
-        
+
         if (!empty($endereco)) {
             $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $endereco->unidade_id);
 
@@ -38,13 +38,14 @@ class EnderecoUnidadeController extends Controller
             'bairro' => 'required|string|max:255',
             'rua' => 'required|string|max:255',
             'numero' => 'required|string|max:255',
-            'complemento' => 'required|string|max:255',
+            'complemento' => '',
             'unidade_id' => 'required|integer|exists:unidades,id',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ]);
 
-        return EnderecoUnidade::create($validatedData);
+        $endereco = EnderecoUnidade::create($validatedData);
+        return response(['data' => $endereco, 'message' => 'Usuário não possui permissão para executar esta ação']);
     }
 
     public function update(Request $request, $id)
@@ -56,7 +57,7 @@ class EnderecoUnidadeController extends Controller
             'bairro' => 'string|max:255',
             'rua' => 'string|max:255',
             'numero' => 'string|max:255',
-            'complemento' => 'string|max:255',
+            'complemento' => '',
             'unidade_id' => 'integer|exists:unidades,id',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
@@ -70,7 +71,7 @@ class EnderecoUnidadeController extends Controller
             if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
                 $endereco->fill($validatedData);
                 $endereco->save();
-                return $endereco;
+                return response(['data' => $endereco, 'message' => 'Usuário não possui permissão para executar esta ação']);
             } else {
                 return response(['message' => 'Usuário não possui permissão para executar esta ação'], 401);
             }
@@ -87,15 +88,12 @@ class EnderecoUnidadeController extends Controller
             $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $endereco->unidade_id);
 
             if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
-                if($endereco->delete()) {
+                if ($endereco->delete()) {
                     return response(['message' => 'Endereço deletado com sucesso']);
                 }
-
             } else {
                 return response(['message' => 'Usuário não possui permissão para executar esta ação'], 401);
             }
-            
-            
         } else {
             return response(['message' => 'Endereço não encontrado']);
         }

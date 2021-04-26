@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Categoria;
 use App\Produto;
+use App\Restaurante;
 use App\Unidade;
 
 class CategoriaController extends Controller
@@ -14,9 +15,13 @@ class CategoriaController extends Controller
         return Categoria::all();
     }
 
-    public function indexBySlug($slug)
+    public function indexBySlug($restaurante, $unidade)
     {
-        $unity = Unidade::where('slug', $slug)->first();
+        $restaurant = Restaurante::where('slug', $restaurante)
+            ->first();
+        $unity = Unidade::where('restaurante_id', $restaurant->id)
+            ->where('slug', $unidade)
+            ->first();
 
         if ($unity) {
             $categories = Categoria::where('unidade_id', $unity->id)
@@ -24,7 +29,6 @@ class CategoriaController extends Controller
                 ->with('produtos.adicional')
                 ->with('produtos.adicional.opcoes')
                 ->get();
-
 
             return $categories;
         }

@@ -28,7 +28,7 @@ class BaseController extends Controller
         $class = $this->getClassNameModel();
         $model = new $class;
         $data = $model->find($id);
-        if(!empty($data)) {
+        if (!empty($data)) {
             return response(['data' => $data, 'message' => 'Registro retornado com sucesso']);
         } else {
             return response(['message' => 'Registro não encontrado'], 400);
@@ -52,13 +52,13 @@ class BaseController extends Controller
         $model = new $class;
         $data = $model->find($id);
 
-        if(!empty($data)) {
+        if (!empty($data)) {
             $data->fill($validatedData);
             $data->save();
-            return $data;
+            return response(['data' => $data, 'message' => 'Dados atualizados com sucesso']);
         } else {
             return response(['message' => 'Registro não encontrado']);
-        }      
+        }
     }
 
     public function destroy($id)
@@ -67,7 +67,7 @@ class BaseController extends Controller
         $model = new $class;
         $data = $model->find($id);
 
-        if(!empty($data)) {
+        if (!empty($data)) {
             $data->delete();
             return response(['message' => 'Registro removido com sucesso']);
         } else {

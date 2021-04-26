@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PagamentoUnidade;
+use App\Unidade;
 
 class PagamentoUnidadeController extends Controller
 {
     public function associar(Request $request)
     {
+
         $validatedData = $request->validate([
             'unidade_id' => 'required|integer|exists:unidades,id',
             'forma_pagamento_id' => 'required|integer|exists:forma_pagamentos,id',
@@ -25,15 +27,27 @@ class PagamentoUnidadeController extends Controller
         ]);
 
         $pagamentoUnidade = PagamentoUnidade::where('unidade_id', '=', $validatedData['unidade_id'])
-        ->where('forma_pagamento_id', '=', $validatedData['forma_pagamento_id'])
-        ->first();
+            ->where('forma_pagamento_id', '=', $validatedData['forma_pagamento_id'])
+            ->first();
 
-        if(!empty($pagamentoUnidade)) {
-            if($pagamentoUnidade->delete()) {
+        if (!empty($pagamentoUnidade)) {
+            if ($pagamentoUnidade->delete()) {
                 return response(['message' => 'Forma de pagamento da unidade removida com sucesso']);
             }
         } else {
             return response(['message' => 'Forma de pagamento na unidade nao encontrada'], 422);
         }
+    }
+
+    public function limpar(Request $request)
+    {
+        $validatedData = $request->validate([
+            'unidade_id' => 'required|integer|exists:unidades,id'
+        ]);
+
+        PagamentoUnidade::where('unidade_id', $validatedData['unidade_id'])
+            ->delete();
+
+        return response(['data' => true, 'message' => 'Metodos limpos com sucesso']);
     }
 }

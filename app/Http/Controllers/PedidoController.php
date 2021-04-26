@@ -13,6 +13,7 @@ use App\PedidoAdicional;
 use App\Opcao;
 use App\PedidoAdicionalOpcao;
 use App\CupomDesconto;
+use App\Restaurante;
 use App\Unidade;
 
 class PedidoController extends BaseController
@@ -32,10 +33,13 @@ class PedidoController extends BaseController
         return $pedidos;
     }
 
-    public function bySlug($unidade)
+    public function bySlug($restaurante, $unidade)
     {
+        $restaurante = Restaurante::where('slug', $restaurante)
+            ->first();
+        $unidade = Unidade::where('slug', $unidade)
+            ->first();
 
-        $unidade = Unidade::where('slug', $unidade)->first();
         if ($unidade) {
 
             $pedidos = Pedido::with("produto_pedido")
@@ -56,7 +60,11 @@ class PedidoController extends BaseController
 
     public function show($id)
     {
-        return Pedido::with("produto_pedido")
+        $pedido = Pedido::with("produto_pedido")
+            ->with('unidade')
+            ->with('unidade.dados_empresa')
+            ->with('unidade.config_entrega')
+            ->with('unidade.sobre_nos')
             ->with("usuario")
             ->with("produto_pedido.produto")
             ->with("produto_pedido.pedido_adicional")
@@ -66,7 +74,7 @@ class PedidoController extends BaseController
             ->where(["id" => $id])
             ->first();
 
-        if (!empty($pedido)) {
+        if ($pedido) {
             return response(["data" => $pedido, "message" => "Pedido retornado com sucesso"]);
         } else {
             return response(["message" => "Pedido não encontrado"]);

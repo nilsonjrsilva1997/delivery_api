@@ -8,8 +8,8 @@ class PeriodoValidateService
     {
         $validateAttributes =
             [
-                "hora_inicial" => "required|date_format:H:i",
-                "hora_final" => "required|date_format:H:i",
+                "hora_inicial" => "required",
+                "hora_final" => "required",
                 "dia_semana_id" => "required|integer|exists:dias_semana_horario_deliverys,id",
             ];
 
@@ -20,8 +20,8 @@ class PeriodoValidateService
     {
         $validateAttributes =
             [
-                "hora_inicial" => "date_format:H:i",
-                "hora_final" => "date_format:H:i",
+                "hora_inicial" => "",
+                "hora_final" => "",
                 "dia_semana_id" => "integer|exists:dias_semana_horario_deliverys,id",
             ];
 

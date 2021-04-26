@@ -15,18 +15,16 @@ class UsuarioController extends Controller
         $user_id = Auth::id();
         $restaurantes = Restaurante::query()
             ->where('user_id', $user_id)
-            ->with(['unidade' => function ($q) {
-                $q->with('enderecos')
-                    ->with('tempo_espera_entrega')
-                    ->with('horario_funcionamento')
-                    ->with('sobre_nos')
-                    ->with(['produtos' => function ($query) {
-                        $query->with('categoria')
-                            ->with(['adicional' => function ($query) {
-                                $query->with('opcoes');
-                            }]);
-                    }]);
-            }])->get();
+            ->with('unidade')
+            ->with('unidade.enderecos')
+            ->with('unidade.config_entrega')
+            ->with('unidade.horario_funcionamento')
+            ->with('unidade.sobre_nos')
+            ->with('unidade.produtos')
+            ->with('unidade.produtos.categoria')
+            ->with('unidade.produtos.adicional')
+            ->with('unidade.produtos.adicional.opcoes')
+            ->get();
 
 
         return $restaurantes;

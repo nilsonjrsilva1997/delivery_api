@@ -16,7 +16,7 @@ use App\Pedido;
 
 class Unidade extends Model
 {
-    protected $fillable = ['nome', 'foto', 'taxa_entrega', 'restaurante_id', 'slug', 'banner'];
+    protected $fillable = ['nome', 'foto', 'restaurante_id', 'slug', 'banner', 'cor_categoria', 'cor_fundo'];
 
     protected $table = 'unidades';
 
@@ -62,7 +62,7 @@ class Unidade extends Model
 
     public function config_entrega()
     {
-        return $this->hasOne(ConfigEntrega::class);
+        return $this->hasOne(ConfigEntrega::class, 'unidade_id', 'id');
     }
 
     public function horario_funcionamento()

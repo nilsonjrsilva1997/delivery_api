@@ -18,7 +18,8 @@ class CreateUnidadesTable extends Migration
             $table->string('nome');
             $table->string('banner');
             $table->string('foto');
-            $table->float('taxa_entrega');
+            $table->string('cor_categoria');
+            $table->string('cor_fundo');
             $table->integer('restaurante_id');
             $table->string("slug");
             $table->timestamps();

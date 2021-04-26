@@ -15,11 +15,11 @@ class CreateDadosEmpresasTable extends Migration
     {
         Schema::create("dados_empresas", function (Blueprint $table) {
             $table->id();
-            $table->string("site");
+            $table->string("site")->nullable();
             $table->string("telefone");
             $table->string("email");
-            $table->string("telefone_financeiro");
-            $table->string("email_financeiro");
+            $table->string("telefone_financeiro")->nullable();
+            $table->string("email_financeiro")->nullable();
             $table->integer("unidade_id");
             $table->timestamps();
         });

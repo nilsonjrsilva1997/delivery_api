@@ -7,6 +7,7 @@ use App\User;
 use App\ProdutoPedido;
 use App\CupomDesconto;
 use App\Unidade;
+use App\Entregador;
 
 class Pedido extends Model
 {
@@ -14,11 +15,8 @@ class Pedido extends Model
 
     protected $fillable = [
         "user_id",
-        "enderecos_entrega_id",
         "status_pedido",
         "taxa_entrega",
-        "cupom_desconto_id",
-        "unidade_id",
         'cpf',
         'observacao',
 
@@ -26,6 +24,11 @@ class Pedido extends Model
         "desconto",
         "subtotal_desconto",
         "valor_total",
+
+        "enderecos_entrega_id",
+        "cupom_desconto_id",
+        "unidade_id",
+        "entregador_id",
     ];
 
     // relacionamentos
@@ -47,6 +50,11 @@ class Pedido extends Model
     public function unidade()
     {
         return $this->belongsTo(Unidade::class, "unidade_id", "id");
+    }
+
+    public function entregador()
+    {
+        return $this->belongsTo(Entregador::class, "unidade_id", "id");
     }
 
     public function cupom_desconto()

@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
             DadosEmpresaSeeder::class,
             UserEnderecoSeeder::class,
             CupomDescontoSeeder::class,
+            FusoHorarioSeeder::class,
+            ConfigEntregaSeeder::class,
+            PeriodoSeeder::class,
         ]);
     }
 }

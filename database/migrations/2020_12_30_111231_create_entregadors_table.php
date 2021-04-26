@@ -17,7 +17,7 @@ class CreateEntregadorsTable extends Migration
             $table->id();
             $table->string("codigo");
             $table->string("nome");
-            $table->integer("user_id");
+            $table->integer("unidade_id");
             $table->timestamps();
         });
     }
@@ -32,5 +32,3 @@ class CreateEntregadorsTable extends Migration
         Schema::dropIfExists("entregadors");
     }
 }
-
-

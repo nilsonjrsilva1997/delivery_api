@@ -10,7 +10,20 @@ class ConfigEntrega extends Model
 {
     protected $table = "config_entregas";
 
-    protected $fillable = ["pedido_minimo_delivery", "tempo_espera_min", "tempo_espera_max", "integracao_loggi", "integracao_rapiddo", "retirada_loja", "tempo_retirada", "unidade_id"];
+    protected $fillable = [
+        "pedido_minimo",
+        "pedido_minimo_valor",
+        "taxa_entrega",
+        "multiplicador_taxa_entrega",
+        "area_maxima",
+        "tempo_maximo",
+        "tempo_minimo",
+        "integracao_loggi",
+        "integracao_rapiddo",
+        "retirada_loja",
+        "tempo_retirada",
+        "unidade_id"
+    ];
 
     public function unidade()
     {
@@ -22,4 +35,3 @@ class ConfigEntrega extends Model
         return $this->hasMany(AreaEntrega::class);
     }
 }
-
