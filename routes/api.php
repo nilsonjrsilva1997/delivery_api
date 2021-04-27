@@ -6,6 +6,13 @@ use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\ConfirmacaoController;
 
 Route::group(["middleware" => ["auth:api"]], function () {
+
+
+    Route::prefix("user")->group(function () {
+        Route::get('meus_pedidos', "AuthController@meusPedidos");
+        Route::put("update", "AuthController@update");
+    });
+
     Route::prefix("endereco")->group(function () {
         Route::get("/", "EnderecoUnidadeController@index");
         Route::get("show/{id}", "EnderecoUnidadeController@show");
@@ -18,8 +25,6 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::post("/associar", "UsuarioUnidadeController@associar");
         Route::delete("/desassociar/{unidade_id}/{usuario_id}", "UsuarioUnidadeController@desassociar");
     });
-
-
 
     Route::prefix("forma_pagamento")->group(function () {
         Route::get("/", "FormaPagamentoController@index");

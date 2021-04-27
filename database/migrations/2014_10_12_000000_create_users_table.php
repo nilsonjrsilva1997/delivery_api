@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('aniversario');
             $table->string('celular');
             $table->string('email')->unique();
+            $table->string('cpf')->unique();
             $table->enum("tp_user", ["CLIENTE", 'ADM']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

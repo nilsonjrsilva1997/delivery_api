@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
             [
                 'nome_completo' => 'Jhonnatthan Santana',
                 'email' => 'jhonnatthans@outlook.com',
+                'cpf' => '398.842.558-30',
                 'password' => bcrypt('123456'),
                 'tp_user' => 'ADM',
                 'celular' => '(13) 99103-1783',
