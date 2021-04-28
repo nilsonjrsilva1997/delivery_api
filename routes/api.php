@@ -1,16 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\UsuarioController;
-use App\Http\Controllers\Api\ConfirmacaoController;
 
 Route::group(["middleware" => ["auth:api"]], function () {
-
 
     Route::prefix("user")->group(function () {
         Route::get('meus_pedidos', "AuthController@meusPedidos");
         Route::put("update", "AuthController@update");
+        Route::post('nova_senha', 'AuthController@novaSenha');
+        Route::post('desativar', 'AuthController@desativarConta');
     });
 
     Route::prefix("endereco")->group(function () {
@@ -283,7 +281,6 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::put("update/{id}", "CupomDescontoController@update");
         Route::delete("destroy/{id}", "CupomDescontoController@destroy");
     });
-
 
     Route::prefix("dias_semana")->group(function () {
         Route::get("/", "DiasSemanaHorarioDeliveryController@index");
