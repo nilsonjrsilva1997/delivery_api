@@ -18,8 +18,8 @@ class CreateUnidadesTable extends Migration
             $table->string('nome');
             $table->string('banner');
             $table->string('foto');
-            $table->string('cor_categoria');
-            $table->string('cor_fundo');
+            $table->string('cor_categoria')->default('#000000');
+            $table->string('cor_fundo')->default('#eeeeee');
             $table->integer('restaurante_id');
             $table->string("slug");
             $table->timestamps();
