@@ -13,7 +13,7 @@ class CreateEntregadorsTable extends Migration
      */
     public function up()
     {
-        Schema::create("entregadors", function (Blueprint $table) {
+        Schema::create("entregadores", function (Blueprint $table) {
             $table->id();
             $table->string("codigo");
             $table->string("nome");
@@ -29,6 +29,6 @@ class CreateEntregadorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("entregadors");
+        Schema::dropIfExists("entregadores");
     }
 }

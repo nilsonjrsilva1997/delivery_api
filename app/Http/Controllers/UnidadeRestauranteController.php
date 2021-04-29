@@ -46,6 +46,7 @@ class UnidadeRestauranteController extends Controller
             ->with('sobre_nos')
             ->with('dados_empresa')
             ->with('restaurante')
+            ->with('entregadores')
             ->with('produtos')
             ->with('produtos.categoria')
             ->with('produtos.adicional')

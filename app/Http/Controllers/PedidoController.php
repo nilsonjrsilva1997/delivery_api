@@ -15,6 +15,7 @@ use App\PedidoAdicionalOpcao;
 use App\CupomDesconto;
 use App\Restaurante;
 use App\Unidade;
+use Carbon\Carbon;
 
 class PedidoController extends BaseController
 {
@@ -33,7 +34,7 @@ class PedidoController extends BaseController
         return $pedidos;
     }
 
-    public function bySlug($restaurante, $unidade)
+    public function bySlug(Request $request, $restaurante, $unidade)
     {
         $restaurante = Restaurante::where('slug', $restaurante)
             ->first();
@@ -44,13 +45,27 @@ class PedidoController extends BaseController
 
             $pedidos = Pedido::with("produto_pedido")
                 ->with("usuario")
+                ->with('entregador')
                 ->with("produto_pedido.produto")
                 ->with("produto_pedido.pedido_adicional")
                 ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
                 ->with("enderecos_entrega")
                 ->with("cupom_desconto")
-                ->where('unidade_id', $unidade->id)
-                ->get();
+                ->with('forma_pagamento')
+                ->where('unidade_id', $unidade->id);
+
+            if ($request->completed) {
+                $pedidos = $pedidos->where('status_pedido', 'FINALIZADO');
+            }
+
+            if (!$request->get_all) {
+                $data_inicial = Carbon::now()->startOfDay()->toDateTimeString();
+                $data_final = Carbon::now()->endOfDay()->toDateTimeString();
+                $pedidos = $pedidos->whereBetween('created_at', [$data_inicial, $data_final]);
+            }
+
+            $pedidos = $pedidos->get();
+
 
             return $pedidos;
         } else {
@@ -66,11 +81,13 @@ class PedidoController extends BaseController
             ->with('unidade.config_entrega')
             ->with('unidade.sobre_nos')
             ->with("usuario")
+            ->with('entregador')
             ->with("produto_pedido.produto")
             ->with("produto_pedido.pedido_adicional")
             ->with("produto_pedido.pedido_adicional.pedido_adicional_opcao")
             ->with("enderecos_entrega")
             ->with("cupom_desconto")
+            ->with('forma_pagamento')
             ->where(["id" => $id])
             ->first();
 
@@ -90,6 +107,25 @@ class PedidoController extends BaseController
         return response(["data" => $pedido, "message" => "Pedido inserido com sucesso"]);
     }
 
+    public function updateEntregador(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'entregador_id' => 'required|integer|exists:entregadores,id'
+        ]);
+
+        $pedido = Pedido::where('id', $id)
+            ->first();
+
+        if (!empty($pedido)) {
+            $pedido->fill($validatedData);
+            $pedido->save();
+
+            return $pedido;
+        } else {
+            return response(['message' => 'Pedido não encontrado']);
+        }
+    }
+
     public function updateStatusPedido(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -101,6 +137,7 @@ class PedidoController extends BaseController
         if (!empty($pedido)) {
             $pedido->fill($validatedData);
             $pedido->save();
+
             return $pedido;
         } else {
             return response(['message' => 'Pedido não encontrado']);
@@ -112,19 +149,21 @@ class PedidoController extends BaseController
         // criando pedido
         $validatedData = $request->validate([
             "status_pedido" => "required|in:EM_ANALISE",
-
-            "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
-            "unidade_id" => "required|integer|exists:unidades,id",
-            "cupom_desconto_id" => "integer|exists:cupom_descontos,id",
+            "cpf" => "",
+            "observacao" => "",
 
             "taxa_entrega" => "required|numeric",
             "subtotal" => "required|numeric",
             "desconto" => "required|numeric",
             "subtotal_desconto" => "required|numeric",
             "valor_total" => "required|numeric",
+            "troco" => "",
 
-            "observacao" => "",
-            "cpf" => ""
+            "enderecos_entrega_id" => "required|integer|exists:enderecos_entrega,id",
+            "unidade_id" => "required|integer|exists:unidades,id",
+            "cupom_desconto_id" => "integer|exists:cupom_descontos,id",
+            "entregador_id" => "integer|exists:entregadores,id",
+            "forma_pagamento_id" => 'integer|exists:forma_pagamentos,id',
         ]);
 
         $validatedData["user_id"] = Auth::id();

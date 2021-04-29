@@ -8,6 +8,7 @@ use App\ProdutoPedido;
 use App\CupomDesconto;
 use App\Unidade;
 use App\Entregador;
+use App\FormaPagamento;
 
 class Pedido extends Model
 {
@@ -15,20 +16,23 @@ class Pedido extends Model
 
     protected $fillable = [
         "user_id",
+
         "status_pedido",
-        "taxa_entrega",
         'cpf',
         'observacao',
 
+        "taxa_entrega",
         "subtotal",
         "desconto",
         "subtotal_desconto",
         "valor_total",
+        "troco",
 
         "enderecos_entrega_id",
         "cupom_desconto_id",
         "unidade_id",
         "entregador_id",
+        "forma_pagamento_id",
     ];
 
     // relacionamentos
@@ -54,11 +58,16 @@ class Pedido extends Model
 
     public function entregador()
     {
-        return $this->belongsTo(Entregador::class, "unidade_id", "id");
+        return $this->belongsTo(Entregador::class, "entregador_id", "id");
     }
 
     public function cupom_desconto()
     {
         return $this->belongsTo(CupomDesconto::class, "cupom_desconto_id", "id");
+    }
+
+    public function forma_pagamento()
+    {
+        return $this->belongsTo(FormaPagamento::class, 'forma_pagamento_id', 'id');
     }
 }

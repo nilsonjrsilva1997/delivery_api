@@ -13,6 +13,8 @@ use App\ConfigEntrega;
 use App\HorarioFuncionamentoDelivery;
 use App\UsuarioUnidade;
 use App\Pedido;
+use App\Permissao;
+use App\Entregador;
 
 class Unidade extends Model
 {
@@ -82,6 +84,11 @@ class Unidade extends Model
 
     public function permissao()
     {
-        return $this->hasMany(\App\Permissao::class);
+        return $this->hasMany(Permissao::class);
+    }
+
+    public function entregadores()
+    {
+        return $this->hasMany(Entregador::class, 'unidade_id', 'id');
     }
 }

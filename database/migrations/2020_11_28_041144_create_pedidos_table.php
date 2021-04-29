@@ -26,9 +26,7 @@ class CreatePedidosTable extends Migration
                 "FINALIZADO"
             ]);
             $table->integer("taxa_entrega");
-            $table->integer("enderecos_entrega_id");
-            $table->integer("cupom_desconto_id")->nullable();
-            $table->integer("unidade_id");
+
             $table->string('cpf')->nullable();
             $table->text('observacao')->nullable();
 
@@ -36,6 +34,13 @@ class CreatePedidosTable extends Migration
             $table->float("desconto");
             $table->float("subtotal_desconto");
             $table->float("valor_total");
+            $table->float("troco")->nullable();
+
+            $table->integer("enderecos_entrega_id");
+            $table->integer("cupom_desconto_id")->nullable();
+            $table->integer("entregador_id")->nullable();
+            $table->integer("forma_pagamento_id");
+            $table->integer("unidade_id");
             $table->timestamps();
         });
     }

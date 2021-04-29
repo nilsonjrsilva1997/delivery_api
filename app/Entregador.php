@@ -8,7 +8,7 @@ use App\Pedido;
 
 class Entregador extends Model
 {
-    protected $table = "entregadors";
+    protected $table = "entregadores";
 
     protected $fillable = ["codigo", "nome", "unidade_id"];
 

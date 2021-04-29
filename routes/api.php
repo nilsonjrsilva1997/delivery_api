@@ -133,6 +133,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
             Route::post("/fazer_pedido", "PedidoController@fazerPedido");
             Route::get("/index", "PedidoController@index");
             Route::put("/update_status/{id}", "PedidoController@updateStatusPedido");
+            Route::put('/update_entregador/{id}', "PedidoController@updateEntregador");
             Route::get("/show/{id}", "PedidoController@show");
         });
 
@@ -314,9 +315,9 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::delete("destroy/{id}", "HorarioFuncionamentoDeliveryController@destroy");
     });
 
-    Route::prefix("estatistica")->group(function () {
-        Route::get("/receita_dia", "EstatisticaController@receitaDia");
-        Route::get("/num_pedidos_dia", "EstatisticaController@pedidosPorDia");
+    Route::prefix("{restaurante}/{unidade}/estatistica")->group(function () {
+        Route::get("receita_dia", "EstatisticaController@receitaDia");
+        Route::get("num_pedidos_dia", "EstatisticaController@pedidosPorDia");
     });
 
     Route::prefix("pagamento_unidade")->group(function () {
