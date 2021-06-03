@@ -92,6 +92,7 @@ class UnidadeController extends Controller
 
         return response([
             "data" => $this->show($unidade->id),
+            "path" => $path,
             "message" => "Dados retornado com sucesso"
         ], 200);
     }

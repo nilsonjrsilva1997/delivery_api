@@ -67,6 +67,7 @@ class CategoriaController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('plano_fundo')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('plano_fundo')->storeAs('public/images', $fileNameToStore);
         }
 
         $validatedData['plano_fundo'] = $fileNameToStore;
@@ -90,6 +91,7 @@ class CategoriaController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('plano_fundo')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('plano_fundo')->storeAs('public/images', $fileNameToStore);
         }
 
         if ($fileNameToStore !== '') {
