@@ -13,6 +13,7 @@ class ProdutoValidateService
                 "descricao" => "required|string|max:255",
                 "valor_anterior" => "required|numeric",
                 "valor_atual" => "required|numeric",
+                "promocao" => "required|boolean",
                 "unidade_id" => "required|integer|exists:unidades,id",
                 "categoria_id" => "required|integer|exists:categorias,id",
             ];
@@ -29,6 +30,7 @@ class ProdutoValidateService
                 "descricao" => "string|max:255",
                 "valor_anterior" => "numeric",
                 "valor_atual" => "numeric",
+                "promocao" => "required|boolean",
                 "unidade_id" => "integer|exists:unidades,id",
                 "categoria_id" => "integer|exists:categorias,id",
             ];

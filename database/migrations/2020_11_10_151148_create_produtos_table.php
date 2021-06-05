@@ -20,6 +20,7 @@ class CreateProdutosTable extends Migration
             $table->string("descricao");
             $table->float("valor_anterior");
             $table->float("valor_atual");
+            $table->boolean("promocao")->default(false);
             $table->integer("unidade_id");
             $table->integer("categoria_id");
             $table->string("foto");

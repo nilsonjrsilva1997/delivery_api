@@ -56,7 +56,7 @@ class CategoriaController extends Controller
     {
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'descricao' => 'string|max:255',
+            'descricao' => '',
             'unidade_id' => 'required|integer|exists:unidades,id'
         ]);
 
@@ -81,7 +81,7 @@ class CategoriaController extends Controller
     {
         $validatedData = $request->validate([
             'nome' => 'string|max:255',
-            'descricao' => 'string|max:255',
+            'descricao' => '',
         ]);
 
         $fileNameToStore = '';
