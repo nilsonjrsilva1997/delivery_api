@@ -129,6 +129,8 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::put("update/{id}", "UnidadeController@update");
         Route::delete("destroy/{id}", "UnidadeController@destroy");
 
+
+
         Route::prefix("pedido")->group(function () {
             Route::get('/by_slug/{restaurante}/{unidade}', "PedidoController@bySlug");
             Route::post("/fazer_pedido", "PedidoController@fazerPedido");
@@ -326,6 +328,11 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::post("/desassociar", "PagamentoUnidadeController@desassociar");
         Route::post("/limpar", "PagamentoUnidadeController@limpar");
     });
+});
+
+
+Route::prefix('destaque/{restaurante}/{unidade}')->group(function () {
+    Route::get('/mais_pedido', "DestaqueController@maisPedido");
 });
 
 Route::get("/{apelido}", "UnidadeRestauranteController@byApelido");
