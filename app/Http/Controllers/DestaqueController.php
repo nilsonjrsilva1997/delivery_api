@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 
 class DestaqueController extends Controller
 {
-    public function maisPedido($restaurante, $unidade)
+    //
+
+    public function getDestaques($restaurante, $unidade)
     {
         $restaurant = Restaurante::where('slug', $restaurante)
             ->first();
@@ -20,13 +22,13 @@ class DestaqueController extends Controller
                 ->first();
 
             if ($unity) {
-
-                $pedidos = Pedido::where('unidade_id', $unity->id)
-                    ->get();
-
-                $pedido_ids = $pedidos->pluck('id');
-
-                return $pedido_ids;
+                $mais_pedido = null;
+                if ($unity->mais_pedidos) {
+                    $pedidos = Pedido::select('id')
+                        ->with('produto_pedido')
+                        ->where('unidade_id', $unity->id)
+                        ->get();
+                }
             } else {
                 response([
                     "data" => null,

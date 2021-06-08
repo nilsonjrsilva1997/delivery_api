@@ -328,12 +328,15 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::post("/desassociar", "PagamentoUnidadeController@desassociar");
         Route::post("/limpar", "PagamentoUnidadeController@limpar");
     });
+
+    Route::prefix('destaque')->group(function () {
+        Route::prefix("{restaurante}/{unidade}")->group(function () {
+            Route::get('/mais_pedido', "DestaqueController@getDestaques");
+        });
+    });
 });
 
 
-Route::prefix('destaque/{restaurante}/{unidade}')->group(function () {
-    Route::get('/mais_pedido', "DestaqueController@maisPedido");
-});
 
 Route::get("/{apelido}", "UnidadeRestauranteController@byApelido");
 Route::get("/{apelido}/{cidade}", "UnidadeRestauranteController@byApelidoCidade");

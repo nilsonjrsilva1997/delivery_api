@@ -22,6 +22,8 @@ class CreateUnidadesTable extends Migration
             $table->string('cor_fundo')->default('#eeeeee');
             $table->integer('restaurante_id');
             $table->string("slug");
+            $table->boolean('mais_pedido')->default(false);
+            $table->integer('sugestao_id')->nullable();
             $table->timestamps();
         });
     }

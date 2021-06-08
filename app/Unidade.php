@@ -18,7 +18,7 @@ use App\Entregador;
 
 class Unidade extends Model
 {
-    protected $fillable = ['nome', 'foto', 'restaurante_id', 'slug', 'banner', 'cor_categoria', 'cor_fundo'];
+    protected $fillable = ['nome', 'foto', 'restaurante_id', 'slug', 'banner', 'cor_categoria', 'cor_fundo', 'mais_pedido', 'sugestao_id'];
 
     protected $table = 'unidades';
 
@@ -90,5 +90,10 @@ class Unidade extends Model
     public function entregadores()
     {
         return $this->hasMany(Entregador::class, 'unidade_id', 'id');
+    }
+
+    public function sugestao()
+    {
+        return $this->hasOne(Produto::class, 'sugestao_id', 'id');
     }
 }

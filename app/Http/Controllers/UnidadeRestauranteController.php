@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pedido;
 use Illuminate\Http\Request;
 use App\Unidade;
 use App\Restaurante;
@@ -34,28 +35,49 @@ class UnidadeRestauranteController extends Controller
 
     public function byApelidoCidade($apelido, $cidade)
     {
-        $unidade = Unidade::query()
-            ->where(['slug' => $cidade])
-            ->with('enderecos')
-            ->with('config_entrega')
-            ->with('pagamento_unidade')
-            ->with('pagamento_unidade.forma_pagamento')
-            ->with('horario_funcionamento')
-            ->with('horario_funcionamento.primeiro_periodo')
-            ->with('horario_funcionamento.segundo_periodo')
-            ->with('sobre_nos')
-            ->with('dados_empresa')
-            ->with('restaurante')
-            ->with('entregadores')
-            ->with('produtos')
-            ->with('produtos.categoria')
-            ->with('produtos.adicional')
-            ->with('produtos.adicional.opcoes')
-            ->whereHas('restaurante', function ($query) use ($apelido) {
-                $query->where(['slug' => $apelido]);
-            })->first();
 
+        $restaurant = Restaurante::where('slug', $apelido)
+            ->first();
 
-        return $unidade;
+        if ($restaurant) {
+            $unity = Unidade::where('restaurante_id', $restaurant->id)
+                ->where('slug', $cidade)
+                ->first();
+
+            if ($unity) {
+                $data = Unidade::query()
+                    ->where('id', $unity->id)
+                    ->with('enderecos')
+                    ->with('config_entrega')
+                    ->with('pagamento_unidade')
+                    ->with('pagamento_unidade.forma_pagamento')
+                    ->with('horario_funcionamento')
+                    ->with('horario_funcionamento.primeiro_periodo')
+                    ->with('horario_funcionamento.segundo_periodo')
+                    ->with('sobre_nos')
+                    ->with('dados_empresa')
+                    ->with('restaurante')
+                    ->with('entregadores')
+                    ->with('produtos')
+                    ->with('produtos.categoria')
+                    ->with('produtos.adicional')
+                    ->with('produtos.adicional.opcoes')
+                    ->first();
+
+                return $data;
+            } else {
+                response([
+                    "data" => null,
+                    "message" => "Unidade não encontrada",
+                    "error" => true
+                ], 404);
+            }
+        } else {
+            response([
+                "data" => null,
+                "message" => "Restaurante não encontrado",
+                "error" => true
+            ], 404);
+        }
     }
 }
