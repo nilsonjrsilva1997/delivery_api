@@ -13,7 +13,7 @@ class ProdutoValidateService
                 "descricao" => "required|string|max:255",
                 "valor_anterior" => "required|numeric",
                 "valor_atual" => "required|numeric",
-                "promocao" => "required|boolean",
+                "promocao" => "required",
                 "unidade_id" => "required|integer|exists:unidades,id",
                 "categoria_id" => "required|integer|exists:categorias,id",
             ];

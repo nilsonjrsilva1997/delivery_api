@@ -99,6 +99,8 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::post("create", "ProdutoController@create");
         Route::put("update/{id}", "ProdutoController@update");
         Route::delete("destroy/{id}", "ProdutoController@destroy");
+        Route::post('duplicar', "ProdutoController@duplicate");
+        Route::post('update_status', "ProdutoController@updateStatus");
     });
 
     Route::prefix("adicional")->group(function () {

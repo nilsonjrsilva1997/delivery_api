@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\EnderecoUnidade;
+use Auth;
 
 class EnderecoUnidadeController extends Controller
 {
@@ -17,7 +18,7 @@ class EnderecoUnidadeController extends Controller
         $endereco = EnderecoUnidade::find($id);
 
         if (!empty($endereco)) {
-            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $endereco->unidade_id);
+            $permissao = \App\Helpers\Helper::getPermissoes(Auth::id(), $endereco->unidade_id);
 
             if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
                 return $endereco;
@@ -45,7 +46,7 @@ class EnderecoUnidadeController extends Controller
         ]);
 
         $endereco = EnderecoUnidade::create($validatedData);
-        return response(['data' => $endereco, 'message' => 'Usuário não possui permissão para executar esta ação']);
+        return response(['data' => $endereco, 'message' => 'Endereço criado com sucesso']);
     }
 
     public function update(Request $request, $id)
@@ -66,12 +67,12 @@ class EnderecoUnidadeController extends Controller
         $endereco = EnderecoUnidade::find($id);
 
         if (!empty($endereco)) {
-            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $endereco->unidade_id);
+            $permissao = \App\Helpers\Helper::getPermissoes(Auth::id(), $endereco->unidade_id);
 
             if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
                 $endereco->fill($validatedData);
                 $endereco->save();
-                return response(['data' => $endereco, 'message' => 'Usuário não possui permissão para executar esta ação']);
+                return response(['data' => $endereco, 'message' => 'Endereço atualizado com sucesso']);
             } else {
                 return response(['message' => 'Usuário não possui permissão para executar esta ação'], 401);
             }
@@ -85,7 +86,7 @@ class EnderecoUnidadeController extends Controller
         $endereco = EnderecoUnidade::find($id);
 
         if (!empty($endereco)) {
-            $permissao = \App\Helpers\Helper::getPermissoes(\Auth::id(), $endereco->unidade_id);
+            $permissao = \App\Helpers\Helper::getPermissoes(Auth::id(), $endereco->unidade_id);
 
             if ($permissao == 'ADMINISTRADOR' || $permissao == 'GERENTE') {
                 if ($endereco->delete()) {

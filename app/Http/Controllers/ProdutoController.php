@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Adicional;
 use App\Http\Services\ProdutoValidateService;
+use App\Opcao;
 use Illuminate\Http\Request;
 use App\Produto;
 use Auth;
@@ -41,6 +43,8 @@ class ProdutoController extends BaseController
 
         //validando dados
         $validatedData = $request->validate($produtoValidate->getValidateRulesCreate());
+
+        $validatedData['promocao'] = $validatedData['promocao'] == 'true' ? true : false;
 
         $fileNameToStore = '';
 
@@ -105,6 +109,89 @@ class ProdutoController extends BaseController
             }
         } else {
             return response(['message' => 'Produto não encontrado']);
+        }
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $validatedData = $request->validate([
+            "produto_id" => "required|integer|exists:produtos,id",
+            "status" => "required|in:ATIVO,INATIVO",
+        ]);
+
+        $produto = Produto::where('id', $validatedData['produto_id'])
+            ->first();
+
+        if ($produto) {
+            $produto->fill($validatedData);
+            $produto->save();
+
+            return response([
+                "data" => $produto,
+                "message" => "Status atualizado com sucesso",
+                "error" => false,
+            ]);
+        } else {
+            return response([
+                "data" => null,
+                "message" => "Produto não encontrado",
+                "error" => true,
+            ]);
+        }
+    }
+
+    public function duplicate(Request $request)
+    {
+        $validatedData = $request->validate([
+            "produto_id" => "integer|exists:produtos,id",
+        ]);
+
+        $produto = Produto::where('id', $validatedData["produto_id"])
+            ->with('categoria')
+            ->with('adicional')
+            ->with('adicional.opcoes')
+            ->first();
+
+        if ($produto) {
+
+            $array = $produto->toArray();
+
+            $mirror = $array;
+
+            unset($mirror['id']);
+            unset($mirror['adicional']);
+            unset($mirror['categoria']);
+            unset($mirror['created_at']);
+            unset($mirror['updated_at']);
+
+            $clone = Produto::create($mirror);
+
+
+            foreach ($array['adicional'] as $adicional) {
+
+                $adicionalMirror = $adicional;
+
+                $adicionalMirror["produto_id"] = $clone->id;
+
+                $cloneAdicional = Adicional::create($adicionalMirror);
+
+                foreach ($adicional['opcoes'] as $opcao) {
+
+                    $opcaoMirror = $opcao;
+
+                    $opcaoMirror['adicional_id'] = $cloneAdicional->id;
+
+                    $opcao = Opcao::create($opcaoMirror);
+                }
+            }
+
+            return $this->show($clone->id);
+        } else {
+            return response([
+                "data" => null,
+                "message" => "Produto não encontrado",
+                "error" => true,
+            ]);
         }
     }
 }

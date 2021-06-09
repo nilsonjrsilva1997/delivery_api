@@ -13,7 +13,7 @@ class Produto extends Model
 {
     protected $table = "produtos";
 
-    protected $fillable = ["nome", "quantidade", "descricao", "valor_anterior", "valor_atual", "unidade_id", "categoria_id", "foto",];
+    protected $fillable = ["nome", "quantidade", "descricao", "valor_anterior", "valor_atual", "unidade_id", "categoria_id", "foto", "status"];
 
     public function unidade()
     {

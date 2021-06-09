@@ -23,11 +23,24 @@ class DestaqueController extends Controller
 
             if ($unity) {
                 $mais_pedido = null;
+
                 if ($unity->mais_pedidos) {
                     $pedidos = Pedido::select('id')
                         ->with('produto_pedido')
                         ->where('unidade_id', $unity->id)
                         ->get();
+
+                    $mais_pedido = [];
+
+                    $pedidos->each(function ($pedido) use ($mais_pedido) {
+                        $pedido->produto_pedido->each(function ($produto) use ($mais_pedido) {
+                            if ($mais_pedido[$produto->id]) {
+                                $mais_pedido[$produto->id] += 1;
+                            } else {
+                                $mais_pedido[$produto->id] = 1;
+                            }
+                        });
+                    });
                 }
             } else {
                 response([

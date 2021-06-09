@@ -24,6 +24,7 @@ class CreateProdutosTable extends Migration
             $table->integer("unidade_id");
             $table->integer("categoria_id");
             $table->string("foto");
+            $table->enum("status", ["ATIVO", "INATIVO"])->default("ATIVO");
             $table->timestamps();
         });
     }
