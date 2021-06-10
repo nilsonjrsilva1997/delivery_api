@@ -112,14 +112,13 @@ class ProdutoController extends BaseController
         }
     }
 
-    public function updateStatus(Request $request)
+    public function updateStatus(Request $request, $id)
     {
         $validatedData = $request->validate([
-            "produto_id" => "required|integer|exists:produtos,id",
             "status" => "required|in:ATIVO,INATIVO",
         ]);
 
-        $produto = Produto::where('id', $validatedData['produto_id'])
+        $produto = Produto::where('id', $id)
             ->first();
 
         if ($produto) {

@@ -45,7 +45,7 @@ class UnidadeRestauranteController extends Controller
                 ->first();
 
             if ($unity) {
-                $data = Unidade::query()
+                $query = Unidade::query()
                     ->where('id', $unity->id)
                     ->with('enderecos')
                     ->with('config_entrega')
@@ -63,6 +63,14 @@ class UnidadeRestauranteController extends Controller
                     ->with('produtos.adicional')
                     ->with('produtos.adicional.opcoes')
                     ->first();
+
+                $data = $query->toArray();
+
+                $filtrados = array_filter($data["produtos"], function ($produto) {
+                    return $produto['status'] == 'ATIVO';
+                });
+
+                $data['produtos'] = $filtrados;
 
                 return $data;
             } else {

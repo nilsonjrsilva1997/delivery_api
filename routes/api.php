@@ -33,15 +33,6 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::delete("destroy/{id}", "FormaPagamentoController@destroy");
     });
 
-    Route::prefix("produto")->group(function () {
-        Route::get("/", "FormaPagamentoController@index");
-        Route::get("show/{id}", "FormaPagamentoController@show");
-        Route::post("create", "FormaPagamentoController@create");
-        Route::put("update/{id}", "FormaPagamentoController@update");
-        Route::delete("destroy/{id}", "FormaPagamentoController@destroy");
-    });
-
-
     Route::prefix("categoria")->group(function () {
         Route::get("/", "CategoriaController@index");
         Route::get("/by_slug/{restaurante}/{unidade}", "CategoriaController@indexBySlug");
@@ -100,7 +91,7 @@ Route::group(["middleware" => ["auth:api"]], function () {
         Route::put("update/{id}", "ProdutoController@update");
         Route::delete("destroy/{id}", "ProdutoController@destroy");
         Route::post('duplicar', "ProdutoController@duplicate");
-        Route::post('update_status', "ProdutoController@updateStatus");
+        Route::put('update_status/{id}', "ProdutoController@updateStatus");
     });
 
     Route::prefix("adicional")->group(function () {
