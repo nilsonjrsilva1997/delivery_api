@@ -35,6 +35,15 @@ class Produto extends Model
         "esconder_esgotado" => "boolean",
     ];
 
+    public function getFotoAttribute($foto)
+    {
+        if (str_contains($foto, 'http')) {
+            return $foto;
+        }
+
+        return asset('/storage/images/' . $foto);
+    }
+
     public function unidade()
     {
         return $this->belongsTo(Unidade::class, 'unidade_id', 'id');

@@ -12,6 +12,15 @@ class Opcao extends Model
 
     protected $fillable = ["adicional_id", "titulo", "descricao", "disponivel", "valor", "imagem", "maximo", "minimo"];
 
+    public function getImagemAttribute($imagem)
+    {
+        if (str_contains($imagem, 'http')) {
+            return $imagem;
+        }
+
+        return asset('/storage/images/' . $imagem);
+    }
+
     // relacionamentos
     public function adicional()
     {

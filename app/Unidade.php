@@ -22,6 +22,24 @@ class Unidade extends Model
 
     protected $table = 'unidades';
 
+    public function getBannerAttribute($banner)
+    {
+        if (str_contains($banner, 'http')) {
+            return $banner;
+        }
+
+        return asset('/storage/images/' . $banner);
+    }
+
+    public function getFotoAttribute($foto)
+    {
+        if (str_contains($foto, 'http')) {
+            return $foto;
+        }
+
+        return asset('/storage/images/' . $foto);
+    }
+
     public function enderecos()
     {
         return $this->hasOne(EnderecoUnidade::class, 'unidade_id', 'id');

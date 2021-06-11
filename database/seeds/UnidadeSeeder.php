@@ -15,8 +15,8 @@ class UnidadeSeeder extends Seeder
         DB::table('unidades')->insert([
             'nome' => 'Santos',
             'slug' => 'santos',
-            'foto' => 'logo.png',
-            'banner' => 'logo.png',
+            'foto' => 'https://source.unsplash.com/random',
+            'banner' => 'https://source.unsplash.com/random',
             'cor_categoria' => '#000000',
             'cor_fundo' => '#000000',
             'restaurante_id' => 1,
