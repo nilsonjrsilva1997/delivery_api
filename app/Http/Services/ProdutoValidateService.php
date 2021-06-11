@@ -13,7 +13,10 @@ class ProdutoValidateService
                 "descricao" => "required|string|max:255",
                 "valor_anterior" => "required|numeric",
                 "valor_atual" => "required|numeric",
-                "promocao" => "required",
+                "promocao" => "required|in:true,false",
+                "estoque" => "required|in:true,false",
+                "esconder_esgotado" => "required|in:true,false",
+
                 "unidade_id" => "required|integer|exists:unidades,id",
                 "categoria_id" => "required|integer|exists:categorias,id",
             ];
@@ -30,7 +33,9 @@ class ProdutoValidateService
                 "descricao" => "string|max:255",
                 "valor_anterior" => "numeric",
                 "valor_atual" => "numeric",
-                "promocao" => "required|boolean",
+                "promocao" => "in:true,false",
+                "estoque" => "in:true,false",
+                "esconder_esgotado" => "in:true,false",
                 "unidade_id" => "integer|exists:unidades,id",
                 "categoria_id" => "integer|exists:categorias,id",
             ];

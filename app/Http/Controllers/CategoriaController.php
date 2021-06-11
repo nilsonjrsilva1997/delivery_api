@@ -113,9 +113,13 @@ class CategoriaController extends Controller
 
     public function destroy($id)
     {
-        $categoria = Categoria::where('id', $id);
+        $categoria = Categoria::where('id', $id)
+            ->with('produtos')
+            ->first();
 
         if ($categoria) {
+            $categoria->produtos()->delete();
+
             $categoria->delete();
             return true;
         } else {

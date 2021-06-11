@@ -189,6 +189,11 @@ class PedidoController extends BaseController
                     "observacao" => $produto['observacao'],
                 ]);
 
+                if ($produtoBd->estoque) {
+                    $produtoBd->quantidade = $produto->quantidade - 1;
+                    $produtoBd->save();
+                }
+
                 $produto_total = $produto_total + $produtoBd->valor_atual;
 
                 // verifica se pedido tem adicional

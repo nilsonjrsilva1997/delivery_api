@@ -45,6 +45,8 @@ class ProdutoController extends BaseController
         $validatedData = $request->validate($produtoValidate->getValidateRulesCreate());
 
         $validatedData['promocao'] = $validatedData['promocao'] == 'true' ? true : false;
+        $validatedData['estoque'] = $validatedData['estoque'] == 'true' ? true : false;
+        $validatedData['esconder_esgotado'] = $validatedData['esconder_esgotado'] == 'true' ? true : false;
 
         $fileNameToStore = '';
 

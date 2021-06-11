@@ -18,12 +18,14 @@ class CreateProdutosTable extends Migration
             $table->string("nome");
             $table->boolean('estoque')->default(false);
             $table->integer("quantidade");
+            $table->boolean('esconder_esgotado')->default(false);
             $table->string("descricao");
             $table->float("valor_anterior");
             $table->float("valor_atual");
             $table->boolean("promocao")->default(false);
             $table->integer("unidade_id");
             $table->integer("categoria_id");
+            $table->integer('dia_semana_id');
             $table->string("foto");
             $table->enum("status", ["ATIVO", "INATIVO"])->default("ATIVO");
             $table->timestamps();
