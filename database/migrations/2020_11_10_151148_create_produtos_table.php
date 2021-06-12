@@ -25,7 +25,7 @@ class CreateProdutosTable extends Migration
             $table->boolean("promocao")->default(false);
             $table->integer("unidade_id");
             $table->integer("categoria_id");
-            $table->integer('dia_semana_id');
+            $table->integer('dia_semana_id')->nullable();
             $table->string("foto");
             $table->enum("status", ["ATIVO", "INATIVO"])->default("ATIVO");
             $table->timestamps();
